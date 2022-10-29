@@ -7,6 +7,9 @@ using XRL.Messages;
 using ConsoleLib.Console;
 using XRL.UI;
 using XRL.World.Capabilities;
+using XRL.Core;
+using XRL.CharacterBuilds.Qud;
+using System.Runtime.CompilerServices;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -17,6 +20,8 @@ namespace XRL.World.Parts.Mutation
         //Both these are only useful if Return By Death is a use ability
         public new Guid ActivatedAbilityID; 
         public Guid RevertActivatedAbilityID;
+        public bool DidInit = false;
+
 
         [NonSerialized]
         private long ActivatedSegment;
@@ -28,6 +33,9 @@ namespace XRL.World.Parts.Mutation
             Type = "Mental";
         }
 
+       
+
+
         public override bool CanLevel()
         {
             return false;
@@ -36,6 +44,7 @@ namespace XRL.World.Parts.Mutation
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "BeforeDie");
+            Object.RegisterPartEvent(this, "GameStart");
             Object.RegisterPartEvent(this, "GameRestored");
             Object.RegisterPartEvent(this, "Checkpoint");
             Object.RegisterPartEvent(this, "Return");
@@ -61,7 +70,14 @@ namespace XRL.World.Parts.Mutation
         public override bool FireEvent(Event E)
         {
             
-
+            if(E.ID == "GameStart")
+            {
+                if(OnGameStart(ParentObject, RevertActivatedAbilityID, ref ActivatedSegment, DidInit) == false)
+                {
+                    DidInit = true;
+                }
+                return OnGameStart(ParentObject, RevertActivatedAbilityID, ref ActivatedSegment, DidInit);
+            }
             if (E.ID == "BeforeDie")
             {
                 return OnBeforeDie(ParentObject, RevertActivatedAbilityID, ref ActivatedSegment);
@@ -80,11 +96,25 @@ namespace XRL.World.Parts.Mutation
                 Popup.Show("You activated Load", true, true, true, true);
                 //Load();
             }
+            
+
             return base.FireEvent(E);
         }
 
 
-        public static bool OnBeforeDie(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment)
+        public static bool OnGameStart(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment, bool DidInitialize)
+        {
+            if(DidInitialize == false)
+            {
+                Save();
+                return false;
+            }
+          
+            return true;
+        }
+
+
+            public static bool OnBeforeDie(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment)
         {
             if (Object.GetStatValue("Hitpoints",0) <= 0)
             {
@@ -92,45 +122,48 @@ namespace XRL.World.Parts.Mutation
                 Load(Object);
                 ActivatedSegment = The.Game.Segments + 100;
                 return false;
+
             }
-            /*
-            if (Object.IsPlayer())
-            {
-                //AutoAct.Interrupt();
-                if (WasPlayer)
+
+            
+                /*
+                if (Object.IsPlayer())
                 {
-                   
-                   // if (Popup.ShowYesNo("You sense your imminent demise. Would you like to return to the start of your vision?") == DialogResult.Yes)
-                   // {
-                        Load(Object);
-                        ActivatedSegment = The.Game.Segments + 100;
-                        return false;
-                   // }
-                }
-            }
-            else if (!Object.IsOriginalPlayerBody() && (!RealityDistortionBased || Object.FireEvent("CheckRealityDistortionUsability")))
-            {
-                TurnsLeft = 0;
-                if (RevertAAID != Guid.Empty)
-                {
-                    Object.DisableActivatedAbility(RevertAAID);
-                }
-                if (Object.HasStat("Hitpoints"))
-                {
-                    ActivatedSegment = The.Game.Segments + 1;
-                    Object.hitpoints = HitpointsAtSave;
-                    if (Object.pPhysics != null)
+                    //AutoAct.Interrupt();
+                    if (WasPlayer)
                     {
-                        Object.pPhysics.Temperature = TemperatureAtSave;
+
+                       // if (Popup.ShowYesNo("You sense your imminent demise. Would you like to return to the start of your vision?") == DialogResult.Yes)
+                       // {
+                            Load(Object);
+                            ActivatedSegment = The.Game.Segments + 100;
+                            return false;
+                       // }
                     }
-                    Object.DilationSplat();
-                    Object.pPhysics.DidX("swim", "before your eyes", "!", null, Object);
-                    return false;
                 }
-            }
-            return true;
-            */
-            return true;
+                else if (!Object.IsOriginalPlayerBody() && (!RealityDistortionBased || Object.FireEvent("CheckRealityDistortionUsability")))
+                {
+                    TurnsLeft = 0;
+                    if (RevertAAID != Guid.Empty)
+                    {
+                        Object.DisableActivatedAbility(RevertAAID);
+                    }
+                    if (Object.HasStat("Hitpoints"))
+                    {
+                        ActivatedSegment = The.Game.Segments + 1;
+                        Object.hitpoints = HitpointsAtSave;
+                        if (Object.pPhysics != null)
+                        {
+                            Object.pPhysics.Temperature = TemperatureAtSave;
+                        }
+                        Object.DilationSplat();
+                        Object.pPhysics.DidX("swim", "before your eyes", "!", null, Object);
+                        return false;
+                    }
+                }
+                return true;
+                */
+                return true;
         }
 
 
@@ -140,7 +173,6 @@ namespace XRL.World.Parts.Mutation
         {
             ActivatedAbilityID = AddMyActivatedAbility("Save", "Checkpoint", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
             ActivatedAbilityID = AddMyActivatedAbility("Load", "Return", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
-
             return base.Mutate(GO, Level);
         }
 
