@@ -21,6 +21,7 @@ namespace XRL.World.Parts.Mutation
         public new Guid ActivatedAbilityID; 
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
+        public bool CheckpointQueue = false;
 
 
         [NonSerialized]
@@ -65,7 +66,22 @@ namespace XRL.World.Parts.Mutation
             return Ret;
         }
         */
-        
+
+        public override bool WantEvent(int ID, int cascade)
+        {
+            if ( ID == AwardedXPEvent.ID)
+            {
+                CheckpointQueue = true;
+                return false;
+            }
+            if(ID == EndTurnEvent.ID && CheckpointQueue == true)
+            {
+                CheckpointQueue = false;
+                Checkpoint(ParentObject, ref ActivatedSegment);
+                return false;
+            }
+            return true;
+        }
 
         public override bool FireEvent(Event E)
         {
@@ -89,6 +105,7 @@ namespace XRL.World.Parts.Mutation
             if (E.ID == "Checkpoint")
             {
                 Popup.Show("You activated Save", true, true, true, true);
+                
                 Save();
             }
             if (E.ID == "Return")
@@ -195,9 +212,20 @@ namespace XRL.World.Parts.Mutation
         //My New Stuff
         public static void Save()
         {
-            
+           
             The.Core.SaveGame("Return.sav");
             
+        }
+
+        public static void Checkpoint(GameObject Object, ref long ActivatedSegment)
+        {
+
+
+
+
+            The.Core.SaveGame("Return.sav");
+            
+
         }
 
         public static void Load(GameObject obj = null)
