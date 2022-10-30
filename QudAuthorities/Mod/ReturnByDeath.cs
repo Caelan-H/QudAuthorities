@@ -221,7 +221,7 @@ namespace XRL.World.Parts.Mutation
         {
 
 
-            int a = Stat.Random(0,1000);
+            int a = Stat.Random(0,800);
             if(a == 3)
             {
                 The.Core.SaveGame("Return.sav");
