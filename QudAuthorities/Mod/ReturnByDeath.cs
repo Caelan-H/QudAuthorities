@@ -51,8 +51,8 @@ namespace XRL.World.Parts.Mutation
             Object.RegisterPartEvent(this, "BeforeDie");
             Object.RegisterPartEvent(this, "GameStart");
             Object.RegisterPartEvent(this, "GameRestored");
-            Object.RegisterPartEvent(this, "Checkpoint");
-            Object.RegisterPartEvent(this, "Return");
+           
+
             base.Register(Object);
         }
 
@@ -118,17 +118,8 @@ namespace XRL.World.Parts.Mutation
             {
                 GenericDeepNotifyEvent.Send(ParentObject, "PrecognitionGameRestored");
             }
-            if (E.ID == "Checkpoint")
-            {
-                Popup.Show("You activated Save", true, true, true, true);
-                
-                Save();
-            }
-            if (E.ID == "Return")
-            {
-                Popup.Show("You activated Load", true, true, true, true);
-                //Load();
-            }
+         
+          
             
 
             return base.FireEvent(E);
@@ -139,7 +130,7 @@ namespace XRL.World.Parts.Mutation
         {
             if(DidInitialize == false)
             {
-                Save();
+                The.Core.SaveGame("Return.sav");
                 return false;
             }
           
@@ -201,11 +192,12 @@ namespace XRL.World.Parts.Mutation
 
 
 
-
+        
         public override bool Mutate(GameObject GO, int Level)
         {
             return base.Mutate(GO, Level);
         }
+        
 
         /*
         public override bool ChangeLevel(int NewLevel)
@@ -224,21 +216,16 @@ namespace XRL.World.Parts.Mutation
 
 
         //My New Stuff
-        public static void Save()
-        {
-           
-            The.Core.SaveGame("Return.sav");
-            
-        }
+        
 
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
 
 
-            int a = Stat.Random(0,900);
+            int a = Stat.Random(0,800);
             if(a == 3)
             {
-                Popup.Show("Checkpoint created", true, true, true, true);
+                //Popup.Show("Checkpoint created", true, true, true, true);
                 return true;
                 //The.Core.SaveGame("Return.sav");
 
