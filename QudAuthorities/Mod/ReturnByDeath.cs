@@ -10,6 +10,8 @@ using XRL.World.Capabilities;
 using XRL.Core;
 using XRL.CharacterBuilds.Qud;
 using System.Runtime.CompilerServices;
+using QudAuthorities.Mod;
+using Qud.API;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -22,6 +24,8 @@ namespace XRL.World.Parts.Mutation
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
         public bool CheckpointQueue = false;
+        public bool CheckpointCheckPass = false;
+       public static Checkpointer CheckpointCreator = new Checkpointer(null, null);
 
 
         [NonSerialized]
@@ -74,10 +78,22 @@ namespace XRL.World.Parts.Mutation
                 CheckpointQueue = true;
                 return false;
             }
-            if(ID == EndTurnEvent.ID && CheckpointQueue == true)
+            if (ID == AfterGameLoadedEvent.ID)
+            {
+                CheckpointCheckPass = false;
+                return false;
+            }
+            if (ID == EndTurnEvent.ID && CheckpointQueue == true)
             {
                 CheckpointQueue = false;
-                Checkpoint(ParentObject, ref ActivatedSegment);
+                CheckpointCheckPass = Checkpoint(ParentObject, ref ActivatedSegment);
+                //Popup.Show(CheckpointCheckPass.ToString(), true, true, true, true);
+                return false;
+            }
+            if(ID == ZoneActivatedEvent.ID && CheckpointCheckPass == true)
+            {
+                CheckpointCheckPass = false;
+                The.Core.SaveGame("Return.sav");
                 return false;
             }
             return true;
@@ -135,7 +151,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (Object.GetStatValue("Hitpoints",0) <= 0)
             {
-                Popup.Show("Return By Death has Activated", true, true, true, true);
+                //Popup.Show("", true, true, true, true);
                 Load(Object);
                 ActivatedSegment = The.Game.Segments + 100;
                 return false;
@@ -188,8 +204,6 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            ActivatedAbilityID = AddMyActivatedAbility("Save", "Checkpoint", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
-            ActivatedAbilityID = AddMyActivatedAbility("Load", "Return", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
             return base.Mutate(GO, Level);
         }
 
@@ -217,17 +231,29 @@ namespace XRL.World.Parts.Mutation
             
         }
 
-        public static void Checkpoint(GameObject Object, ref long ActivatedSegment)
+        public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
 
 
-            int a = Stat.Random(0,800);
+            int a = Stat.Random(0,900);
             if(a == 3)
             {
-                The.Core.SaveGame("Return.sav");
+                Popup.Show("Checkpoint created", true, true, true, true);
+                return true;
+                //The.Core.SaveGame("Return.sav");
+
+               // Qud.API.SaveGameJSON saveFile = CheckpointCreator.MakeJSON();
+                //CheckpointCreator.SaveCheckpoint(saveFile,"Return");
+                
+               // Popup.Show("Process Ran", true, true, true, true);
+                // string ba = saveFile.Name;
+                // CheckpointCreator.SaveCheckpoint(saveFile, "Return", "Saving game");
+                //Popup.Show(ba, true, true, true, true);
+                // Popup.Show("A", true, true, true, true);
+
             }
-            
-            
+
+            return false;
 
         }
 
