@@ -247,7 +247,7 @@ namespace XRL.World.Parts.Mutation
         {
 
 
-            int a = Stat.Random(0, 4);
+            int a = Stat.Random(0, 63);
             if (a == 3)
             {
                 //Popup.Show("Checkpoint created", true, true, true, true);
