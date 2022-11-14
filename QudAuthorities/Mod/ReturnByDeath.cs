@@ -97,6 +97,7 @@ namespace XRL.World.Parts.Mutation
             if (ID == AfterGameLoadedEvent.ID)
             {
                 CheckpointCheckPass = false;
+                The.Core.SaveGame("Primary.sav");
                 return false;
             }
             if (ID == EndTurnEvent.ID && CheckpointQueue == true)
