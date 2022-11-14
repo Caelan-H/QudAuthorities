@@ -21,7 +21,7 @@ namespace QudAuthorities.Mod
         public override void OnAfterBuild(JoppaWorldBuilder builder)
         {
             //The.Core.SaveGame("Return.sav");
-            Popup.Show("World was generated", true, true, true, true);
+            
         }
     }
 

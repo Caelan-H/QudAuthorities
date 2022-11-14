@@ -12,20 +12,27 @@ using XRL.CharacterBuilds.Qud;
 using System.Runtime.CompilerServices;
 using QudAuthorities.Mod;
 using Qud.API;
+using System.IO;
+using System.Diagnostics;
+using XRL.World.Effects;
+using Newtonsoft.Json;
+using Steamworks;
+using System.Reflection;
+using XRL.World.ZoneBuilders;
+using static TBComponent;
 
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
     class ReturnByDeath : BaseMutation
     {
-        
+
         //Both these are only useful if Return By Death is a use ability
-        public new Guid ActivatedAbilityID; 
+        public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
         public bool CheckpointQueue = false;
         public bool CheckpointCheckPass = false;
-       public static Checkpointer CheckpointCreator = new Checkpointer(null, null);
 
 
         [NonSerialized]
@@ -38,7 +45,7 @@ namespace XRL.World.Parts.Mutation
             Type = "Mental";
         }
 
-       
+
 
 
         public override bool CanLevel()
@@ -51,7 +58,7 @@ namespace XRL.World.Parts.Mutation
             Object.RegisterPartEvent(this, "BeforeDie");
             Object.RegisterPartEvent(this, "GameStart");
             Object.RegisterPartEvent(this, "GameRestored");
-           
+
 
             base.Register(Object);
         }
@@ -73,9 +80,18 @@ namespace XRL.World.Parts.Mutation
 
         public override bool WantEvent(int ID, int cascade)
         {
-            if ( ID == AwardedXPEvent.ID)
+            if (ID == AwardedXPEvent.ID)
             {
                 CheckpointQueue = true;
+
+
+
+               
+
+
+
+
+                //Popup.Show(The.Game.GetCacheDirectory("ZoneCache"), true, true, true, true);
                 return false;
             }
             if (ID == AfterGameLoadedEvent.ID)
@@ -90,9 +106,10 @@ namespace XRL.World.Parts.Mutation
                 //Popup.Show(CheckpointCheckPass.ToString(), true, true, true, true);
                 return false;
             }
-            if(ID == ZoneActivatedEvent.ID && CheckpointCheckPass == true)
+            if (ID == ZoneActivatedEvent.ID && CheckpointCheckPass == true)
             {
                 CheckpointCheckPass = false;
+                CopyZone();
                 The.Core.SaveGame("Return.sav");
                 return false;
             }
@@ -101,10 +118,10 @@ namespace XRL.World.Parts.Mutation
 
         public override bool FireEvent(Event E)
         {
-            
-            if(E.ID == "GameStart")
+
+            if (E.ID == "GameStart")
             {
-                if(OnGameStart(ParentObject, RevertActivatedAbilityID, ref ActivatedSegment, DidInit) == false)
+                if (OnGameStart(ParentObject, RevertActivatedAbilityID, ref ActivatedSegment, DidInit) == false)
                 {
                     DidInit = true;
                 }
@@ -118,9 +135,9 @@ namespace XRL.World.Parts.Mutation
             {
                 GenericDeepNotifyEvent.Send(ParentObject, "PrecognitionGameRestored");
             }
-         
-          
-            
+
+
+
 
             return base.FireEvent(E);
         }
@@ -128,78 +145,84 @@ namespace XRL.World.Parts.Mutation
 
         public static bool OnGameStart(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment, bool DidInitialize)
         {
-            if(DidInitialize == false)
+            if (DidInitialize == false)
             {
                 The.Core.SaveGame("Return.sav");
                 return false;
             }
-          
+
             return true;
         }
 
 
-            public static bool OnBeforeDie(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment)
+        public static bool OnBeforeDie(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment)
         {
-            if (Object.GetStatValue("Hitpoints",0) <= 0)
+            if (Object.GetStatValue("Hitpoints", 0) <= 0)
             {
                 //Popup.Show("", true, true, true, true);
-               // The.Game.ZoneManager.Release();
+                The.Game.ZoneManager.Release();
                 The.Game.ZoneManager.CachedZones.Clear();
+
+                CopyZoneToCache();
+
                 Load(Object);
                 ActivatedSegment = The.Game.Segments + 100;
                 return false;
 
             }
 
-            
-                /*
-                if (Object.IsPlayer())
-                {
-                    //AutoAct.Interrupt();
-                    if (WasPlayer)
-                    {
 
-                       // if (Popup.ShowYesNo("You sense your imminent demise. Would you like to return to the start of your vision?") == DialogResult.Yes)
-                       // {
-                            Load(Object);
-                            ActivatedSegment = The.Game.Segments + 100;
-                            return false;
-                       // }
-                    }
-                }
-                else if (!Object.IsOriginalPlayerBody() && (!RealityDistortionBased || Object.FireEvent("CheckRealityDistortionUsability")))
+            /*
+            if (Object.IsPlayer())
+            {
+                //AutoAct.Interrupt();
+                if (WasPlayer)
                 {
-                    TurnsLeft = 0;
-                    if (RevertAAID != Guid.Empty)
-                    {
-                        Object.DisableActivatedAbility(RevertAAID);
-                    }
-                    if (Object.HasStat("Hitpoints"))
-                    {
-                        ActivatedSegment = The.Game.Segments + 1;
-                        Object.hitpoints = HitpointsAtSave;
-                        if (Object.pPhysics != null)
-                        {
-                            Object.pPhysics.Temperature = TemperatureAtSave;
-                        }
-                        Object.DilationSplat();
-                        Object.pPhysics.DidX("swim", "before your eyes", "!", null, Object);
+
+                   // if (Popup.ShowYesNo("You sense your imminent demise. Would you like to return to the start of your vision?") == DialogResult.Yes)
+                   // {
+                        Load(Object);
+                        ActivatedSegment = The.Game.Segments + 100;
                         return false;
-                    }
+                   // }
                 }
-                return true;
-                */
-                return true;
+            }
+            else if (!Object.IsOriginalPlayerBody() && (!RealityDistortionBased || Object.FireEvent("CheckRealityDistortionUsability")))
+            {
+                TurnsLeft = 0;
+                if (RevertAAID != Guid.Empty)
+                {
+                    Object.DisableActivatedAbility(RevertAAID);
+                }
+                if (Object.HasStat("Hitpoints"))
+                {
+                    ActivatedSegment = The.Game.Segments + 1;
+                    Object.hitpoints = HitpointsAtSave;
+                    if (Object.pPhysics != null)
+                    {
+                        Object.pPhysics.Temperature = TemperatureAtSave;
+                    }
+                    Object.DilationSplat();
+                    Object.pPhysics.DidX("swim", "before your eyes", "!", null, Object);
+                    return false;
+                }
+            }
+            return true;
+            */
+            return true;
         }
 
 
 
-        
+
         public override bool Mutate(GameObject GO, int Level)
         {
+            System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") );
+            System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");
             return base.Mutate(GO, Level);
+
         }
-        
+
 
         /*
         public override bool ChangeLevel(int NewLevel)
@@ -218,25 +241,24 @@ namespace XRL.World.Parts.Mutation
 
 
         //My New Stuff
-        
+
 
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
 
 
-            int a = Stat.Random(0,49);
-            if(a == 3)
+            int a = Stat.Random(0, 4);
+            if (a == 3)
             {
-
-
                 //Popup.Show("Checkpoint created", true, true, true, true);
+               
                 return true;
                 //The.Core.SaveGame("Return.sav");
 
-               // Qud.API.SaveGameJSON saveFile = CheckpointCreator.MakeJSON();
+                // Qud.API.SaveGameJSON saveFile = CheckpointCreator.MakeJSON();
                 //CheckpointCreator.SaveCheckpoint(saveFile,"Return");
-                
-               // Popup.Show("Process Ran", true, true, true, true);
+
+                // Popup.Show("Process Ran", true, true, true, true);
                 // string ba = saveFile.Name;
                 // CheckpointCreator.SaveCheckpoint(saveFile, "Return", "Saving game");
                 //Popup.Show(ba, true, true, true, true);
@@ -259,6 +281,179 @@ namespace XRL.World.Parts.Mutation
             });
             */
         }
+
+        public static void CopyZone()
+        {
+
+
+
+
+
+
+            Stopwatch WallTime = new Stopwatch();
+            Loading.LoadTask("Saving game", delegate
+            {
+
+
+                WallTime = new Stopwatch();
+                WallTime.Start();
+
+                string sourcePath = The.Game.GetCacheDirectory("ZoneCache");
+                string targetPath = The.Game.GetCacheDirectory("ZoneCache") + "1";
+
+                // Use Path class to manipulate file and directory paths.
+                string sourceFile = "";
+                string destFile = "";
+                string fileName = "";
+
+                // To copy a folder's contents to a new location:
+                // Create a new target folder.
+                // If the directory already exists, this method does not create a new directory.
+                System.IO.Directory.CreateDirectory(targetPath);
+
+
+                // To copy all the files in one directory to another directory.
+                // Get the files in the source folder. (To recursively iterate through
+                // all subfolders under the current directory, see
+                // "How to: Iterate Through a Directory Tree.")
+                // Note: Check for target path was performed previously
+                //       in this code example.
+                if (System.IO.Directory.Exists(sourcePath))
+                {
+                    string[] files = System.IO.Directory.GetFiles(sourcePath);
+
+                    // Copy the files and overwrite destination files if they already exist.
+                    foreach (string s in files)
+                    {
+                        // Use static Path methods to extract only the file name from the path.
+                        fileName = System.IO.Path.GetFileName(s);
+                        destFile = System.IO.Path.Combine(targetPath, fileName);
+                        System.IO.File.Copy(s, destFile, true);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Source path does not exist!");
+                }
+
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+            WallTime.Stop();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+
+        }
+
+
+        public static void CopyZoneToCache()
+        {
+
+
+
+            Stopwatch WallTime = new Stopwatch();
+            Loading.LoadTask("Loading game", delegate
+            {
+
+
+                WallTime = new Stopwatch();
+                WallTime.Start();
+
+                string sourcePath = The.Game.GetCacheDirectory("ZoneCache") + "1";
+                string targetPath = The.Game.GetCacheDirectory("ZoneCache");
+
+                // Use Path class to manipulate file and directory paths.
+                string sourceFile = "";
+                string destFile = "";
+                string fileName = "";
+
+                // To copy a folder's contents to a new location:
+                // Create a new target folder.
+                // If the directory already exists, this method does not create a new directory.
+                System.IO.Directory.CreateDirectory(targetPath);
+
+
+                // To copy all the files in one directory to another directory.
+                // Get the files in the source folder. (To recursively iterate through
+                // all subfolders under the current directory, see
+                // "How to: Iterate Through a Directory Tree.")
+                // Note: Check for target path was performed previously
+                //       in this code example.
+                if (System.IO.Directory.Exists(sourcePath))
+                {
+                    string[] files = System.IO.Directory.GetFiles(sourcePath);
+
+                    // Copy the files and overwrite destination files if they already exist.
+                    foreach (string s in files)
+                    {
+                        // Use static Path methods to extract only the file name from the path.
+                        fileName = System.IO.Path.GetFileName(s);
+                        destFile = System.IO.Path.Combine(targetPath, fileName);
+                        System.IO.File.Copy(s, destFile, true);
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Source path does not exist!");
+                }
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+            WallTime.Stop();
+
+            
+
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
