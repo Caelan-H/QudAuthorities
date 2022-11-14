@@ -143,6 +143,8 @@ namespace XRL.World.Parts.Mutation
             if (Object.GetStatValue("Hitpoints",0) <= 0)
             {
                 //Popup.Show("", true, true, true, true);
+               // The.Game.ZoneManager.Release();
+                The.Game.ZoneManager.CachedZones.Clear();
                 Load(Object);
                 ActivatedSegment = The.Game.Segments + 100;
                 return false;
@@ -222,9 +224,11 @@ namespace XRL.World.Parts.Mutation
         {
 
 
-            int a = Stat.Random(0,500);
+            int a = Stat.Random(0,49);
             if(a == 3)
             {
+
+
                 //Popup.Show("Checkpoint created", true, true, true, true);
                 return true;
                 //The.Core.SaveGame("Return.sav");

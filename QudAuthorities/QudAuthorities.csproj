@@ -51,6 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mod\CheckpointOnWorldGeneration.cs" />
+    <Compile Include="Mod\Checkpointer.cs" />
+    <Compile Include="Mod\ReturnByDeathInitializer.cs" />
     <Compile Include="Mod\ReturnByDeath.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +76,60 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="AiUnityCommon">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\AiUnityCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Unity">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Ionic.Zip.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\NVorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayFab">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\PlayFab.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Core">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Rewired_Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Rewired_Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="RoslynCSharp">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\RoslynCSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="RoslynCSharp.Compiler">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\RoslynCSharp.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="UnityEngine">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
