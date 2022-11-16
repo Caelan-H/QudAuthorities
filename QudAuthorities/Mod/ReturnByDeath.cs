@@ -249,9 +249,9 @@ namespace XRL.World.Parts.Mutation
 
 
             int a = Stat.Random(0, 63);
-            if (a == 3)
+            if (a == 7)
             {
-                //Popup.Show("Checkpoint created", true, true, true, true);
+                //Popup.Show("Checkpoint triggered", true, true, true, true);
                
                 return true;
                 //The.Core.SaveGame("Return.sav");
@@ -329,7 +329,32 @@ namespace XRL.World.Parts.Mutation
                         // Use static Path methods to extract only the file name from the path.
                         fileName = System.IO.Path.GetFileName(s);
                         destFile = System.IO.Path.Combine(targetPath, fileName);
-                        System.IO.File.Copy(s, destFile, true);
+                        sourceFile = System.IO.Path.Combine(targetPath, fileName);
+                        //Popup.Show("The name of this file is: " + fileName, true, true, true, true);
+
+                        if (File.Exists(destFile))
+                        {
+                           // Popup.Show("The File existed", true, true, true, true);
+                            // This path is a file
+                            if (System.IO.Directory.GetLastWriteTime(sourceFile).Equals(System.IO.Directory.GetLastWriteTime(destFile)) == true)
+                            {
+                              //  Popup.Show("Two files had the same Last Write time", true, true, true, true);
+                            }
+                            else
+                            {
+                                System.IO.File.Copy(s, destFile, true);
+                                //Popup.Show("Two files had same name but different Write Time", true, true, true, true);
+                            }
+
+
+
+                        }
+                        else
+                        {
+                            System.IO.File.Copy(s, destFile, true);
+                        }
+                        
+                        //System.IO.File.Copy(s, destFile, true);
                     }
                 }
                 else
@@ -397,6 +422,7 @@ namespace XRL.World.Parts.Mutation
                 // To copy a folder's contents to a new location:
                 // Create a new target folder.
                 // If the directory already exists, this method does not create a new directory.
+                System.IO.Directory.Delete(targetPath, true);
                 System.IO.Directory.CreateDirectory(targetPath);
 
 
@@ -415,8 +441,34 @@ namespace XRL.World.Parts.Mutation
                     {
                         // Use static Path methods to extract only the file name from the path.
                         fileName = System.IO.Path.GetFileName(s);
+
+                       
                         destFile = System.IO.Path.Combine(targetPath, fileName);
-                        System.IO.File.Copy(s, destFile, true);
+                        sourceFile = System.IO.Path.Combine(targetPath, fileName);
+
+                        /*
+                        if (File.Exists(destFile))
+                        {
+                            // This path is a file
+                            if(System.IO.Directory.GetLastAccessTime(sourceFile).Equals(System.IO.Directory.GetLastAccessTime(destFile)))
+                            {
+
+                            }
+                            else
+                            {
+                                System.IO.File.Copy(s, destFile, true);
+                            }
+                            
+
+
+                        }
+                        else
+                        {
+                            System.IO.File.Copy(s, destFile, true);
+                        }
+                        */
+
+                       System.IO.File.Copy(s, destFile, true);
                     }
                 }
                 else
