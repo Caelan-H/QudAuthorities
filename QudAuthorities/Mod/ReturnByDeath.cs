@@ -20,6 +20,8 @@ using Steamworks;
 using System.Reflection;
 using XRL.World.ZoneBuilders;
 using static TBComponent;
+using XRL.World.AI.Pathfinding;
+using NUnit.Framework.Constraints;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -33,6 +35,7 @@ namespace XRL.World.Parts.Mutation
         public bool DidInit = false;
         public bool CheckpointQueue = false;
         public bool CheckpointCheckPass = false;
+
 
 
         [NonSerialized]
@@ -58,6 +61,7 @@ namespace XRL.World.Parts.Mutation
             Object.RegisterPartEvent(this, "BeforeDie");
             Object.RegisterPartEvent(this, "GameStart");
             Object.RegisterPartEvent(this, "GameRestored");
+            Object.RegisterPartEvent(this, "DeathCount");
 
 
             base.Register(Object);
@@ -137,10 +141,16 @@ namespace XRL.World.Parts.Mutation
                 GenericDeepNotifyEvent.Send(ParentObject, "PrecognitionGameRestored");
             }
 
+            if (E.ID == "DeathCount")
+            {
+                
+                
+                DeathCount();
+            }
 
 
 
-            return base.FireEvent(E);
+                return base.FireEvent(E);
         }
 
 
@@ -153,6 +163,15 @@ namespace XRL.World.Parts.Mutation
             }
 
             return true;
+        }
+
+        public static void DeathCount()
+        {
+
+            string filePath = The.Game.GetCacheDirectory();
+            string count = System.IO.File.ReadAllText(filePath + "\\DeathCount.txt");
+            Popup.Show(count, true, true, true, true);
+
         }
 
 
@@ -218,8 +237,12 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
+            ActivatedAbilityID = AddMyActivatedAbility("Death Count", "DeathCount", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+            string filePath = The.Game.GetCacheDirectory();
             System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") );
             System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");
+            
+            System.IO.File.WriteAllText(filePath + "\\DeathCount.txt", "0");
             return base.Mutate(GO, Level);
 
         }
@@ -413,6 +436,10 @@ namespace XRL.World.Parts.Mutation
 
                 string sourcePath = The.Game.GetCacheDirectory("ZoneCache") + "1";
                 string targetPath = The.Game.GetCacheDirectory("ZoneCache");
+                string filePath = The.Game.GetCacheDirectory();
+                string count = System.IO.File.ReadAllText(filePath + "\\DeathCount.txt");
+                int countCoversion = int.Parse(System.IO.File.ReadAllText(filePath + "\\DeathCount.txt"));
+                countCoversion++;
 
                 // Use Path class to manipulate file and directory paths.
                 string sourceFile = "";
@@ -424,6 +451,9 @@ namespace XRL.World.Parts.Mutation
                 // If the directory already exists, this method does not create a new directory.
                 System.IO.Directory.Delete(targetPath, true);
                 System.IO.Directory.CreateDirectory(targetPath);
+                System.IO.File.WriteAllText(filePath + "\\DeathCount.txt",countCoversion.ToString());
+               
+                
 
 
                 // To copy all the files in one directory to another directory.
