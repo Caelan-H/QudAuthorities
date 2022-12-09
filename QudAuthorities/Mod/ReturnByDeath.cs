@@ -102,6 +102,8 @@ namespace XRL.World.Parts.Mutation
             {
                 CheckpointCheckPass = false;
                 The.Core.SaveGame("Primary.sav");
+                XRL.World.ZoneManager.ActivateBrainHavers(XRL.World.ZoneManager.instance.ActiveZone);
+               // base.Reset();
                 return false;
             }
             if (ID == EndTurnEvent.ID && CheckpointQueue == true)
@@ -158,7 +160,10 @@ namespace XRL.World.Parts.Mutation
         {
             if (DidInitialize == false)
             {
+                string filePath = The.Game.GetCacheDirectory();
+                System.IO.File.WriteAllText(filePath + "\\DeathCount.txt", "0");
                 The.Core.SaveGame("Return.sav");
+               // System.IO.File.Copy(filePath + "\\Return.sav", "Return.sav.bak", true);
                 return false;
             }
 
@@ -238,11 +243,11 @@ namespace XRL.World.Parts.Mutation
         public override bool Mutate(GameObject GO, int Level)
         {
             ActivatedAbilityID = AddMyActivatedAbility("Death Count", "DeathCount", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
-            string filePath = The.Game.GetCacheDirectory();
+       
             System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") );
             System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");
             
-            System.IO.File.WriteAllText(filePath + "\\DeathCount.txt", "0");
+           
             return base.Mutate(GO, Level);
 
         }
@@ -296,8 +301,8 @@ namespace XRL.World.Parts.Mutation
 
         public static void Load(GameObject obj = null)
         {
-            Dictionary<string, object> GameState = GetPrecognitionRestoreGameStateEvent.GetFor(obj);
-            XRLGame.LoadGame(The.Game.GetCacheDirectory("Return.sav"), ShowPopup: false, GameState);
+            //Dictionary<string, object> GameState = GetPrecognitionRestoreGameStateEvent.GetFor(obj);
+            XRLGame.LoadGame(The.Game.GetCacheDirectory("Return.sav"), ShowPopup: false, null);
             /* THIS IS THE ORIGINAL LOAD FROM PRECOG
             GameManager.Instance.gameQueue.queueSingletonTask("PrecognitionEnd", delegate
             {
