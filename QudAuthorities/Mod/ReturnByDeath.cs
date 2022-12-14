@@ -185,8 +185,8 @@ namespace XRL.World.Parts.Mutation
             if (Object.GetStatValue("Hitpoints", 0) <= 0)
             {
                 //Popup.Show("", true, true, true, true);
-                The.Game.ZoneManager.Release();
-                The.Game.ZoneManager.CachedZones.Clear();
+                //The.Game.ZoneManager.Release();
+                //The.Game.ZoneManager.CachedZones.Clear();
 
                 CopyZoneToCache();
 
@@ -530,22 +530,6 @@ namespace XRL.World.Parts.Mutation
 
 
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
