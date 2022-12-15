@@ -72,6 +72,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
+               
                 CheckpointQueue = true;
                 return false;
             }
@@ -90,9 +91,22 @@ namespace XRL.World.Parts.Mutation
             }
             if (ID == ZoneActivatedEvent.ID && CheckpointCheckPass == true)
             {
+                if (!(File.Exists(The.Game.GetCacheDirectory("Return.sav"))))
+                {
+                    The.Core.SaveGame("Return.sav");
+                }
+
                 CheckpointCheckPass = false;
                 CopyZone();
                 The.Core.SaveGame("Return.sav");
+                return false;
+            }
+            if (ID == ZoneActivatedEvent.ID )
+            {
+                if (!(File.Exists(The.Game.GetCacheDirectory("Return.sav"))))
+                {
+                    The.Core.SaveGame("Return.sav");
+                }
                 return false;
             }
             return true;
@@ -128,8 +142,9 @@ namespace XRL.World.Parts.Mutation
         {
             if (DidInitialize == false)
             {
-                string filePath = The.Game.GetCacheDirectory();
-                System.IO.File.WriteAllText(filePath + "\\DeathCount.txt", "0");
+                System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache"));
+                System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");
+               
                 The.Core.SaveGame("Return.sav");
                 return false;
             }
@@ -158,14 +173,25 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            ActivatedAbilityID = AddMyActivatedAbility("Death Count", "DeathCount", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);      
-            System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") );
-            System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");            
+            System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache"));
+            System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");
+            ActivatedAbilityID = AddMyActivatedAbility("Death Count", "DeathCount", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+            string filePath = The.Game.GetCacheDirectory();
+            System.IO.File.WriteAllText(filePath + "\\DeathCount.txt", "0");
+            // The.Core.SaveGame("Return.sav");
             return base.Mutate(GO, Level);
+        }
+
+        public override bool Unmutate(GameObject GO)
+        {
+            RemoveMyActivatedAbility(ref ActivatedAbilityID);
+            System.IO.Directory.Delete(The.Game.GetCacheDirectory("ZoneCache") + "1", true);
+            return base.Unmutate(GO);
         }
 
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
+            
             int a = Stat.Random(0, 63);
             if (a == 7)
             {
