@@ -162,7 +162,11 @@ namespace XRL.World.Parts.Mutation
 
         public static bool OnBeforeDie(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment)
         {
-            if (Object.GetStatValue("Hitpoints", 0) <= 0)
+
+
+
+
+            if (Object.GetStatValue("Hitpoints", 0) <= 0 && Object.IsPlayer() )
             {
                 CopyZoneToCache();
                 Load(Object);
