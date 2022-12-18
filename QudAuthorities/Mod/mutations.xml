@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <mutations>
-	<category Name="Mental">
+	<category Name="Authority">
 		<mutation Name="Return By Death" Cost="8" MaxSelected="1" Class="ReturnByDeath" Exclusions="Precognition" Code="xx"></mutation>
 	</category>
 </mutations>

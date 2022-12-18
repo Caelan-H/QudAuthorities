@@ -105,6 +105,7 @@ namespace XRL.World.Parts.Mutation
             {
                 if (!(File.Exists(The.Game.GetCacheDirectory("Return.sav"))))
                 {
+                    CopyZone();
                     The.Core.SaveGame("Return.sav");
                 }
                 return false;
