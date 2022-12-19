@@ -25,7 +25,16 @@ namespace QudAuthorities.Mod
             
         }
 
-     
+        [WishCommand(Command = "ReturnSave")]
+        public static void SaveWishHandler()
+        {
+            // Popup.Show("Matched it the short way");
+            ReturnByDeath.CopyZone();
+            The.Core.SaveGame("Return.sav");
+
+        }
+
+
 
     }
 

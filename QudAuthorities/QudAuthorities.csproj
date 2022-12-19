@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="Mod\CheckpointOnWorldGeneration.cs" />
     <Compile Include="Mod\Checkpointer.cs" />
+    <Compile Include="Mod\ReturnWish.cs" />
     <Compile Include="Mod\ReturnByDeathInitializer.cs" />
     <Compile Include="Mod\ReturnByDeath.cs" />
   </ItemGroup>
