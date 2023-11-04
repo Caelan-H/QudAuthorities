@@ -31,6 +31,7 @@ namespace XRL.World.Parts.Mutation
     class Gluttony : BaseMutation
     {
         public new Guid ActivatedAbilityID;
+        public new Guid ActivatedAbilityTwoID;
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
         public bool CheckpointQueue = false;
@@ -71,6 +72,7 @@ namespace XRL.World.Parts.Mutation
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "StarEating");
+            Object.RegisterPartEvent(this, "NameEating");
             base.Register(Object);
         }
 
@@ -138,12 +140,71 @@ namespace XRL.World.Parts.Mutation
                 UseEnergy(1000, "Mental Mutation Star Eating");
                 BeginStarEating(gameObject);
             }
+
+            if(E.ID == "NameEating")
+             {
+
+                Cell cell = PickDestinationCell(1, AllowVis.OnlyVisible, Locked: true, IgnoreSolid: false, IgnoreLOS: true, RequireCombat: true, PickTarget.PickStyle.EmptyCell, null, Snap: true, null);
+                if (cell == null)
+                {
+                    return false;
+                }
+                GameObject gameObject = cell.GetCombatTarget(ParentObject, IgnoreFlight: true, IgnoreAttackable: false, IgnorePhase: false, 5);
+                if (gameObject != null && gameObject.pBrain == null)
+                {
+                    gameObject = null;
+                }
+                if (gameObject == null)
+                {
+                    gameObject = cell.GetFirstObjectWithPart("Brain");
+                }
+                if(gameObject.DisplayName.Equals("namesless"))
+                {
+                    return false;
+                }
+                bool flag = false;
+
+                if (gameObject == ParentObject && gameObject.IsPlayer() && Popup.ShowYesNo("Are you sure you want to eat your own name?") == DialogResult.No)
+                {
+                    return false;
+                }
+                if (gameObject == null)
+                {
+                    if (ParentObject.IsPlayer())
+                    {
+                        if (flag)
+                        {
+                            Popup.ShowFail("You cannot grasp the mind there sufficiently to sunder it.");
+                        }
+                        else
+                        {
+                            Popup.ShowFail("There's no target with a mind there.");
+                        }
+                    }
+                    return false;
+                }
+
+                if (gameObject.HasEffect("MemberOfPsychicBattle") || (gameObject.HasPart("SunderMind") && gameObject.GetPart<SunderMind>().activeRounds > 0))
+                {
+                    if (ParentObject.IsPlayer())
+                    {
+                        Popup.ShowFail("That target's star has already been eaten!");
+                    }
+                    return false;
+                }
+
+                CooldownMyActivatedAbility(ActivatedAbilityTwoID, GetCooldown(base.Level));
+                UseEnergy(1000, "Mental Mutation Name Eating");
+                BeginNameEating(gameObject);
+            }
             return base.FireEvent(E);
         }
 
         public override bool Mutate(GameObject GO, int Level)
         {
             ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+            ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+
             return base.Mutate(GO, Level);
         }
 
@@ -156,38 +217,41 @@ namespace XRL.World.Parts.Mutation
         public void BeginStarEating(GameObject target)
         {
             
-            if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 )
+            if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 && !target.HasEffect("StarEaten"))
             {
                 
-                //ParentObject.ApplyEffect(new MemberOfPsychicBattle(target, isAttacker: true));
+                
                 if (ParentObject.IsPlayer())
                 {
-
-                    //Action<int> StarEat;
-                    //StarEat = s => EatStar(s);
-
-                    //string input = Popup.AskString("Utter the name of a mutation owned by " + target.BaseDisplayName, "");
+                  
+                    
                     XRL.World.Parts.Mutations mutations = target.GetPart("Mutations") as XRL.World.Parts.Mutations;
+                   // XRL.World.Parts.Skills skills = target.GetPart("Skills") as XRL.World.Parts.Skills;
+                   
                     List<string> options= new List<string>();
+                    List<string> skillOptions = new List<string>();
                     foreach (var item in mutations.MutationList)
                     {
                         options.Add(item.Name);
                     }
-
-
+                    /*
+                    foreach (var item in skills.SkillList)
+                    {
+                        options.Add(item.Name);
+                    }
+                    */
                     int index = Popup.ShowOptionList("Star Eating", options.ToArray());
                     BaseMutation mut = mutations.MutationList[index];
                     bool success = EatStar(target, mut);
                     if(success == true)
                     {
+                        target.ApplyEffect(new StarEaten(0));
                         IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " mutation!");
                     }
                     else
                     {
                         IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
-                    }
-                    //Popup.PickSeveral("Star Eating", temp, null, 1, 0, null, 60, false, true, 0, "", StarEat, null, null, null, false, false, 0, false);
-                    
+                    }  
                 }
                 else if (target.IsPlayer())
                 {
@@ -199,6 +263,57 @@ namespace XRL.World.Parts.Mutation
             else
             {
                 IComponent<GameObject>.AddPlayerMessage("You tried to eat, but there was nothing to consume");
+            }
+        }
+
+        public void BeginNameEating(GameObject target)
+        {
+
+            if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 && !target.HasEffect("NameEaten"))
+            {
+
+
+                if (ParentObject.IsPlayer())
+                {
+                    XRL.World.Parts.GivesRep givesRep = target.GetPart("GivesRep") as XRL.World.Parts.GivesRep;
+                    XRL.World.Parts.Brain brain = target.GetPart("Brain") as XRL.World.Parts.Brain;
+
+                    target.ApplyEffect(new NameEaten(0));
+                    target.DisplayName = "nameless";
+                    int a = Stat.Random(0, 5);
+
+                    if (a == 1)
+                    {
+                        JournalAPI.RevealRandomSecret();
+                    }
+                   
+                    brain.Hostile= false;
+                    /*
+                    foreach (var item in Factions.getFactionNames())
+                    {
+                       
+                        brain.setFactionFeeling(item, -1);
+                        
+                        
+
+                    }
+                    */
+                    brain.Mindwipe();
+                    IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " name!");
+                   
+                        
+                    
+                }
+                else if (target.IsPlayer())
+                {
+                    Popup.Show(ParentObject.T() + " " + The.Player.DescribeDirectionToward(ParentObject) + ParentObject.GetVerb("burrow") + " a channel through the psychic aether and" + ParentObject.GetVerb("begin") + " to sunder your mind!");
+                    AutoAct.Interrupt(null, null, ParentObject);
+                }
+
+            }
+            else
+            {
+                IComponent<GameObject>.AddPlayerMessage("You tried to eat, but they are nameless");
             }
         }
 
@@ -220,7 +335,7 @@ namespace XRL.World.Parts.Mutation
 
         public void DestroyStar(BaseMutation a, string mutation, GameObject t)
         {
-            Popup.Show("The current mutation is: " + a.Name + "| And the target is: " + mutation);
+            
             XRL.World.Parts.Mutations mutations = t.GetPart("Mutations") as XRL.World.Parts.Mutations;
             
             if (a.Name.Equals(mutation))
