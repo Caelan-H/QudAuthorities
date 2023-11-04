@@ -90,8 +90,8 @@ namespace XRL.World.Parts.Mutation
         {        
              if (E.ID == "StarEating")
              {
-                
-                Cell cell = PickDestinationCell(1, AllowVis.OnlyVisible, Locked: true, IgnoreSolid: false, IgnoreLOS: true, RequireCombat: true, PickTarget.PickStyle.EmptyCell, null, Snap: true, null);
+
+                Cell cell = PickDirection(ForAttack: true);
                 if (cell == null)
                 {
                     return false;
@@ -143,8 +143,8 @@ namespace XRL.World.Parts.Mutation
 
             if(E.ID == "NameEating")
              {
-
-                Cell cell = PickDestinationCell(1, AllowVis.OnlyVisible, Locked: true, IgnoreSolid: false, IgnoreLOS: true, RequireCombat: true, PickTarget.PickStyle.EmptyCell, null, Snap: true, null);
+                PickDirection(ForAttack: true);
+                Cell cell = PickDirection(ForAttack: true);
                 if (cell == null)
                 {
                     return false;
@@ -157,10 +157,6 @@ namespace XRL.World.Parts.Mutation
                 if (gameObject == null)
                 {
                     gameObject = cell.GetFirstObjectWithPart("Brain");
-                }
-                if(gameObject.DisplayName.Equals("namesless"))
-                {
-                    return false;
                 }
                 bool flag = false;
 
@@ -277,6 +273,8 @@ namespace XRL.World.Parts.Mutation
                 {
                     XRL.World.Parts.GivesRep givesRep = target.GetPart("GivesRep") as XRL.World.Parts.GivesRep;
                     XRL.World.Parts.Brain brain = target.GetPart("Brain") as XRL.World.Parts.Brain;
+                    string primaryFaction = target.GetPrimaryFaction();
+                    //brain.setFactionMembership(primaryFaction, -100);
 
                     target.ApplyEffect(new NameEaten(0));
                     target.DisplayName = "nameless";
@@ -299,6 +297,7 @@ namespace XRL.World.Parts.Mutation
                     }
                     */
                     brain.Mindwipe();
+                    //Popup.Show(brain.FactionFeelings.ToString());
                     IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " name!");
                    
                         
