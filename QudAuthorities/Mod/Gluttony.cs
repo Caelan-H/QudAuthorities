@@ -162,13 +162,22 @@ namespace XRL.World.Parts.Mutation
                 //ParentObject.ApplyEffect(new MemberOfPsychicBattle(target, isAttacker: true));
                 if (ParentObject.IsPlayer())
                 {
-                    
+
                     //Action<int> StarEat;
                     //StarEat = s => EatStar(s);
 
-                    string input = Popup.AskString("Utter the name of a mutation owned by " + target.BaseDisplayName, "");
-                    Popup.Show(input);
-                    bool success = EatStar(target, input);
+                    //string input = Popup.AskString("Utter the name of a mutation owned by " + target.BaseDisplayName, "");
+                    XRL.World.Parts.Mutations mutations = target.GetPart("Mutations") as XRL.World.Parts.Mutations;
+                    List<string> options= new List<string>();
+                    foreach (var item in mutations.MutationList)
+                    {
+                        options.Add(item.Name);
+                    }
+
+
+                    int index = Popup.ShowOptionList("Star Eating", options.ToArray());
+                    BaseMutation mut = mutations.MutationList[index];
+                    bool success = EatStar(target, mut);
                     if(success == true)
                     {
                         IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " mutation!");
@@ -193,36 +202,13 @@ namespace XRL.World.Parts.Mutation
             }
         }
 
-        public bool EatStar(GameObject t, string m)
+        public bool EatStar(GameObject t, BaseMutation m)
         {
             try
             {
                 XRL.World.Parts.Mutations mutations = t.GetPart("Mutations") as XRL.World.Parts.Mutations;
-                List<string> names = t.GetMutationNames();
-                BaseMutation b = null;
-
-                
-                    
-                    foreach (var item in mutations.MutationList)
-                    {
-                    Popup.Show(item.Name + "|" + m);
-                        if (item.Name.Equals(m))
-                        {
-                            b = item;
-                            break;
-
-                        }
-                    }
-                    if(b != null) 
-                    {
-                        mutations.RemoveMutation(b);
-                        return true;
-                    }
-                    
-
-
-                
-                return false;
+                mutations.RemoveMutation(m);
+                return true;
                 
             }
             catch (Exception)
