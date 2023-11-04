@@ -72,7 +72,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
-               
+                //Popup.Show("Two files had the same Last Write time", true, true, true, true);
                 CheckpointQueue = true;
                 return false;
             }
@@ -197,9 +197,10 @@ namespace XRL.World.Parts.Mutation
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
             
-            int a = Stat.Random(0, 63);
-            if (a == 7)
-            {
+            int a = Stat.Random(0, 50);
+            
+            if (a == 3)
+            {              
                 return true;
             }
             return false;

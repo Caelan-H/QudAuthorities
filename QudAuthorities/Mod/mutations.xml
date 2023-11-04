@@ -2,5 +2,6 @@
 <mutations>
 	<category Name="Authority">
 		<mutation Name="Return By Death" Cost="8" MaxSelected="1" Class="ReturnByDeath" Exclusions="Precognition" Code="xx"></mutation>
+		<mutation Name="Gluttony" Cost="0" MaxSelected="1" Class="Gluttony" Exclusions="" Code="xy"></mutation>
 	</category>
 </mutations>

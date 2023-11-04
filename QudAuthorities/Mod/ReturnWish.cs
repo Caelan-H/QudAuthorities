@@ -34,6 +34,15 @@ namespace QudAuthorities.Mod
 
         }
 
+        [WishCommand(Command = "Gluttony")]
+        public static void GluttonyWish()
+        {
+            // Popup.Show("Matched it the short way");
+            XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Gluttony)), 1);
+
+        }
+
 
 
     }
