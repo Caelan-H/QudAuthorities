@@ -1,0 +1,107 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+using XRL.Rules;
+using XRL.Messages;
+using ConsoleLib.Console;
+using XRL.UI;
+using XRL.World.Capabilities;
+using XRL.Core;
+using XRL.CharacterBuilds.Qud;
+using System.Runtime.CompilerServices;
+//using QudAuthorities.Mod;
+using Qud.API;
+using System.IO;
+using System.Diagnostics;
+using XRL.World.Effects;
+using Newtonsoft.Json;
+using Steamworks;
+using System.Reflection;
+using XRL.World.ZoneBuilders;
+using static TBComponent;
+using XRL.World.AI.Pathfinding;
+using NUnit.Framework.Constraints;
+
+namespace XRL.World.Parts.Mutation
+{
+    [Serializable]
+    class SageCandidate : BaseMutation
+    {
+        public new Guid ActivatedAbilityID;
+        public Guid RevertActivatedAbilityID;
+        public bool DidInit = false;
+        public bool CheckpointQueue = false;
+        public bool CheckpointCheckPass = false;
+
+        [NonSerialized]
+        private long ActivatedSegment;
+
+
+        public SageCandidate()
+        {
+            DisplayName = "Sage Candidate";
+            Type = "Mental";
+        }
+
+        public override string GetDescription()
+        {
+            return "You're body is the ideal host for Witch Factors";
+        }
+
+        public override string GetLevelText(int Level)
+        {
+            return string.Concat("");
+        }
+
+        public override bool CanLevel()
+        {
+            return false;
+        }
+
+        public override void Register(GameObject Object)
+        {
+            base.Register(Object);
+        }
+
+        public override bool WantEvent(int ID, int cascade)
+        {
+            if (ID == AwardedXPEvent.ID)
+            {
+                //Popup.Show("Two files had the same Last Write time", true, true, true, true);
+                int a = Stat.Random(0, 50);
+
+                if (a == 3)
+                {
+                    return true;
+                }
+                return false;
+            }
+            return true;
+        }
+
+        public override bool FireEvent(Event E)
+        {
+            
+                return base.FireEvent(E);
+        }
+
+
+       
+        public override bool Mutate(GameObject GO, int Level)
+        {
+            return base.Mutate(GO, Level);
+        }
+
+        public override bool Unmutate(GameObject GO)
+        {
+            return base.Unmutate(GO);
+        }
+
+       
+
+       
+
+       
+    }
+}

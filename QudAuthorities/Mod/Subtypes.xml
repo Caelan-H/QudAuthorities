@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<subtypes>
+
+  <class ID="WitchFactors" ChargenTitle="Choose Witch Factor" SingularTitle="path" StatBoxDisplay="true">
+
+    <category Name="Witch Factors" DisplayName="&amp;">
+
+      <subtype Name="Envy" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+        <stat Name="Intelligence" Bonus="3" />
+        <skills>
+          <skill Name="CookingAndGathering" />
+          <skill Name="CookingAndGathering_Harvestry" />
+          <skill Name="Axe" />
+          <skill Name="Rifles" />
+          <skill Name="Survival_JungleSurvival" />
+        </skills>
+		<mutations>
+		  <mutation Name="Regeneration" />
+		</mutations>
+        <savemodifiers>
+          <savemodifier Vs="Bleeding" Amount="2" />
+        </savemodifiers>
+      </subtype>
+
+		<subtype Name="Sloth" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+
+		<subtype Name="Greed" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+
+		<subtype Name="Gluttony" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<mutations>
+				<mutation Name="Gluttony" />
+			</mutations>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+
+		<subtype Name="Lust" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+
+		<subtype Name="Wrath" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+
+		<subtype Name="Pride" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+
+		<subtype Name="None" Gear="StartingGear_Horticulturist" Tile="creatures/caste_1.bmp" DetailColor="g">
+			<stat Name="Intelligence" Bonus="3" />
+			<skills>
+				<skill Name="CookingAndGathering" />
+				<skill Name="CookingAndGathering_Harvestry" />
+				<skill Name="Axe" />
+				<skill Name="Rifles" />
+				<skill Name="Survival_JungleSurvival" />
+			</skills>
+			<savemodifiers>
+				<savemodifier Vs="Bleeding" Amount="2" />
+			</savemodifiers>
+		</subtype>
+		
+    </category>
+
+    
+    
+
+  </class>
+
+</subtypes>

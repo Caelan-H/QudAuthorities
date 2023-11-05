@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<objects>
+
+
+	<object Name="Sage" Inherits="Humanoid">
+		<part Name="Render" RenderString="h" />
+		<part Name="Corpse" CorpseChance="90" CorpseBlueprint="Human Corpse" />
+		<stat Name="Strength" sValue="14,1d3,(t)d1" />
+		<stat Name="Agility" sValue="14,1d3,(t)d1" />
+		<stat Name="Toughness" sValue="14,1d3,(t)d1" />
+		<stat Name="Intelligence" sValue="14,1d3,(t)d1" />
+		<stat Name="Willpower" sValue="14,1d3,(t)d1" />
+		<stat Name="Ego" sValue="14,1d3,(t)d1" />
+		<intproperty Name="Bleeds" Value="1" />
+		<intproperty Name="Sage" Value="1" />
+		<tag Name="BaseObject" Value="*noinherit" />
+		<part Name="ConversationScript" ConversationID="Humanoids" ClearLost="true" />
+		<tag Name="Sage" />
+		<xtagTextFragments Skin="skin" PoeticFeatures="tall forehead,outstretched legs,eyes full of wonder" Activity="going about the tedious work of speaking to peers,hunting and gathering,wandering the salt dunes" VillageActivity="sleeping in our bedrolls and sitting in our chairs,lounging around,reading books,peeling and eating musa" NeedsItemFor="for my own collection,to slake my greed,because of its trade value,to inspire my art,to inspire my poetry,to be my muse,to help with farm work,for the games we play under the Beetle Moon" SacredThing="the act of procreating,philosophy,alcohol,grains of the earth,stone fruit,artistry,poetry,warm meals,bread and wine,pottery,painting" ArableLand="arable land,livestock,the bounty of the earth" ValuedOre="precious metals,artifacts,chrome,jasper,cybernetics,the nectar of the Eaters" />
+		<tag Name="SimpleConversation" Value="Moon and Sun. Wisdom and will.~May the earth yield for us this season.~Peace, =player.formalAddressTerm=." />
+		<tag Name="PrimaryLimbType" Value="Hand" />
+		<mutation Name="SageCandidate" />
+		<mutation Name="ReturnByDeath" />
+		
+	</object>
+
+
+
+
+</objects>
