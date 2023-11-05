@@ -37,6 +37,7 @@ namespace XRL.World.Parts.Mutation
         public new Guid ActivatedAbilityThreeID;
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
+        public List<string> Authorities = new List<string>();
   
         public Skill.BaseSkill eatenSkill = null;
 
@@ -83,6 +84,13 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
+                int a = Stat.Random(0, 100);
+                if(a == 45)
+                {
+                    if(!Authorities.Contains("StarEating")) { ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); }
+                    if(!Authorities.Contains("NameEating")) { ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("NameEating"); }
+                    
+                }
 
                 //Popup.Show("Two files had the same Last Write time", true, true, true, true);
                 //
@@ -258,8 +266,11 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
-            ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+            int a = Stat.Random(0, 1);
+            if (a == 0) { ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); }
+            if (a == 1) { ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("NameEating"); }
+            
+            
             //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
 
             return base.Mutate(GO, Level);
