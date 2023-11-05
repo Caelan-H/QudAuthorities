@@ -68,11 +68,12 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
-                //Popup.Show("Two files had the same Last Write time", true, true, true, true);
+                
                 int a = Stat.Random(0, 3);
 
                 if (a == 1)
                 {
+                    Popup.Show("it ran");
                     bool s = ObtainWitchFactor();
                     if(s) { Popup.Show("You feel the sensation of a strange black force take refuge within."); }
                     
@@ -107,7 +108,7 @@ namespace XRL.World.Parts.Mutation
         {
             List<string> MissingWitchFactors = new List<string>();
             XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
-            if (mutations.HasMutation("Return By Death"))
+            if (mutations.HasMutation("ReturnByDeath"))
             {
 
             }
@@ -123,28 +124,31 @@ namespace XRL.World.Parts.Mutation
             {
                 MissingWitchFactors.Add("Gluttony");
             }
-
-            if(MissingWitchFactors.Count> 0) 
+            Popup.Show(MissingWitchFactors.Count.ToString());
+            if (MissingWitchFactors.Count> 0) 
             {
-                int a = Stat.Random(0, MissingWitchFactors.Count);
+                int a = Stat.Random(0, MissingWitchFactors.Count - 1);
+                Popup.Show(MissingWitchFactors[a].ToString());
 
                 switch (MissingWitchFactors[a])
                 {
                     default:
                         break;
                     case "Return By Death":
-                        mutations.AddMutation("Return By Death",1);
+                        mutations.AddMutation("ReturnByDeath",1);
+                        CheckpointEvent.Send(ParentObject);
                         return true;
                     case "Gluttony":
                         mutations.AddMutation("Gluttony", 1);
+                        CheckpointEvent.Send(ParentObject);
                         return true;
                         
                 }
             }
 
+
             
-           
-           
+
             return false;
         }
 

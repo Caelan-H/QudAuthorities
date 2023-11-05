@@ -36,9 +36,12 @@ namespace XRL.World.Parts.Mutation
         public new Guid ActivatedAbilityTwoID;
         public new Guid ActivatedAbilityThreeID;
         public Guid RevertActivatedAbilityID;
+        public ActivatedAbilityEntry activatedAbilityEntry = null;
+        public ActivatedAbilityEntry activatedAbilityEntryTwo = null;
         public bool DidInit = false;
         public List<string> Authorities = new List<string>();
-  
+        public int nameUses = 0;
+        public int starUses = 0;
         public Skill.BaseSkill eatenSkill = null;
 
         [NonSerialized]
@@ -85,13 +88,37 @@ namespace XRL.World.Parts.Mutation
             if (ID == AwardedXPEvent.ID)
             {
                 int a = Stat.Random(0, 100);
-                if(a == 45)
+                int b = Stat.Random(0, 7);
+                int c = Stat.Random(0, 7);
+                if (a == 45)
                 {
-                    if(!Authorities.Contains("StarEating")) { ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); }
-                    if(!Authorities.Contains("NameEating")) { ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("NameEating"); }
+                    if(!Authorities.Contains("StarEating")) { ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); CheckpointEvent.Send(ParentObject); }
+                    if(!Authorities.Contains("NameEating")) { ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("NameEating"); CheckpointEvent.Send(ParentObject); }
                     
                 }
-
+                if (b == 5)
+                {
+                    if(Authorities.Contains("StarEating"))
+                    {
+                        if(starUses < 2)
+                        {
+                            
+                            starUses++;
+                            SyncAbilityName_StarEating();
+                        }
+                    }
+                }
+                if (c == 5)
+                {
+                    if (Authorities.Contains("NameEating"))
+                    {
+                        if (nameUses < 2)
+                        {
+                            nameUses++;
+                            SyncAbilityName_NameEating();
+                        }
+                    }
+                }
                 //Popup.Show("Two files had the same Last Write time", true, true, true, true);
                 //
             }
@@ -154,7 +181,7 @@ namespace XRL.World.Parts.Mutation
                 BeginLunarEclipse(gameObject);
             }
 
-            if (E.ID == "StarEating")
+            if (E.ID == "StarEating" && starUses > 0)
              {
 
                 Cell cell = PickDirection(ForAttack: true);
@@ -202,14 +229,18 @@ namespace XRL.World.Parts.Mutation
                     return false;
                 }
                 
-                CooldownMyActivatedAbility(ActivatedAbilityID, GetCooldown(base.Level));
+                //CooldownMyActivatedAbility(ActivatedAbilityID, GetCooldown(base.Level));
                 UseEnergy(1000, "Mental Mutation Star Eating");
                 BeginStarEating(gameObject);
              }
+            else
+            {
+                Popup.Show("You're outta charges boy");
+            }
 
             
 
-            if (E.ID == "NameEating")
+            if (E.ID == "NameEating" && nameUses > 0)
             {
                 PickDirection(ForAttack: true);
                 Cell cell = PickDirection(ForAttack: true);
@@ -257,7 +288,7 @@ namespace XRL.World.Parts.Mutation
                     return false;
                 }
 
-                CooldownMyActivatedAbility(ActivatedAbilityTwoID, GetCooldown(base.Level));
+                //CooldownMyActivatedAbility(ActivatedAbilityTwoID, GetCooldown(base.Level));
                 UseEnergy(1000, "Mental Mutation Name Eating");
                 BeginNameEating(gameObject);
             }
@@ -267,10 +298,10 @@ namespace XRL.World.Parts.Mutation
         public override bool Mutate(GameObject GO, int Level)
         {
             int a = Stat.Random(0, 1);
-            if (a == 0) { ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); }
-            if (a == 1) { ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("NameEating"); }
-            
-            
+            if (a == 0) { ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; activatedAbilityEntry = MyActivatedAbility(ActivatedAbilityID); activatedAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; }
+            if (a == 1) { ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("NameEating"); nameUses = 2; activatedAbilityEntryTwo = MyActivatedAbility(ActivatedAbilityTwoID); activatedAbilityEntryTwo.DisplayName = "Name Eating(" + (nameUses) + " uses)"; }
+
+
             //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
 
             return base.Mutate(GO, Level);
@@ -285,7 +316,7 @@ namespace XRL.World.Parts.Mutation
         public void BeginStarEating(GameObject target)
         {
             
-            if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 && !target.HasEffect("StarEaten"))
+            if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 && !target.HasEffect("StarEaten") )
             {
                 
                 
@@ -313,6 +344,8 @@ namespace XRL.World.Parts.Mutation
                     bool success = EatStar(target, mut);
                     if(success == true)
                     {
+                        starUses--;
+                        SyncAbilityName_StarEating();
                         target.ApplyEffect(new StarEaten(0));
                         IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " mutation!");
                     }
@@ -370,6 +403,8 @@ namespace XRL.World.Parts.Mutation
                     if (success == true)
                     {
                         //target.ApplyEffect(new StarEaten(0));
+                        nameUses--;
+                        SyncAbilityName_NameEating();
                         IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " skill!");
                     }
                     else
@@ -393,7 +428,7 @@ namespace XRL.World.Parts.Mutation
         public void BeginNameEating(GameObject target)
         {
 
-            if (target != null && target.HasPart("Brain") && !target.HasEffect("NameEaten"))
+            if (target != null && target.HasPart("Brain") && !target.HasEffect("NameEaten") )
             {
 
 
@@ -503,7 +538,28 @@ namespace XRL.World.Parts.Mutation
         {
             return eatenSkill;
         }
+        public void SyncAbilityName_StarEating()
+        {
+            
 
+            if (Authorities.Contains("StarEating") )
+            {
+               
+                activatedAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)";
+            }
+            
+        }
+
+        public void SyncAbilityName_NameEating()
+        {
+            
+
+            if (Authorities.Contains("NameEating"))
+            {             
+                activatedAbilityEntryTwo.DisplayName = "Name Eating(" + (nameUses) + " uses)";
+            }
+            
+        }
     }
     
    

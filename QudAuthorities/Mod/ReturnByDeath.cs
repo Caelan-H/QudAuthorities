@@ -33,6 +33,7 @@ namespace XRL.World.Parts.Mutation
         public bool DidInit = false;
         public bool CheckpointQueue = false;
         public bool CheckpointCheckPass = false;
+        public bool CheckpointCheckPassEvent = false;
 
         [NonSerialized]
         private long ActivatedSegment;
@@ -76,6 +77,23 @@ namespace XRL.World.Parts.Mutation
                 CheckpointQueue = true;
                 return false;
             }
+            if (ID == CheckpointEvent.ID)
+            {
+                /*
+                if (!(File.Exists(The.Game.GetCacheDirectory("Return.sav"))))
+                {
+                    The.Core.SaveGame("Return.sav");
+                }
+                CheckpointQueue = false;
+                CheckpointCheckPass = false;
+                CopyZone();
+                The.Core.SaveGame("Return.sav");
+                */
+                CheckpointQueue = false;
+                CheckpointCheckPassEvent = true;
+                return false;
+                
+            }
             if (ID == AfterGameLoadedEvent.ID)
             {
                 CheckpointCheckPass = false;
@@ -89,7 +107,7 @@ namespace XRL.World.Parts.Mutation
                 CheckpointCheckPass = Checkpoint(ParentObject, ref ActivatedSegment);
                 return false;
             }
-            if (ID == ZoneActivatedEvent.ID && CheckpointCheckPass == true)
+            if (ID == ZoneActivatedEvent.ID && (CheckpointCheckPass == true || CheckpointCheckPassEvent == true))
             {
                 if (!(File.Exists(The.Game.GetCacheDirectory("Return.sav"))))
                 {
@@ -97,6 +115,7 @@ namespace XRL.World.Parts.Mutation
                 }
 
                 CheckpointCheckPass = false;
+                CheckpointCheckPassEvent = false;
                 CopyZone();
                 The.Core.SaveGame("Return.sav");
                 return false;
