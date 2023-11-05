@@ -46,7 +46,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "You're body is the ideal host for Witch Factors";
+            return "You have the capability to hold all Witchfactors within";
         }
 
         public override string GetLevelText(int Level)
@@ -69,10 +69,13 @@ namespace XRL.World.Parts.Mutation
             if (ID == AwardedXPEvent.ID)
             {
                 //Popup.Show("Two files had the same Last Write time", true, true, true, true);
-                int a = Stat.Random(0, 50);
+                int a = Stat.Random(0, 3);
 
-                if (a == 3)
+                if (a == 1)
                 {
+                    bool s = ObtainWitchFactor();
+                    if(s) { Popup.Show("You feel the sensation of a strange black force take refuge within."); }
+                    
                     return true;
                 }
                 return false;
@@ -100,7 +103,50 @@ namespace XRL.World.Parts.Mutation
 
        
 
-       
+       public bool ObtainWitchFactor()
+        {
+            List<string> MissingWitchFactors = new List<string>();
+            XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (mutations.HasMutation("Return By Death"))
+            {
+
+            }
+            else
+            {
+                MissingWitchFactors.Add("Return By Death");
+            }
+            if (mutations.HasMutation("Gluttony"))
+            {
+
+            }
+            else
+            {
+                MissingWitchFactors.Add("Gluttony");
+            }
+
+            if(MissingWitchFactors.Count> 0) 
+            {
+                int a = Stat.Random(0, MissingWitchFactors.Count);
+
+                switch (MissingWitchFactors[a])
+                {
+                    default:
+                        break;
+                    case "Return By Death":
+                        mutations.AddMutation("Return By Death",1);
+                        return true;
+                    case "Gluttony":
+                        mutations.AddMutation("Gluttony", 1);
+                        return true;
+                        
+                }
+            }
+
+            
+           
+           
+            return false;
+        }
 
        
     }

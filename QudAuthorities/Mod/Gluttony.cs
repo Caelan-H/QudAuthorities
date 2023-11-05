@@ -58,6 +58,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
             return string.Concat("You can feel an immense hunger within, and it is eager to start feasting....");
+           
         }
 
         public override bool CanLevel()
@@ -82,6 +83,7 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
+
                 //Popup.Show("Two files had the same Last Write time", true, true, true, true);
                 //
             }
@@ -93,7 +95,7 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "LunarEclipse")
             {
-
+                
                 Cell cell = PickDirection(ForAttack: true);
                 if (cell == null)
                 {
