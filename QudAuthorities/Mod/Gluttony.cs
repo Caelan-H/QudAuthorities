@@ -24,6 +24,8 @@ using XRL.World.AI.Pathfinding;
 using NUnit.Framework.Constraints;
 using XRL.UI.Framework;
 using Battlehub.UIControls;
+using static UnityEngine.GraphicsBuffer;
+using XRL.World.Skills;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -32,12 +34,11 @@ namespace XRL.World.Parts.Mutation
     {
         public new Guid ActivatedAbilityID;
         public new Guid ActivatedAbilityTwoID;
+        public new Guid ActivatedAbilityThreeID;
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
-        public bool CheckpointQueue = false;
-        public bool CheckpointCheckPass = false;
-        public string[] stars;
-        public GameObject targeted;
+  
+        public Skill.BaseSkill eatenSkill = null;
 
         [NonSerialized]
         private long ActivatedSegment;
@@ -73,6 +74,7 @@ namespace XRL.World.Parts.Mutation
         {
             Object.RegisterPartEvent(this, "StarEating");
             Object.RegisterPartEvent(this, "NameEating");
+            //Object.RegisterPartEvent(this, "LunarEclipse");
             base.Register(Object);
         }
 
@@ -87,8 +89,62 @@ namespace XRL.World.Parts.Mutation
         }
 
         public override bool FireEvent(Event E)
-        {        
-             if (E.ID == "StarEating")
+        {
+
+            if (E.ID == "LunarEclipse")
+            {
+
+                Cell cell = PickDirection(ForAttack: true);
+                if (cell == null)
+                {
+                    return false;
+                }
+                GameObject gameObject = cell.GetCombatTarget(ParentObject, IgnoreFlight: true, IgnoreAttackable: false, IgnorePhase: false, 5);
+                if (gameObject != null && gameObject.pBrain == null)
+                {
+                    gameObject = null;
+                }
+                if (gameObject == null)
+                {
+                    gameObject = cell.GetFirstObjectWithPart("Brain");
+                }
+                bool flag = false;
+
+                if (gameObject == ParentObject && gameObject.IsPlayer() && Popup.ShowYesNo("Are you sure you want to eat your own skill?") == DialogResult.No)
+                {
+                    return false;
+                }
+                if (gameObject == null)
+                {
+                    if (ParentObject.IsPlayer())
+                    {
+                        if (flag)
+                        {
+                            Popup.ShowFail("You cannot grasp the mind there sufficiently to sunder it.");
+                        }
+                        else
+                        {
+                            Popup.ShowFail("There's no target with a mind there.");
+                        }
+                    }
+                    return false;
+                }
+
+                if (gameObject.HasEffect("MemberOfPsychicBattle") || (gameObject.HasPart("SunderMind") && gameObject.GetPart<SunderMind>().activeRounds > 0))
+                {
+                    if (ParentObject.IsPlayer())
+                    {
+                        Popup.ShowFail("That target's star has already been eaten!");
+                    }
+                    return false;
+                }
+
+                CooldownMyActivatedAbility(ActivatedAbilityThreeID, GetCooldown(base.Level));
+                UseEnergy(1000, "Mental Mutation Lunar Eclipse");
+                BeginLunarEclipse(gameObject);
+            }
+
+            if (E.ID == "StarEating")
              {
 
                 Cell cell = PickDirection(ForAttack: true);
@@ -139,10 +195,12 @@ namespace XRL.World.Parts.Mutation
                 CooldownMyActivatedAbility(ActivatedAbilityID, GetCooldown(base.Level));
                 UseEnergy(1000, "Mental Mutation Star Eating");
                 BeginStarEating(gameObject);
-            }
+             }
 
-            if(E.ID == "NameEating")
-             {
+            
+
+            if (E.ID == "NameEating")
+            {
                 PickDirection(ForAttack: true);
                 Cell cell = PickDirection(ForAttack: true);
                 if (cell == null)
@@ -200,6 +258,7 @@ namespace XRL.World.Parts.Mutation
         {
             ActivatedAbilityID = AddMyActivatedAbility("Star Eating", "StarEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
             ActivatedAbilityTwoID = AddMyActivatedAbility("Name Eating", "NameEating", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+            //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
 
             return base.Mutate(GO, Level);
         }
@@ -262,10 +321,66 @@ namespace XRL.World.Parts.Mutation
             }
         }
 
+        public void BeginLunarEclipse(GameObject target)
+        {
+           
+
+            if (target != null && target.HasPart("Brain")  && !target.HasEffect("LunarEclipsed"))
+            {
+
+
+                if (ParentObject.IsPlayer())
+                {
+                    Popup.Show(target.DisplayName);
+
+                    XRL.World.Parts.Skills skills = target.GetPart("Skills") as XRL.World.Parts.Skills;
+                    Popup.Show(target.HasPart("Skills").ToString());
+                    Popup.Show(skills.SkillList.Count.ToString());
+                    // XRL.World.Parts.Skills skills = target.GetPart("Skills") as XRL.World.Parts.Skills;
+                    
+                    List<string> options = new List<string>();
+                    List<string> skillOptions = new List<string>();
+                    foreach (var item in skills.SkillList)
+                    {
+                        Popup.Show(item.Name);
+                        options.Add(item.Name);
+                    }
+                    /*
+                    foreach (var item in skills.SkillList)
+                    {
+                        options.Add(item.Name);
+                    }
+                    */
+                    int index = Popup.ShowOptionList("Lunar Eclipse", options.ToArray());
+                    Skill.BaseSkill skill = skills.SkillList[index];
+                    bool success = EatSkill(target, skill);
+                    if (success == true)
+                    {
+                        //target.ApplyEffect(new StarEaten(0));
+                        IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " skill!");
+                    }
+                    else
+                    {
+                        IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
+                    }
+                }
+                else if (target.IsPlayer())
+                {
+                    Popup.Show(ParentObject.T() + " " + The.Player.DescribeDirectionToward(ParentObject) + ParentObject.GetVerb("burrow") + " a channel through the psychic aether and" + ParentObject.GetVerb("begin") + " to sunder your mind!");
+                    AutoAct.Interrupt(null, null, ParentObject);
+                }
+
+            }
+            else
+            {
+                IComponent<GameObject>.AddPlayerMessage("You tried to eat, but there was nothing to consume");
+            }
+        }
+
         public void BeginNameEating(GameObject target)
         {
 
-            if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 && !target.HasEffect("NameEaten"))
+            if (target != null && target.HasPart("Brain") && !target.HasEffect("NameEaten"))
             {
 
 
@@ -332,29 +447,53 @@ namespace XRL.World.Parts.Mutation
             }
         }
 
-        public void DestroyStar(BaseMutation a, string mutation, GameObject t)
+        public bool EatSkill(GameObject t, Skill.BaseSkill s)
         {
-            
-            XRL.World.Parts.Mutations mutations = t.GetPart("Mutations") as XRL.World.Parts.Mutations;
-            
-            if (a.Name.Equals(mutation))
+            try
             {
-                mutations.RemoveMutation(a);
+                XRL.World.Parts.Skills skills = t.GetPart("Skills") as XRL.World.Parts.Skills;
+                skills.RemoveSkill(s);
+                XRL.World.Parts.Skills playerSkills = ThePlayer.GetPart("Skills") as XRL.World.Parts.Skills;
+                
+                /*
+                if(playerSkills.SkillList.Contains(s))
+                {
+
+                }
+                else
+                {
+                    if(eatenSkill != null)
+                    {
+                        playerSkills.RemoveSkill(eatenSkill);    
+                    }
+                    playerSkills.AddSkill(s);
+                    eatenSkill = s;
+                }
+                */
+                return true;
+
+            }
+            catch (Exception)
+            {
+                return false;
+
             }
         }
 
-        public void SetTarget(GameObject t)
-        {
-            targeted = t;
-        }
 
-        public void SetStarArray(string[] array) 
+
+        public void SetSkill(Skill.BaseSkill s)
         {
-            stars = array;
+            eatenSkill = s;
+        }
+        public Skill.BaseSkill getSkill()
+        {
+            return eatenSkill;
         }
 
     }
     
+   
      
     
 }

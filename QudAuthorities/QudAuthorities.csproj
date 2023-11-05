@@ -51,8 +51,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mod\NameEaten.cs" />
+    <Compile Include="Mod\StarEaten.cs" />
     <Compile Include="Mod\CheckpointOnWorldGeneration.cs" />
     <Compile Include="Mod\Checkpointer.cs" />
+    <Compile Include="Mod\Gluttony.cs" />
     <Compile Include="Mod\ReturnWish.cs" />
     <Compile Include="Mod\ReturnByDeathInitializer.cs" />
     <Compile Include="Mod\ReturnByDeath.cs" />
