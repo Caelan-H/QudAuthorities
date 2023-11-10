@@ -6,14 +6,14 @@ using System;
 namespace XRL.World.Effects
 {
     [Serializable]
-    public class NameEaten : Effect
+    public class GluttonousEaten : Effect
     {
-        public NameEaten()
+        public GluttonousEaten()
         {
-            base.DisplayName = "{{R|NameEaten}}";
+            base.DisplayName = "{{R|GluttonousEaten}}";
         }
 
-        public NameEaten(int Duration)
+        public GluttonousEaten(int Duration)
             : this()
         {
             base.Duration = DURATION_INDEFINITE;

@@ -51,7 +51,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mod\CheckpointEvent.cs" />
     <Compile Include="Mod\NameEaten.cs" />
+    <Compile Include="Mod\SageCandidate.cs" />
     <Compile Include="Mod\StarEaten.cs" />
     <Compile Include="Mod\CheckpointOnWorldGeneration.cs" />
     <Compile Include="Mod\Checkpointer.cs" />
