@@ -33,6 +33,8 @@ namespace XRL.World.Parts.Mutation
         public bool DidInit = false;
         public bool CheckpointQueue = false;
         public bool CheckpointCheckPass = false;
+        public int WitchFactorOdds = 140;
+        public int WitchfactorCount = 0;
 
         [NonSerialized]
         private long ActivatedSegment;
@@ -46,7 +48,17 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "You have the capability to hold all Witchfactors within";
+            XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (WitchfactorCount == 6 && mutations.HasMutation("ReturnByDeath"))
+            {
+                return "Housed within your soul, you have all 7 Witchfactors.";
+
+            }
+            else
+            {
+                return "You have the capability to hold all Witchfactors within. There is a 1/140 chance when you get xp that you will obtain a new Witchfactor.";
+
+            }
         }
 
         public override string GetLevelText(int Level)
@@ -69,13 +81,13 @@ namespace XRL.World.Parts.Mutation
             if (ID == AwardedXPEvent.ID)
             {
                 
-                int a = Stat.Random(0, 3);
+                int a = Stat.Random(0, WitchFactorOdds);
 
                 if (a == 1)
                 {
                     Popup.Show("it ran");
                     bool s = ObtainWitchFactor();
-                    if(s) { Popup.Show("You feel the sensation of a strange black force take refuge within."); }
+                    if(s) { Popup.Show("You feel the sensation of a sinister impurity take refuge within your soul. You can feel its immense power trying to consume you, but you endure it. Eventually, the dark power settles within becoming a part of you permanantly."); }
                     
                     return true;
                 }
@@ -137,10 +149,12 @@ namespace XRL.World.Parts.Mutation
                     case "Return By Death":
                         mutations.AddMutation("ReturnByDeath",1);
                         CheckpointEvent.Send(ParentObject);
+                        WitchfactorCount++;
                         return true;
                     case "Gluttony":
                         mutations.AddMutation("Gluttony", 1);
                         CheckpointEvent.Send(ParentObject);
+                        WitchfactorCount++;
                         return true;
                         
                 }

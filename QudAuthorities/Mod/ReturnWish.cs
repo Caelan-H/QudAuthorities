@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using XRL;
 using XRL.UI;
 using XRL.Wish;
+using XRL.World;
+using XRL.World.Parts;
 using XRL.World.Parts.Mutation;
 
 namespace QudAuthorities.Mod
@@ -39,7 +41,16 @@ namespace QudAuthorities.Mod
         {
             // Popup.Show("Matched it the short way");
             XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
-            mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Gluttony)), 1);
+            if(mutations.HasMutation("Gluttony"))
+            {
+                AuthorityAwakeningGluttonyEvent.Send(The.Player);
+               
+            }
+            else
+            {
+                mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Gluttony)), 1);
+            }
+            
 
         }
 

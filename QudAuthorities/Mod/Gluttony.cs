@@ -43,6 +43,8 @@ namespace XRL.World.Parts.Mutation
         public List<string> Authorities = new List<string>();
         public int GluttonousUses = 0;
         public int starUses = 0;
+        public int AwakeningOdds = 120;
+        string WitchFactor = "";
         public Gluttony()
         {
             DisplayName = "Gluttony";
@@ -58,13 +60,13 @@ namespace XRL.World.Parts.Mutation
         {
             if(Authorities.Count == 0 || Authorities.Count == 1)
             {
-                return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....");
+                return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/" + AwakeningOdds.ToString() + " chance to awaken another Authority of Gluttony.");
             }
             else
             {
                 if (Authorities.Count > 1)
                 {
-                    return string.Concat("The dark impurity within you that yearned to feast has changed form. You can feel gentle light within your soul where the darkness used to creep into your very being. It awaits more feasting with temperance.");
+                    return string.Concat("The dark impurity within you that yearned to feast has changed form. You can feel gentle light within your soul where the darkness used to creep into your very being. It awaits more feasting with temperance. The potential of Gluttony is fully realized.");
                 }
                 return string.Concat("Something is wrong with the gluttony authority count!");
             }
@@ -77,21 +79,29 @@ namespace XRL.World.Parts.Mutation
         {
             Object.RegisterPartEvent(this, "StarEating");
             Object.RegisterPartEvent(this, "GluttonousEating");
+            Object.RegisterPartEvent(this, "AuthorityAwakening");
             base.Register(Object);
         }
 
         public override bool WantEvent(int ID, int cascade)
         {
+
             //This event rolls for chances to refresh Authority cool downa and to unlock unobtained Authorities.
+            if (ID == AuthorityAwakeningGluttonyEvent.ID)
+            {
+                if (!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
+                if (!Authorities.Contains("GluttonousEating")) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/10 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 1.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 1; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
+
+            }
             if (ID == AwardedXPEvent.ID)
             {
-                int a = Stat.Random(0, 3);
+                int a = Stat.Random(0, AwakeningOdds);
                 int b = Stat.Random(0, 7);
-                int c = Stat.Random(0, 7);
+                int c = Stat.Random(0, 10);
                 if (a == 1)
                 {
-                    if(!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of your enemies. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; }
-                    if(!Authorities.Contains("GluttonousEating")) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped. After doing so, the enemy becomes GluttonousEaten and Gluttonous Eating will no longer affect them.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 2; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
+                    if(!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
+                    if(!Authorities.Contains("GluttonousEating")) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/10 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 1.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 1; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
                     
                 }
                 if (b == 5)
@@ -110,7 +120,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     if (Authorities.Contains("GluttonousEating"))
                     {
-                        if (GluttonousUses < 2)
+                        if (GluttonousUses < 1)
                         {
                             GluttonousUses++;
                             SyncAbilityName_GluttonousEating();
@@ -123,10 +133,14 @@ namespace XRL.World.Parts.Mutation
             return true;
         }
 
+        
+
+
         public override bool FireEvent(Event E)
         {
 
-           
+            
+
             if (E.ID == "StarEating" && starUses > 0)
              {
 
@@ -146,7 +160,7 @@ namespace XRL.World.Parts.Mutation
                 }
                
                 
-                if (gameObject == ParentObject && gameObject.IsPlayer() && Popup.ShowYesNo("Are you sure you want to eat your own ability?") == DialogResult.No)
+                if (gameObject == ParentObject)
                 {
                     return false;
                 }
@@ -187,7 +201,7 @@ namespace XRL.World.Parts.Mutation
                 }
            
 
-                if (gameObject == ParentObject && gameObject.IsPlayer() && Popup.ShowYesNo("Are you sure you want to eat your own mind?") == DialogResult.No)
+                if (gameObject == ParentObject && gameObject.IsPlayer())
                 {
                     return false;
                 }
@@ -205,12 +219,16 @@ namespace XRL.World.Parts.Mutation
             }
             return base.FireEvent(E);
         }
+        public override bool CanLevel()
+        {
+            return false;
+        }
 
         public override bool Mutate(GameObject GO, int Level)
         {
             int a = Stat.Random(0, 1);
-            if (a == 0) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; }
-            if (a == 1) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 2; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; }
+            if (a == 0) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; }
+            if (a == 1) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/10 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 1.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 1    ; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; }
 
 
             //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
@@ -238,9 +256,19 @@ namespace XRL.World.Parts.Mutation
                     {
                         options.Add(item.Name);
                     }
+                    options.Add("Cancel");
                     int index = Popup.ShowOptionList("Star Eating", options.ToArray());
-                    BaseMutation mut = mutations.MutationList[index];
-                    bool success = EatStar(target, mut);
+                    bool success = false;
+                    if (options[index].Equals("Cancel"))
+                    {
+                        success = false;
+                    }
+                    else
+                    {
+                        BaseMutation mut = mutations.MutationList[index];
+                        success = EatStar(target, mut);
+                    }
+                    
                     if(success == true)
                     {
                         starUses--;
@@ -250,7 +278,15 @@ namespace XRL.World.Parts.Mutation
                     }
                     else
                     {
-                        IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
+                        if (options[index].Equals("Cancel"))
+                        {
+                            IComponent<GameObject>.AddPlayerMessage("You decided not to eat.");
+                        }
+                        else
+                        {
+                            IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
+                        }
+                        
                     }  
                 }
                 else if (target.IsPlayer())
@@ -283,9 +319,9 @@ namespace XRL.World.Parts.Mutation
                     int Level = (int)Math.Min(10.0, Math.Floor((double)(30 - 1) / 2.0 + 3.0));
                     int Penalty = (int)Math.Min(10.0, Math.Floor((double)(30 - 1) / 2.0 + 3.0));
                     target.ApplyEffect(new GluttonousEaten(0));
-                    target.ApplyEffect(new Confused( 5,  Level, Penalty));
+                    target.ApplyEffect(new Confused( 8,  Level, Penalty));
                     target.DisplayName = "nameless";
-                    int a = Stat.Random(0, 5);
+                    int a = Stat.Random(0, 3);
                     GluttonousUses--;
                     SyncAbilityName_GluttonousEating();
                     if (a == 1)
