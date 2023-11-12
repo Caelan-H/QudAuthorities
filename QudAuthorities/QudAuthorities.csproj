@@ -51,7 +51,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Mod\AuthorityAwakeningGreedEvent.cs" />
+    <Compile Include="Mod\AuthorityAwakeningGluttonyEvent.cs" />
+    <Compile Include="Mod\AuthorityAwakeningEvent.cs" />
     <Compile Include="Mod\CheckpointEvent.cs" />
+    <Compile Include="Mod\Greed.cs" />
+    <Compile Include="Mod\Stillness.cs" />
     <Compile Include="Mod\NameEaten.cs" />
     <Compile Include="Mod\SageCandidate.cs" />
     <Compile Include="Mod\StarEaten.cs" />

@@ -30,11 +30,9 @@ namespace XRL.World.Parts.Mutation
     {
         public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
-        public bool DidInit = false;
-        public bool CheckpointQueue = false;
-        public bool CheckpointCheckPass = false;
-        public int WitchFactorOdds = 140;
+        public int WitchFactorOdds = 120;
         public int WitchfactorCount = 0;
+        public int xpEventCount = 0;
 
         [NonSerialized]
         private long ActivatedSegment;
@@ -43,22 +41,12 @@ namespace XRL.World.Parts.Mutation
         public SageCandidate()
         {
             DisplayName = "Sage Candidate";
-            Type = "Mental";
+            Type = "Authority";
         }
 
         public override string GetDescription()
-        {
-            XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
-            if (WitchfactorCount == 6 && mutations.HasMutation("ReturnByDeath"))
-            {
-                return "Housed within your soul, you have all 7 Witchfactors.";
-
-            }
-            else
-            {
-                return "You have the capability to hold all Witchfactors within. There is a 1/140 chance when you get xp that you will obtain a new Witchfactor.";
-
-            }
+        {  
+                return "You have the capability to hold all Witchfactors within. There is a 1/120 chance when you get xp that you will obtain a new Witchfactor.";    
         }
 
         public override string GetLevelText(int Level)
@@ -70,9 +58,16 @@ namespace XRL.World.Parts.Mutation
         {
             return false;
         }
+     
+        public void XPCount()
+        {
+            
+            Popup.Show("You have obtained xp " + xpEventCount + " times");
+        }
 
         public override void Register(GameObject Object)
         {
+            Object.RegisterPartEvent(this, "XPCount");
             base.Register(Object);
         }
 
@@ -80,12 +75,12 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
-                
+                xpEventCount++;
                 int a = Stat.Random(0, WitchFactorOdds);
 
                 if (a == 1)
                 {
-                    Popup.Show("it ran");
+                    
                     bool s = ObtainWitchFactor();
                     if(s) { Popup.Show("You feel the sensation of a sinister impurity take refuge within your soul. You can feel its immense power trying to consume you, but you endure it. Eventually, the dark power settles within becoming a part of you permanantly."); }
                     
@@ -98,14 +93,19 @@ namespace XRL.World.Parts.Mutation
 
         public override bool FireEvent(Event E)
         {
-            
-                return base.FireEvent(E);
+
+            if (E.ID == "XPCount")
+            {
+                XPCount();
+            }
+            return base.FireEvent(E);
         }
 
 
        
         public override bool Mutate(GameObject GO, int Level)
         {
+            ActivatedAbilityID = AddMyActivatedAbility("XP Count", "XPCount", "Mental Mutation", "Returns the number of times you gained xp while having Sage Candidate.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
             return base.Mutate(GO, Level);
         }
 
@@ -128,6 +128,16 @@ namespace XRL.World.Parts.Mutation
             {
                 MissingWitchFactors.Add("Return By Death");
             }
+
+            if (mutations.HasMutation("Greed"))
+            {
+
+            }
+            else
+            {
+                MissingWitchFactors.Add("Greed");
+            }
+
             if (mutations.HasMutation("Gluttony"))
             {
 
@@ -156,7 +166,13 @@ namespace XRL.World.Parts.Mutation
                         CheckpointEvent.Send(ParentObject);
                         WitchfactorCount++;
                         return true;
-                        
+                    case "Greed":
+                        mutations.AddMutation("Greed", 1);
+                        CheckpointEvent.Send(ParentObject);
+                        WitchfactorCount++;
+                        return true;
+
+
                 }
             }
 

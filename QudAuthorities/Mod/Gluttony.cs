@@ -58,9 +58,12 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
+
+            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/120" + " chance to awaken another Authority of Gluttony.");
+
+            /*
             if(Authorities.Count == 0 || Authorities.Count == 1)
             {
-                return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/" + AwakeningOdds.ToString() + " chance to awaken another Authority of Gluttony.");
             }
             else
             {
@@ -71,7 +74,7 @@ namespace XRL.World.Parts.Mutation
                 return string.Concat("Something is wrong with the gluttony authority count!");
             }
             
-
+            */
 
         }
 
@@ -134,7 +137,7 @@ namespace XRL.World.Parts.Mutation
         }
 
         
-
+       
 
         public override bool FireEvent(Event E)
         {
@@ -227,8 +230,8 @@ namespace XRL.World.Parts.Mutation
         public override bool Mutate(GameObject GO, int Level)
         {
             int a = Stat.Random(0, 1);
-            if (a == 0) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; }
-            if (a == 1) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/10 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 1.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 1    ; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; }
+            if (a == 0) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority:Gluttony", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; }
+            if (a == 1) { GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority:Gluttony", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/10 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 1.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 1    ; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating(" + (GluttonousUses) + " uses)"; }
 
 
             //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
@@ -238,7 +241,16 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Unmutate(GameObject GO)
         {
-            RemoveMyActivatedAbility(ref StarEatingID);
+            if(Authorities.Contains("StarEating"))
+            {
+                RemoveMyActivatedAbility(ref StarEatingID);
+            }
+            if (Authorities.Contains("GluttonousEating"))
+            {
+                RemoveMyActivatedAbility(ref StarEatingID);
+            }
+
+            RemoveMyActivatedAbility(ref GluttonousEatingID);
             return base.Unmutate(GO);
         }
 
@@ -314,6 +326,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     XRL.World.Parts.GivesRep givesRep = target.GetPart("GivesRep") as XRL.World.Parts.GivesRep;
                     XRL.World.Parts.Brain brain = target.GetPart("Brain") as XRL.World.Parts.Brain;
+                    
                     string primaryFaction = target.GetPrimaryFaction();
                     //brain.setFactionMembership(primaryFaction, -100);
                     int Level = (int)Math.Min(10.0, Math.Floor((double)(30 - 1) / 2.0 + 3.0));
@@ -369,7 +382,7 @@ namespace XRL.World.Parts.Mutation
                 XRL.World.Parts.Mutations mutations = t.GetPart("Mutations") as XRL.World.Parts.Mutations;
                 mutations.RemoveMutation(m);
                 return true;
-                
+               
             }
             catch (Exception)
             {

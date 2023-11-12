@@ -42,7 +42,7 @@ namespace XRL.World.Parts.Mutation
         public ReturnByDeath()
         {
             DisplayName = "Return By Death";
-            Type = "Mental";
+            Type = "Authority";
         }
 
         public override string GetDescription()
@@ -182,9 +182,6 @@ namespace XRL.World.Parts.Mutation
         public static bool OnBeforeDie(GameObject Object, Guid revertActivatedAbilityID, ref long ActivatedSegment)
         {
 
-
-
-
             if (Object.GetStatValue("Hitpoints", 0) <= 0 && Object.IsPlayer() )
             {
                 CopyZoneToCache();
@@ -199,7 +196,7 @@ namespace XRL.World.Parts.Mutation
         {
             System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache"));
             System.IO.Directory.CreateDirectory(The.Game.GetCacheDirectory("ZoneCache") + "1");
-            ActivatedAbilityID = AddMyActivatedAbility("Death Count", "DeathCount", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
+            ActivatedAbilityID = AddMyActivatedAbility("Death Count", "DeathCount", "Authority:Envy", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
             string filePath = The.Game.GetCacheDirectory();
             System.IO.File.WriteAllText(filePath + "\\DeathCount.txt", "0");
             // The.Core.SaveGame("Return.sav");
@@ -216,7 +213,7 @@ namespace XRL.World.Parts.Mutation
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
             
-            int a = Stat.Random(0, 50);
+            int a = Stat.Random(0, 55);
             
             if (a == 3)
             {              

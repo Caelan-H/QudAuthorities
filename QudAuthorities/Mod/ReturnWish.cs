@@ -54,6 +54,24 @@ namespace QudAuthorities.Mod
 
         }
 
+        [WishCommand(Command = "Greed")]
+        public static void GreedWish()
+        {
+            // Popup.Show("Matched it the short way");
+            XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (mutations.HasMutation("Greed"))
+            {
+                AuthorityAwakeningGluttonyEvent.Send(The.Player);
+
+            }
+            else
+            {
+                mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Greed)), 1);
+            }
+
+
+        }
+
 
 
     }
