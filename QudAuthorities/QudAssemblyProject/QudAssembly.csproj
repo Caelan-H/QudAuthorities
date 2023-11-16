@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyName>Assembly-CSharp</AssemblyName>
+    <GenerateAssemblyInfo>False</GenerateAssemblyInfo>
+    <TargetFramework>net481</TargetFramework>
+  </PropertyGroup>
+  <PropertyGroup>
+    <LangVersion>Preview</LangVersion>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Ionic.Zip.Unity">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Ionic.Zip.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ParticleSystemModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.TextMeshPro">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Core">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Rewired_Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
+    <Reference Include="com.rlabrecque.steamworks.net">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UIModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AnimationModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.AudioModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayFab">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\PlayFab.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NVorbis">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\NVorbis.dll</HintPath>
+    </Reference>
+    <Reference Include="AiUnityCommon">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\AiUnityCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\nunit.framework.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestWWWModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.UnityWebRequestWWWModule.dll</HintPath>
+    </Reference>
+    <Reference Include="0Harmony">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="RoslynCSharp.Compiler">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\RoslynCSharp.Compiler.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Rewired_Windows">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\Rewired_Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="RoslynCSharp">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\RoslynCSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.TestRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UnityWebRequestTextureModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\Caves of Qud\CoQ_Data\Managed\UnityEngine.UnityWebRequestTextureModule.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
