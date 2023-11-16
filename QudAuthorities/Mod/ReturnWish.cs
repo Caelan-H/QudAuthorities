@@ -72,6 +72,24 @@ namespace QudAuthorities.Mod
 
         }
 
+        [WishCommand(Command = "Lust")]
+        public static void LustWish()
+        {
+            // Popup.Show("Matched it the short way");
+            XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (mutations.HasMutation("Lust"))
+            {
+                AuthorityAwakeningLustEvent.Send(The.Player);
+
+            }
+            else
+            {
+                mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Lust)), 1);
+            }
+
+
+        }
+
 
 
     }

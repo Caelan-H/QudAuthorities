@@ -26,7 +26,7 @@ using XRL.UI.Framework;
 using Battlehub.UIControls;
 using static UnityEngine.GraphicsBuffer;
 using XRL.World.Skills;
-using static Rewired.InputMapper;
+
 using XRL.World.Parts;
 using XRL.World;
 using XRL;
@@ -326,6 +326,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     XRL.World.Parts.GivesRep givesRep = target.GetPart("GivesRep") as XRL.World.Parts.GivesRep;
                     XRL.World.Parts.Brain brain = target.GetPart("Brain") as XRL.World.Parts.Brain;
+                   
                     
                     string primaryFaction = target.GetPrimaryFaction();
                     //brain.setFactionMembership(primaryFaction, -100);

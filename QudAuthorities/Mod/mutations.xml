@@ -3,6 +3,7 @@
 	<category Name="Witchfactors" DisplayName="{{M|Witchfactors}}">
 		<mutation Name="Gluttony" Cost="8" MaxSelected="1" Class="Gluttony" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Greed" Code="xy"></mutation>
 		<mutation Name="Greed" Cost="8" MaxSelected="1" Class="Greed" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xz"></mutation>
+		<mutation Name="Lust" Cost="8" MaxSelected="1" Class="Lust" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xq"></mutation>
 	</category>
 
 	<category Name="Sage" DisplayName="{{M|Sage}}">

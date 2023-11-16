@@ -54,17 +54,16 @@
     <Compile Include="Mod\AuthorityAwakeningGreedEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningGluttonyEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningEvent.cs" />
+    <Compile Include="Mod\PlayerTurnPassedEvent.cs" />
     <Compile Include="Mod\CheckpointEvent.cs" />
+    <Compile Include="Mod\GluttonousEaten.cs" />
     <Compile Include="Mod\Greed.cs" />
     <Compile Include="Mod\Stillness.cs" />
     <Compile Include="Mod\NameEaten.cs" />
     <Compile Include="Mod\SageCandidate.cs" />
     <Compile Include="Mod\StarEaten.cs" />
-    <Compile Include="Mod\CheckpointOnWorldGeneration.cs" />
-    <Compile Include="Mod\Checkpointer.cs" />
     <Compile Include="Mod\Gluttony.cs" />
     <Compile Include="Mod\ReturnWish.cs" />
-    <Compile Include="Mod\ReturnByDeathInitializer.cs" />
     <Compile Include="Mod\ReturnByDeath.cs" />
   </ItemGroup>
   <ItemGroup>

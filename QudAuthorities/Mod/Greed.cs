@@ -26,11 +26,13 @@ using XRL.UI.Framework;
 using Battlehub.UIControls;
 using static UnityEngine.GraphicsBuffer;
 using XRL.World.Skills;
-using static Rewired.InputMapper;
+
 using XRL.World.Parts;
 using XRL.World;
 using XRL;
 using NUnit.Framework;
+using UnityEngine;
+using XRL.EditorFormats.Screen;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -98,11 +100,13 @@ namespace XRL.World.Parts.Mutation
         }
 
         public override bool HandleEvent(ZoneActivatedEvent E)
-        {           
-            stillnessCounter = 0;
-            stoppedMembers.Clear();
-            stillnessOfTimeOn = false;
-        
+        {      
+            
+                stillnessCounter = 0;
+                stoppedMembers.Clear();
+                stillnessOfTimeOn = false;
+            
+            
             return base.HandleEvent(E);
         }
         
@@ -434,36 +438,36 @@ namespace XRL.World.Parts.Mutation
                         //cooldown = cooldown - (num * 20);
 
                     }
-                    
+
 
                     foreach (var entity in ParentObject.CurrentZone.GetObjects())
                     {
-                        
-                        if(entity.HasPart("Brain"))
+
+                        if (entity.HasPart("Brain"))
                         {
                             if (entity == ParentObject)
                             {
 
                             }
                             else
-                            {   
+                            {
                                 stoppedMembers.Add(entity);
-                                if(entity.HasEffect("Stillness"))
+                                if (entity.HasEffect("Stillness"))
                                 {
 
                                 }
                                 else
                                 {
                                     entity.ApplyEffect(new Stillness(duration));
+                                    
                                 }
-                                
+
                             }
 
-                      
-                        }
-                      
-                        
 
+                        }
+
+                        
                     }
           
                     //ParentObject.Energy.BaseValue += duration * 1000;
@@ -471,9 +475,20 @@ namespace XRL.World.Parts.Mutation
                     UseEnergy(0, "Authority Stillness Of Time");
                     stillnessCounter = duration;
                     IComponent<GameObject>.AddPlayerMessage("There are  " + duration.ToString() + " turns left of Stillness");
+                    XRLCore.ParticleManager.Add("@", ParentObject.CurrentCell.X, ParentObject.CurrentCell.Y, (float)Math.Sin((double)(float)(100) * 0.017) / 10, (float)Math.Cos((double)(float)(100) * 0.017) / 10);
+                    PlayWorldSound("timestop", .2f, 0f, combat: false);
+                    for (int i = 0; i < Stat.RandomCosmetic(1, 3); i++)
+                    {
+                        float num = (float)Stat.RandomCosmetic(4, 14) / 3f;
+                        for (int j = 0; j < 360; j++)
+                        {
+                            XRLCore.ParticleManager.Add("@", ParentObject.CurrentCell.X, ParentObject.CurrentCell.Y, (float)Math.Sin((double)(float)j * 0.017) / num, (float)Math.Cos((double)(float)j * 0.017) / num);
+                        }
+                    }
                     
+                  
                 }
-               else
+                else
                {
                     IComponent<GameObject>.AddPlayerMessage("The strain to stop time would kill you, so you decide against it.");
                }
@@ -501,14 +516,14 @@ namespace XRL.World.Parts.Mutation
                     stillnessCounter--;
                     if(stillnessCounter==0)
                     {
-
-                    }
-                    else
-                    {
                         IComponent<GameObject>.AddPlayerMessage("Time has now resumed.");
                         stillnessCounter = 0;
                         stoppedMembers.Clear();
                         stillnessOfTimeOn = false;
+                    }
+                    else
+                    {
+                        
                     }
                 }
                 else
@@ -524,72 +539,12 @@ namespace XRL.World.Parts.Mutation
                
                
             }
-            
-
-
-
-
-           /*
-            if(stillnessOfTimeOn)
-            {
-                stillnessCounter--;
-                if(stillnessCounter > 0)
-                {
-                    foreach (var entity in ParentObject.CurrentZone.GetObjects())
-                    {
-                        if(entity.HasPart("Brain") && !(entity.DisplayName.Equals(ParentObject.DisplayName)))
-                        {
-                            entity.Energy.BaseValue = 0;
-                            entity.Energy.BaseValue -= entity.BaseStat("speed") * 10;
-                        }
-                        
-                        
-                    }
-                }
-                else
-                {
-                    stillnessOfTimeOn= false;
-                }
-                
-
-                /*
-                stillnessCounter--;     
-                if(stillnessCounter > 0)
-                {
-                    IComponent<GameObject>.AddPlayerMessage("There are " + stillnessCounter.ToString() + "turns left of stillness");
-                }   
-                else
-                {
-                    IComponent<GameObject>.AddPlayerMessage("The stillness of time ends!");
-                    foreach (var entity in ParentObject.CurrentZone.GetObjects())
-                    {
-                        if (entity != ParentObject)
-                        {
-
-                            entity.RemoveEffect(entity.GetEffect("Stillness"));
-
-
-
-                        }
-
-                    }
-                    stillnessOfTimeOn = false;
-                
-                }
-              
-
-            }*/
             return base.HandleEvent(E);
         }
 
         public override bool CanLevel()
         {
             return false;
-        }
-
-        public void setToBeHealed(GameObject member)
-        {
-            toBeHealed = member;
         }
 
         public override bool Mutate(GameObject GO, int Level)
@@ -636,167 +591,4 @@ namespace XRL.World.Parts.Mutation
 
 
 
-/*
- * 
- * public bool EatSkill(GameObject t, Skill.BaseSkill s)
-        {
-            try
-            {
-                XRL.World.Parts.Skills skills = t.GetPart("Skills") as XRL.World.Parts.Skills;
-                skills.RemoveSkill(s);
-                XRL.World.Parts.Skills playerSkills = ThePlayer.GetPart("Skills") as XRL.World.Parts.Skills;
-                
-                /*
-                if(playerSkills.SkillList.Contains(s))
-                {
-
-                }
-                else
-                {
-                    if(eatenSkill != null)
-                    {
-                        playerSkills.RemoveSkill(eatenSkill);    
-                    }
-                    playerSkills.AddSkill(s);
-                    eatenSkill = s;
-                }
-                
-return true;
-
-            }
-            catch (Exception)
-{
-    return false;
-
-}
-        }
- * 
- *
- * if (E.ID == "LunarEclipse")
-            {
-                
-                Cell cell = PickDirection(ForAttack: true);
-                if (cell == null)
-                {
-                    return false;
-                }
-                GameObject gameObject = cell.GetCombatTarget(ParentObject, IgnoreFlight: true, IgnoreAttackable: false, IgnorePhase: false, 5);
-                if (gameObject != null && gameObject.pBrain == null)
-                {
-                    gameObject = null;
-                }
-                if (gameObject == null)
-                {
-                    gameObject = cell.GetFirstObjectWithPart("Brain");
-                }
-                bool flag = false;
-
-                if (gameObject == ParentObject && gameObject.IsPlayer() && Popup.ShowYesNo("Are you sure you want to eat your own skill?") == DialogResult.No)
-                {
-                    return false;
-                }
-                if (gameObject == null)
-                {
-                    if (ParentObject.IsPlayer())
-                    {
-                        if (flag)
-                        {
-                            Popup.ShowFail("You cannot grasp the mind there sufficiently to sunder it.");
-                        }
-                        else
-                        {
-                            Popup.ShowFail("There's no target with a mind there.");
-                        }
-                    }
-                    return false;
-                }
-
-                if (gameObject.HasEffect("MemberOfPsychicBattle") || (gameObject.HasPart("SunderMind") && gameObject.GetPart<SunderMind>().activeRounds > 0))
-                {
-                    if (ParentObject.IsPlayer())
-                    {
-                        Popup.ShowFail("That target's star has already been eaten!");
-                    }
-                    return false;
-                }
-                CooldownMyActivatedAbility(ActivatedAbilityThreeID, GetCooldown(base.Level));
-                UseEnergy(1000, "Mental Mutation Lunar Eclipse");
-                BeginLunarEclipse(gameObject);
-            }
-
- * 
- * 
- * public void BeginLunarEclipse(GameObject target)
-        {
-           
-
-            if (target != null && target.HasPart("Brain")  && !target.HasEffect("LunarEclipsed"))
-            {
-
-
-                if (ParentObject.IsPlayer())
-                {
-                    Popup.Show(target.DisplayName);
-
-                    XRL.World.Parts.Skills skills = target.GetPart("Skills") as XRL.World.Parts.Skills;
-                    Popup.Show(target.HasPart("Skills").ToString());
-                    Popup.Show(skills.SkillList.Count.ToString());
-                    // XRL.World.Parts.Skills skills = target.GetPart("Skills") as XRL.World.Parts.Skills;
-                    
-                    List<string> options = new List<string>();
-                    List<string> skillOptions = new List<string>();
-                    foreach (var item in skills.SkillList)
-                    {
-                        Popup.Show(item.Name);
-                        options.Add(item.Name);
-                    }
-                    /*
-                    foreach (var item in skills.SkillList)
-                    {
-                        options.Add(item.Name);
-                    }
-                    
-int index = Popup.ShowOptionList("Lunar Eclipse", options.ToArray());
-Skill.BaseSkill skill = skills.SkillList[index];
-bool success = EatSkill(target, skill);
-if (success == true)
-{
-    //target.ApplyEffect(new StarEaten(0));
-    nameUses--;
-    SyncAbilityName_NameEating();
-    IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " skill!");
-}
-else
-{
-    IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
-}
-                }
-                else if (target.IsPlayer())
-{
-    Popup.Show(ParentObject.T() + " " + The.Player.DescribeDirectionToward(ParentObject) + ParentObject.GetVerb("burrow") + " a channel through the psychic aether and" + ParentObject.GetVerb("begin") + " to sunder your mind!");
-    AutoAct.Interrupt(null, null, ParentObject);
-}
-
-            }
-            else
-{
-    IComponent<GameObject>.AddPlayerMessage("You tried to eat, but there was nothing to consume");
-}
-        }
-
-
-
-
-
-
-
-
-public void SetSkill(Skill.BaseSkill s)
-        {
-            eatenSkill = s;
-        }
-        public Skill.BaseSkill getSkill()
-        {
-            return eatenSkill;
-        }
- */
+ 
