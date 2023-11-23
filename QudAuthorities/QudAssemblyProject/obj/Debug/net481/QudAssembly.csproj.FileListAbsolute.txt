@@ -1,0 +1,3 @@
+C:\Users\caela\Documents\GitHub\QudAuthorities\QudAuthorities\QudAssemblyProject\obj\Debug\net481\QudAssembly.csproj.AssemblyReference.cache
+C:\Users\caela\Documents\GitHub\QudAuthorities\QudAuthorities\QudAssemblyProject\obj\Debug\net481\QudAssembly.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\caela\Documents\GitHub\QudAuthorities\QudAuthorities\QudAssemblyProject\obj\Debug\net481\QudAssembly.csproj.CoreCompileInputs.cache

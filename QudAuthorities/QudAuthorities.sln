@@ -4,8 +4,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QudAuthorities", "QudAuthorities.csproj", "{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5ABB79C-0577-4554-A29B-E7710FEEF12C} = {B5ABB79C-0577-4554-A29B-E7710FEEF12C}
+	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QudAssembly", "..\..\QudAssemblyProject\QudAssembly.csproj", "{FF66A250-CCA3-4527-99DD-441AE39D697F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QudAssembly", "QudAssemblyProject\QudAssembly.csproj", "{B5ABB79C-0577-4554-A29B-E7710FEEF12C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +20,10 @@ Global
 		{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FF66A250-CCA3-4527-99DD-441AE39D697F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FF66A250-CCA3-4527-99DD-441AE39D697F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FF66A250-CCA3-4527-99DD-441AE39D697F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FF66A250-CCA3-4527-99DD-441AE39D697F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B5ABB79C-0577-4554-A29B-E7710FEEF12C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B5ABB79C-0577-4554-A29B-E7710FEEF12C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B5ABB79C-0577-4554-A29B-E7710FEEF12C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B5ABB79C-0577-4554-A29B-E7710FEEF12C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

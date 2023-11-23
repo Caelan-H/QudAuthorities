@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\QudAssembly.csproj": {}
+    "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\QudAssembly.csproj": {}
   },
   "projects": {
-    "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\QudAssembly.csproj": {
+    "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\QudAssembly.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\QudAssembly.csproj",
+        "projectUniqueName": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\QudAssembly.csproj",
         "projectName": "Assembly-CSharp",
-        "projectPath": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\QudAssembly.csproj",
+        "projectPath": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\QudAssembly.csproj",
         "packagesPath": "C:\\Users\\caela\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\obj\\",
+        "outputPath": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -26,7 +26,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -44,7 +43,15 @@
       "frameworks": {
         "net481": {
           "targetAlias": "net481",
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.100\\RuntimeIdentifierGraph.json"
+          "dependencies": {
+            "Microsoft.NETFramework.ReferenceAssemblies": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[1.0.3, )",
+              "autoReferenced": true
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

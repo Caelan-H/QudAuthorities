@@ -33,6 +33,7 @@ using XRL;
 using NUnit.Framework;
 using UnityEngine;
 using XRL.EditorFormats.Screen;
+using System.CodeDom;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -50,8 +51,10 @@ namespace XRL.World.Parts.Mutation
         public bool facelessBrideActive = false;
         public bool hasRessurectedAlly = false;
         public GameObject capturedSoul = null;
+        public GameObject capturedSoulDeepCopy = null;
         public List<string> Authorities = new List<string>();
         public int AwakeningOdds = 120;
+        public int soulDecay = 0;
         string WitchFactor = "";
         public Lust()
         {
@@ -99,7 +102,7 @@ namespace XRL.World.Parts.Mutation
         {
             
             //This event rolls for chances to refresh Authority cool downa and to unlock unobtained Authorities.
-            if (ID == AuthorityAwakeningGreedEvent.ID)
+            if (ID == AuthorityAwakeningLustEvent.ID)
             {
                 //if (!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Greed Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }               
             }
@@ -118,24 +121,41 @@ namespace XRL.World.Parts.Mutation
             return true;
         }
 
-        public override bool HandleEvent(KilledEvent E)
+        public override bool HandleEvent(AttackerDealingDamageEvent E)
         {
-           
-            if(E.Dying.HasEffect("SoulCaptured"))
+            //Popup.Show("AttackerDealingDamageEvent!" + " The attack was: " + E.Actor.ToString() + " made with a " + E.Weapon.ToString());
+            if(E.Damage.Amount >= E.Object.hitpoints)
             {
-                capturedSoul = E.Dying.DeepCopy();
-                capturedSoul.Heal(capturedSoul.hitpoints);
-                Popup.Show(E.Dying.DisplayName);
-            }
-                
-                
-          
-            
+                Popup.Show(E.Object.DisplayName + " has SoulCaptured?: " + E.Object.HasEffect("SoulCaptured").ToString());
 
+                if (E.Object.HasEffect("SoulCaptured"))
+                {
+                    capturedSoul = E.Object.DeepCopy();
+                    capturedSoul.MakeInactive();
+                    Popup.Show(E.Object.DisplayName + " has been soul captured.");
+                    soulDecay = 0;
+                }
+                return true;
+            }
             return true;
         }
 
-            public void BeginFacelessBride(GameObject target)
+        /*
+        public override bool HandleEvent(KilledEvent E)
+        {
+            Popup.Show(E.Dying.DisplayName + " has SoulCaptured?: " + E.Dying.HasEffect("SoulCaptured").ToString());
+           
+            if(E.Dying.HasEffectByClass("SoulCaptured"))
+            {
+                capturedSoul = E.Dying.DeepCopy();
+                capturedSoul.MakeInactive();         
+                Popup.Show(E.Dying.DisplayName + " has been soul captured.");
+                soulDecay = 0;
+            }
+            return true;
+        }
+        */
+        public void BeginFacelessBride(GameObject target)
         {
 
             
@@ -143,7 +163,20 @@ namespace XRL.World.Parts.Mutation
 
         public void BeginUndyingLoveRessurection(GameObject target)
         {
+            Popup.Show("BeginUndyingLoveRessurection");
+            Cell cell = PickDirection(ForAttack: true);
+            if (cell.IsEmpty() == true && capturedSoul != null)
+            {
+                capturedSoulDeepCopy = capturedSoul.DeepCopy();
+                capturedSoulDeepCopy.Heal(10000);
+                capturedSoul.ApplyEffect(new Undead());
+                capturedSoulDeepCopy.MakeActive();
+                capturedSoulDeepCopy.BecomeCompanionOf(ParentObject);
+                //capturedSoul.Heal(5);
+                Popup.Show("Tried ressurection");
+                cell.AddObject(capturedSoulDeepCopy);
 
+            }
 
         }
 
@@ -174,23 +207,24 @@ namespace XRL.World.Parts.Mutation
             if (E.ID == "UndyingLoveRessurection")
             {
 
-                Cell cell = PickDirection(ForAttack: true);
-                if(cell.IsEmpty() == true && capturedSoul != null)
+                if(capturedSoul == null)
                 {
-                    capturedSoul.MakeActive();
-
-                    //capturedSoul.Heal(5);
-                    
-                    
-                    Popup.Show("Tried ressurection");
-                    //GameObject newBody = GameObject.create(capturedSoul.GetSpecies());
-                    cell.AddObject(capturedSoul);
-
+                    Popup.Show("You do not have a soul captured");
                 }
+                else
+                {
+
+                    BeginUndyingLoveRessurection(capturedSoulDeepCopy);
+                }
+            
+                
+
+                
             }
 
             if (E.ID == "UndyingLoveCheckSoul")
             {
+                
                 if(capturedSoul != null)
                 {
                     Popup.Show("Current the soul you captured is that of " + capturedSoul.DisplayName);
@@ -237,9 +271,9 @@ namespace XRL.World.Parts.Mutation
                     return false;
                 }
                 //UseEnergy(1000, "Authority Undying Love Soul Capture");
-                
-                
-                
+
+
+                Popup.Show("Soul capture about to begin");
                 BeginUndyingLoveSoulCapture(gameObject);
             }
 

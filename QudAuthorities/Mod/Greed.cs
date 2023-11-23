@@ -181,7 +181,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     foreach (var member in listOfPartyMembers)
                     {
-                        if (member.GetHPPercent() <= 50)
+                        if (member.GetHPPercent() <= 50 || member.hitpoints <= half)
                         {
 
                         }

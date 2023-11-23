@@ -8,7 +8,7 @@ using XRL.World;
 public class AuthorityAwakeningGluttonyEvent : MinEvent
 {
 	public GameObject Actor;
-
+	
 	public new static readonly int ID;
 
 	private static List<AuthorityAwakeningGluttonyEvent> Pool;

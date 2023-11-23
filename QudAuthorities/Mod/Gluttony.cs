@@ -45,6 +45,7 @@ namespace XRL.World.Parts.Mutation
         public int starUses = 0;
         public int AwakeningOdds = 120;
         string WitchFactor = "";
+        
         public Gluttony()
         {
             DisplayName = "Gluttony";

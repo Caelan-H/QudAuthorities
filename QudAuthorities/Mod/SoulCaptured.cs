@@ -1,64 +1,29 @@
 using System;
-using XRL.UI;
+
+
+
 
 namespace XRL.World.Effects
 {
     [Serializable]
     public class SoulCaptured : Effect
     {
-        public GameObject inflictor = null;
-        
-
         public SoulCaptured()
         {
             base.DisplayName = "{{R|SoulCaptured}}";
+            base.Duration = DURATION_INDEFINITE;
         }
 
-        public SoulCaptured(GameObject inflictor)
+        public SoulCaptured(int Duration)
             : this()
         {
-            base.DisplayName = "{{R|SoulCaptured}}";
-            this.inflictor= inflictor;
-           
+            base.Duration = DURATION_INDEFINITE;
         }
 
         public override int GetEffectType()
         {
             return 33554944;
         }
-
-        public override bool HandleEvent(BeforeDeathRemovalEvent E)
-        {
-            Popup.Show("BEFOREDEATHREMOVALEVENT");
-            if(inflictor.HasPart("Lust"))
-            {
-                base.Object.RemoveEffect(this);
-                base.Object.HandleEvent(E);
-                XRL.World.Parts.Mutation.Lust lust = inflictor.GetPart("Lust") as XRL.World.Parts.Mutation.Lust;
-                lust.capturedSoul = base.Object;
-                Popup.Show("Soul should be captured");
-            }
-            
-            return base.HandleEvent(E);
-        }
-
-        public override bool HandleEvent(BeforeDieEvent E)
-        {
-            Popup.Show("BEFOREDIEREMOVALEVENT");
-            
-
-            return base.HandleEvent(E);
-        }
-
-        public override bool HandleEvent(BeforeDestroyObjectEvent E)
-        {
-            Popup.Show("Before destroy object event");
-
-
-            return base.HandleEvent(E);
-        }
-
-        
 
         public override bool Apply(GameObject Object)
         {
@@ -80,5 +45,5 @@ namespace XRL.World.Effects
             return true;
         }
     }
-    
+
 }
