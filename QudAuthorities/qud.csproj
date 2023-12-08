@@ -380,6 +380,7 @@
     <Compile Include="Mod\SoulCaptured.cs" />
     <Compile Include="Mod\StarEaten.cs" />
     <Compile Include="Mod\Stillness.cs" />
+    <Compile Include="Mod\Undead.cs" />
     <Compile Include="NVorbis.NAudioSupport\VorbisWaveReader.cs" />
     <Compile Include="Occult.Engine.CodeGeneration\GenerateMinEventDispatchPartia.cs" />
     <Compile Include="Overlay.MapEditor\MapEditorSelectedObjectsRow.cs" />

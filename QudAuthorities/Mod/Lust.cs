@@ -15,22 +15,21 @@ using Qud.API;
 using System.IO;
 using System.Diagnostics;
 using XRL.World.Effects;
-using Newtonsoft.Json;
-using Steamworks;
+
 using System.Reflection;
 using XRL.World.ZoneBuilders;
 using static TBComponent;
 using XRL.World.AI.Pathfinding;
-using NUnit.Framework.Constraints;
+
 using XRL.UI.Framework;
 using Battlehub.UIControls;
-using static UnityEngine.GraphicsBuffer;
+
 using XRL.World.Skills;
 
 using XRL.World.Parts;
 using XRL.World;
 using XRL;
-using NUnit.Framework;
+
 using UnityEngine;
 using XRL.EditorFormats.Screen;
 using System.CodeDom;
@@ -41,18 +40,20 @@ namespace XRL.World.Parts.Mutation
     class Lust : BaseMutation
     {
         public Guid FacelessBrideID;
-        public Guid UndyingLoveRessurectionID;
-        public Guid UndyingLoveSoulCaptureID;
-        public Guid UndyingLoveCheckSoulID;
+        public Guid HeavensFeelRessurectionID;
+        public Guid HeavensFeelSoulCaptureID;
+        public Guid HeavensFeelCheckSoulID;
+        public string UndeadID;
         public ActivatedAbilityEntry FacelessBrideEntry = null;
-        public ActivatedAbilityEntry UndyingLoveRessurectionEntry = null;
-        public ActivatedAbilityEntry UndyingLoveSoulCaptureEntry = null;
-        public ActivatedAbilityEntry UndyingLoveCheckSoulEntry = null;
+        public ActivatedAbilityEntry HeavensFeelRessurectionEntry = null;
+        public ActivatedAbilityEntry HeavensFeelSoulCaptureEntry = null;
+        public ActivatedAbilityEntry HeavensFeelCheckSoulEntry = null;
         public bool facelessBrideActive = false;
+        public string FacelessBrideFaction = "";
         public bool hasRessurectedAlly = false;
+        public List<string> Authorities = new List<string>();
         public GameObject capturedSoul = null;
         public GameObject capturedSoulDeepCopy = null;
-        public List<string> Authorities = new List<string>();
         public int AwakeningOdds = 120;
         public int soulDecay = 0;
         string WitchFactor = "";
@@ -91,9 +92,9 @@ namespace XRL.World.Parts.Mutation
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "FacelessBride");
-            Object.RegisterPartEvent(this, "UndyingLoveRessurection");
-            Object.RegisterPartEvent(this, "UndyingLoveSoulCapture");
-            Object.RegisterPartEvent(this, "UndyingLoveCheckSoul");
+            Object.RegisterPartEvent(this, "HeavensFeelRessurection");
+            Object.RegisterPartEvent(this, "HeavensFeelSoulCapture");
+            Object.RegisterPartEvent(this, "HeavensFeelCheckSoul");
             base.Register(Object);
         }
 
@@ -104,16 +105,20 @@ namespace XRL.World.Parts.Mutation
             //This event rolls for chances to refresh Authority cool downa and to unlock unobtained Authorities.
             if (ID == AuthorityAwakeningLustEvent.ID)
             {
-                //if (!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Greed Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }               
+                if (ParentObject.IsPlayer())
+                {
+                    bool didGetAuthority = ObtainAuthority();
+                }
+
             }
+
             if (ID == AwardedXPEvent.ID)
             {
                 int a = Stat.Random(0, AwakeningOdds);
 
                 if (a == 1)
                 {
-                    //if(!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Greed Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
-
+                    AuthorityAwakeningLustEvent.Send(ParentObject);
                 }
 
 
@@ -126,13 +131,14 @@ namespace XRL.World.Parts.Mutation
             //Popup.Show("AttackerDealingDamageEvent!" + " The attack was: " + E.Actor.ToString() + " made with a " + E.Weapon.ToString());
             if(E.Damage.Amount >= E.Object.hitpoints)
             {
-                Popup.Show(E.Object.DisplayName + " has SoulCaptured?: " + E.Object.HasEffect("SoulCaptured").ToString());
+                //Popup.Show(E.Object.DisplayName + " has SoulCaptured?: " + E.Object.HasEffect("SoulCaptured").ToString());
 
                 if (E.Object.HasEffect("SoulCaptured"))
                 {
+                    IComponent<GameObject>.AddPlayerMessage("You have absorbed the soul of " + E.Object.DisplayName);
                     capturedSoul = E.Object.DeepCopy();
                     capturedSoul.MakeInactive();
-                    Popup.Show(E.Object.DisplayName + " has been soul captured.");
+                    //Popup.Show(E.Object.DisplayName + " has been soul captured.");
                     soulDecay = 0;
                 }
                 return true;
@@ -157,36 +163,169 @@ namespace XRL.World.Parts.Mutation
         */
         public void BeginFacelessBride(GameObject target)
         {
+            string faction = target.GetPrimaryFaction();
+            bool worked = true;
+            
+            if (faction == null || Factions.getFactionNames().Contains(faction) == false || target.HasEffect("GluttonousEaten"))
+            {
+                IComponent<GameObject>.AddPlayerMessage("Your target was factionless and you were unable to use your Authority");
+            }
+            else
+            {
+                if (!facelessBrideActive)
+                {
+                    IComponent<GameObject>.AddPlayerMessage("All members of the faction " + Factions.get(faction).DisplayName + " have their minds distorted and think you look like them due to your Authority.");
+                    XRLCore.Core.Game.PlayerReputation.modify(faction, 100);
+                    facelessBrideActive = true;
+                    FacelessBrideFaction = faction;
+                }
+                else
+                {
+                    if(faction.Equals(FacelessBrideFaction))
+                    {
+                        IComponent<GameObject>.AddPlayerMessage("Your target is already under the effects of Faceless Bride.");
+                        worked = false;
+                    }
+                    else
+                    {
+                        XRLCore.Core.Game.PlayerReputation.modify(FacelessBrideFaction, -75);
+                        XRLCore.Core.Game.PlayerReputation.modify(faction, 100);
+                        IComponent<GameObject>.AddPlayerMessage("All members of the faction " + Factions.get(faction).DisplayName + " have their minds distorted and think you look like them due to your Authority. The distortion over the minds of faction " + Factions.get(FacelessBrideFaction).DisplayName + " has been undone.");
+                        facelessBrideActive = true;
+                        FacelessBrideFaction = faction;
+                    }
+                    
+                }
+                if(worked)
+                {
+                    CooldownMyActivatedAbility(FacelessBrideID, 400);
+                    FacelessBrideEntry.Description = "Awakened from the Lust Witchfactor, you gain a understanding of a way you can take make others perceive you in their perferred form. Pick a target at melee range and you will get +100 reputation with them. If you already had a faction under the effect of Faceless Bride, the effect is removed on the former faction. You are currently using Faceless Bride on the faction:" + Factions.get(FacelessBrideFaction).DisplayName + ".";
 
+                }
+                else
+                {
+
+                }
+            }
+            
             
         }
 
-        public void BeginUndyingLoveRessurection(GameObject target)
+
+        public override bool HandleEvent(ZoneActivatedEvent E)
         {
-            Popup.Show("BeginUndyingLoveRessurection");
-            Cell cell = PickDirection(ForAttack: true);
-            if (cell.IsEmpty() == true && capturedSoul != null)
+            
+            if(capturedSoulDeepCopy.HasPart("Brain") && capturedSoulDeepCopy != null)
             {
-                capturedSoulDeepCopy = capturedSoul.DeepCopy();
-                capturedSoulDeepCopy.Heal(10000);
-                capturedSoul.ApplyEffect(new Undead());
-                capturedSoulDeepCopy.MakeActive();
-                capturedSoulDeepCopy.BecomeCompanionOf(ParentObject);
-                //capturedSoul.Heal(5);
-                Popup.Show("Tried ressurection");
-                cell.AddObject(capturedSoulDeepCopy);
-
+                XRL.World.Parts.Brain brain = capturedSoulDeepCopy.GetPart("Brain") as XRL.World.Parts.Brain;
+                
+                brain.Staying = false;
             }
+           
 
+
+            return base.HandleEvent(E);
         }
 
-        public void BeginUndyingLoveSoulCapture(GameObject target)
+        public void BeginHeavensFeelRessurection(GameObject target)
         {
-            Popup.Show("Soul Capture Began");
-            if(target.HasEffect("SoulCaptured") == false)
+            //Popup.Show("BeginHeavensFeelRessurection");
+            Cell cell = PickDirection(ForAttack: true);
+            GameObject gameObject;
+            bool canRes = true;
+            string failString = "";
+
+            if(capturedSoulDeepCopy == null)
             {
-                target.ApplyEffect(new SoulCaptured(ParentObject));
+                if(cell.IsEmpty() == false)
+                {
+                    canRes = false;
+                    failString = "Cell must be empty for ressurection if you do not have an undead summoned.";
+                }
             }
+            else
+            {
+                
+                gameObject = cell.GetCombatTarget(ParentObject, IgnoreFlight: true, IgnoreAttackable: false, IgnorePhase: false, 5);
+                if (capturedSoulDeepCopy.IsAlive == true && !capturedSoulDeepCopy.DisplayName.Equals("*PooledObject"))
+                {
+                    if(gameObject == capturedSoulDeepCopy)
+                    {
+                        capturedSoulDeepCopy.Die();
+                        canRes= true;
+                    }
+                    else
+                    {
+                        failString = "Cell must be occupied by the current undead in order to perform ressurection.";
+                        canRes = false;
+                    }
+                    
+                }
+                else
+                {
+                    if (cell.IsEmpty() == false)
+                    {
+                        canRes = false;
+                        failString = "Cell must be empty for ressurection if you do not have an undead summoned.";
+                    }
+                }
+            }
+
+            if(canRes== false)
+            {
+                Popup.ShowFail(failString);
+            }
+            else
+            {
+                if(capturedSoulDeepCopy != null)
+                {
+                    capturedSoulDeepCopy.Destroy("", Silent: false, Obliterate: false, "");
+                    capturedSoulDeepCopy = null;
+                }
+                capturedSoulDeepCopy = capturedSoul.DeepCopy();
+                capturedSoulDeepCopy.ForeachEquipmentAndCybernetics(Unequip);
+                capturedSoulDeepCopy.Inventory.Clear();
+                capturedSoulDeepCopy.Heal(10000);
+                capturedSoulDeepCopy.ApplyEffect(new Undead());
+                capturedSoulDeepCopy.MakeActive();
+                capturedSoulDeepCopy.SetPartyLeader(ParentObject);
+                capturedSoulDeepCopy.BecomeCompanionOf(ParentObject);
+                cell.AddObject(capturedSoulDeepCopy);
+            }
+        }
+
+        public void Unequip(GameObject equipment)
+        {
+            equipment.ForceUnequipAndRemove();
+        }
+
+        public void BeginHeavensFeelSoulCapture(GameObject target)
+        {
+            //Popup.Show("Soul Capture Began");
+            if(target.HasEffect("Undead"))
+            {
+                IComponent<GameObject>.AddPlayerMessage("You synchronize your undead with your captured soul");
+                if(capturedSoul != null)
+                {
+                    capturedSoul.Destroy("", Silent: false, Obliterate: false, "");
+                    capturedSoul = null;
+                }
+                capturedSoul = target.DeepCopy();
+                capturedSoul.MakeInactive();
+            }
+            else
+            {
+                if (target.HasEffect("SoulCaptured") == false)
+                {
+                    IComponent<GameObject>.AddPlayerMessage("Your target has been marked for soul capture");
+                    target.ApplyEffect(new SoulCaptured());
+                }
+                else
+                {
+                    IComponent<GameObject>.AddPlayerMessage("The target's soul has been marked for soul capture already");
+                }
+            }
+            
 
         }
 
@@ -197,14 +336,59 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "FacelessBride")
             {
-               
 
-                   
 
-               
+                Cell cell = PickDirection(ForAttack: false);
+                if (cell == null)
+                {
+                    return false;
+                }
+                GameObject gameObject = cell.GetCombatTarget(ParentObject, IgnoreFlight: true, IgnoreAttackable: false, IgnorePhase: false, 5);
+                if (gameObject != null && gameObject.pBrain == null)
+                {
+                    gameObject = null;
+                }
+                if (gameObject == null)
+                {
+                    gameObject = cell.GetFirstObjectWithPart("Brain");
+                }
+
+
+                if (gameObject == ParentObject && gameObject.IsPlayer())
+                {
+                    return false;
+                }
+                if (gameObject == null)
+                {
+                    if (ParentObject.IsPlayer())
+                    {
+                        Popup.ShowFail("There's no target with a mind there.");
+
+                    }
+                    return false;
+                }
+                if (gameObject.HasPart("Brain"))
+                {
+                    XRL.World.Parts.Brain brain = gameObject.GetPart("Brain") as XRL.World.Parts.Brain;
+                    if (brain.Mobile == true)
+                    {
+                        //UseEnergy(1000, "Authority Heaven's Feel Soul Capture");
+                        BeginFacelessBride(gameObject);
+                    }
+                    else
+                    {
+                        Popup.ShowFail("Soul Capture only works on mobile enemies.");
+                    }
+                }
+                else
+                {
+                    Popup.ShowFail("Soul Capture only works on enemies with Brains.");
+                }
+
+
             }
 
-            if (E.ID == "UndyingLoveRessurection")
+            if (E.ID == "HeavensFeelRessurection")
             {
 
                 if(capturedSoul == null)
@@ -214,7 +398,7 @@ namespace XRL.World.Parts.Mutation
                 else
                 {
 
-                    BeginUndyingLoveRessurection(capturedSoulDeepCopy);
+                    BeginHeavensFeelRessurection(capturedSoulDeepCopy);
                 }
             
                 
@@ -222,12 +406,12 @@ namespace XRL.World.Parts.Mutation
                 
             }
 
-            if (E.ID == "UndyingLoveCheckSoul")
+            if (E.ID == "HeavensFeelCheckSoul")
             {
                 
                 if(capturedSoul != null)
                 {
-                    Popup.Show("Current the soul you captured is that of " + capturedSoul.DisplayName);
+                    Popup.Show("Currently the soul you captured is that of " + capturedSoul.DisplayName);
                 }
                 else
                 {
@@ -238,7 +422,7 @@ namespace XRL.World.Parts.Mutation
             }
 
 
-            if (E.ID == "UndyingLoveSoulCapture")
+            if (E.ID == "HeavensFeelSoulCapture")
             {
                 
                 Cell cell = PickDirection(ForAttack: false);
@@ -270,11 +454,25 @@ namespace XRL.World.Parts.Mutation
                     }
                     return false;
                 }
-                //UseEnergy(1000, "Authority Undying Love Soul Capture");
+                if(gameObject.HasPart("Brain"))
+                {
+                    XRL.World.Parts.Brain brain = gameObject.GetPart("Brain") as XRL.World.Parts.Brain;
+                    if(brain.Mobile == true)
+                    {
+                        UseEnergy(1000, "Authority Heaven's Feel Soul Capture");
+                        BeginHeavensFeelSoulCapture(gameObject);
+                    }
+                    else
+                    {
+                        Popup.ShowFail("Soul Capture only works on mobile enemies.");
+                    }
+                }
+                else
+                {
+                    Popup.ShowFail("Soul Capture only works on enemies with Brains.");
+                }
+                
 
-
-                Popup.Show("Soul capture about to begin");
-                BeginUndyingLoveSoulCapture(gameObject);
             }
 
 
@@ -292,40 +490,97 @@ namespace XRL.World.Parts.Mutation
         }
 
         public override bool Mutate(GameObject GO, int Level)
-        {
-            int a = Stat.Random(0, 1);
-            a = 0;
-            if (a == 0) { FacelessBrideID = AddMyActivatedAbility("Faceless Bride", "FacelessBride", "Authority:Lust", "Awakened from the Lust Witchfactor, you gain a understanding of a way you can take on the appearance of a target.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); FacelessBrideEntry = MyActivatedAbility(FacelessBrideID); FacelessBrideEntry.DisplayName = "Faceless Bride"; }
-            if (a == 0) { UndyingLoveRessurectionID = AddMyActivatedAbility("Undying Love: Ressurection", "UndyingLoveRessurection", "Authority:Lust", "Awakened from the Lust Witchfactor, you gain a understanding of a way you can reanimate the soul you are currently holding with Undying Love: Soul Capture.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); UndyingLoveRessurectionEntry = MyActivatedAbility(UndyingLoveRessurectionID); UndyingLoveRessurectionEntry.DisplayName = "Undying Love: Ressurection"; }
-            if (a == 0) { UndyingLoveSoulCaptureID = AddMyActivatedAbility("Undying Love: Soul Capture", "UndyingLoveSoulCapture", "Authority:Lust", "Awakened from the Lust Witchfactor, you gain a understanding of a way you can make a claim on the soul of another living thing. The target will get the effect SoulCapture, and on their death you will recieve their soul.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); UndyingLoveSoulCaptureEntry = MyActivatedAbility(UndyingLoveSoulCaptureID); UndyingLoveSoulCaptureEntry.DisplayName = "Undying Love: Soul Capture"; }
-            if (a == 0) { UndyingLoveCheckSoulID = AddMyActivatedAbility("Undying Love: Check Soul", "UndyingLoveCheckSoul", "Authority:Lust", "View information about the currently captured soul.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); UndyingLoveCheckSoulEntry = MyActivatedAbility(UndyingLoveCheckSoulID); UndyingLoveCheckSoulEntry.DisplayName = "Undying Love: Check Soul"; }
-
-            //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
-
+        {               
+           
+            
+                ObtainAuthority();
+            
+           foreach (var item in Factions.getFactionNames())
+            {             
+                
+                XRLCore.Core.Game.PlayerReputation.modify(item, 50,false);
+            }
             return base.Mutate(GO, Level);
         }
 
         public override bool Unmutate(GameObject GO)
         {
             RemoveMyActivatedAbility(ref FacelessBrideID);
-            RemoveMyActivatedAbility(ref UndyingLoveRessurectionID);
+            RemoveMyActivatedAbility(ref HeavensFeelRessurectionID);
+            RemoveMyActivatedAbility(ref HeavensFeelSoulCaptureID);
+            RemoveMyActivatedAbility(ref HeavensFeelCheckSoulID);
+            foreach (var faction in Factions.getFactionNames())
+            {
+                XRLCore.Core.Game.PlayerReputation.modify(faction, -50);
+            }
             return base.Unmutate(GO);
         }
 
-        public void SyncAbilityName_CorLeonisFirstShift()
+
+        public bool AddAuthority(string name)
         {
-            
-            
+            if (name.Equals("HeavensFeel"))
+            {
+                HeavensFeelRessurectionID = AddMyActivatedAbility("Heaven's Feel: Ressurection", "HeavensFeelRessurection", "Authority:Lust", "Awakened from the Lust Witchfactor, you gain a understanding of a way you can reanimate the soul you are currently holding with Heaven's Feel: Soul Capture. Select a space in melee range and they will be summoned in that space. If you already have an undead, you must use ressurection on the cell the undead is currently in to replace them with your currently held soul. The former undead will be killed and the new one will take their place on the space. You may only have one undead at a time. The same soul can be used to resummon the undead endlessly.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); HeavensFeelRessurectionEntry = MyActivatedAbility(HeavensFeelRessurectionID); HeavensFeelRessurectionEntry.DisplayName = "Heaven's Feel: Ressurection"; Authorities.Add("HeavensFeel");
+                HeavensFeelSoulCaptureID = AddMyActivatedAbility("Heaven's Feel: Soul Capture", "HeavensFeelSoulCapture", "Authority:Lust", "Awakened from the Lust Witchfactor, you gain a understanding of a way you can make a claim on the soul of another living thing. The target will get the effect SoulCapture, and on their death you will recieve their soul. SoulCapture will not work on non-mobile enemies.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); HeavensFeelSoulCaptureEntry = MyActivatedAbility(HeavensFeelSoulCaptureID); HeavensFeelSoulCaptureEntry.DisplayName = "Heaven's Feel: Soul Capture";
+                HeavensFeelCheckSoulID = AddMyActivatedAbility("Heaven's Feel: Check Soul", "HeavensFeelCheckSoul", "Authority:Lust", "View information about the currently captured soul.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); HeavensFeelCheckSoulEntry = MyActivatedAbility(HeavensFeelCheckSoulID); HeavensFeelCheckSoulEntry.DisplayName = "Heaven's Feel: Check Soul";
+                return true;
+            }
+            if (name.Equals("FacelessBride"))
+            {
+                FacelessBrideID = AddMyActivatedAbility("Faceless Bride", "FacelessBride", "Authority:Lust", "Awakened from the Lust Witchfactor, you gain a understanding of a way you can take make others perceive you in their perferred form. Pick a target at melee range and you will get +100 reputation with them. If you already had a faction under the effect of Faceless Bride, the effect is removed on the former faction. You are not currently using Faceless Bride.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); FacelessBrideEntry = MyActivatedAbility(FacelessBrideID); FacelessBrideEntry.DisplayName = "Faceless Bride"; Authorities.Add("FacelessBride");
+                return true;
+            }
+            return false;
         }
 
-        public void SyncAbilityName_CorLeonisSecondShift()
+        public bool ObtainAuthority()
         {
-            
-        }
+            List<string> MissingAuthorities = new List<string>();
+            XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (Authorities.Contains("HeavensFeel"))
+            {
 
-        public void SyncAbilityName_CorLeonisThirdShift()
-        {
-            
+            }
+            else
+            {
+                MissingAuthorities.Add("HeavensFeel");
+            }
+
+            if (Authorities.Contains("FacelessBride"))
+            {
+
+            }
+            else
+            {
+                MissingAuthorities.Add("FacelessBride");
+            }
+
+            if (MissingAuthorities.Count > 0)
+            {
+                int a = Stat.Random(0, MissingAuthorities.Count - 1);
+                //Popup.Show(MissingAuthorities[a].ToString());
+
+                switch (MissingAuthorities[a])
+                {
+                    default:
+                        break;
+                    case "HeavensFeel":
+                        AddAuthority(MissingAuthorities[a]);
+                        CheckpointEvent.Send(ParentObject);
+                        Authorities.Add(MissingAuthorities[a]);
+                        return true;
+                    case "FacelessBride":
+                        AddAuthority(MissingAuthorities[a]);
+                        CheckpointEvent.Send(ParentObject);
+                        Authorities.Add(MissingAuthorities[a]);
+                        return true;
+
+
+                }
+            }
+
+            return false;
         }
 
     }

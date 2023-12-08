@@ -12,16 +12,10 @@ namespace XRL.World.Effects
         public Undead()
         {
             base.DisplayName = "{{R|Undead}}";
+            base.Duration = DURATION_INDEFINITE;
         }
 
-        public Undead(GameObject inflictor)
-            : this()
-        {
-            base.DisplayName = "{{R|Undead}}";
-            this.inflictor= inflictor;
-           
-        }
-
+      
         public override int GetEffectType()
         {
             return 33554944;

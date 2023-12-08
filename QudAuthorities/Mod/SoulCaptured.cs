@@ -14,11 +14,7 @@ namespace XRL.World.Effects
             base.Duration = DURATION_INDEFINITE;
         }
 
-        public SoulCaptured(int Duration)
-            : this()
-        {
-            base.Duration = DURATION_INDEFINITE;
-        }
+       
 
         public override int GetEffectType()
         {

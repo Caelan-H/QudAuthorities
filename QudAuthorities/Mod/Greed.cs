@@ -15,22 +15,21 @@ using Qud.API;
 using System.IO;
 using System.Diagnostics;
 using XRL.World.Effects;
-using Newtonsoft.Json;
-using Steamworks;
+
 using System.Reflection;
 using XRL.World.ZoneBuilders;
 using static TBComponent;
 using XRL.World.AI.Pathfinding;
-using NUnit.Framework.Constraints;
+
 using XRL.UI.Framework;
 using Battlehub.UIControls;
-using static UnityEngine.GraphicsBuffer;
+
 using XRL.World.Skills;
 
 using XRL.World.Parts;
 using XRL.World;
 using XRL;
-using NUnit.Framework;
+
 using UnityEngine;
 using XRL.EditorFormats.Screen;
 
@@ -146,86 +145,93 @@ namespace XRL.World.Parts.Mutation
             return false;
         }
         public override bool HandleEvent(BeforeApplyDamageEvent E)
-        {          
-            List<GameObject> listOfPartyMembers = new List<GameObject>();
-            if(toBeHealed != null)
-            {
-                listOfPartyMembers.Remove(toBeHealed);
-            }
-            
-            foreach (var entity in ParentObject.CurrentZone.GetObjects())
-            {
+        {
 
-                if (entity.InSamePartyAs(ParentObject))
+            if (Authorities.Contains("CorLeonis"))
+            {
+                List<GameObject> listOfPartyMembers = new List<GameObject>();
+                if (toBeHealed != null)
                 {
-                    listOfPartyMembers.Add(entity);
+                    listOfPartyMembers.Remove(toBeHealed);
                 }
-            }
 
-            if (CorLeonisFirstShiftEntry.ToggleState == true)
-            {
-               
-                
-            }
-
-            if(CorLeonisSecondShiftEntry.ToggleState == true) 
-            {
-                int original = E.Damage.Amount;
-                int half = E.Damage.Amount / 2;
-                E.Damage.Amount = half;
-                BeforeApplyDamageEvent e = E;
-                //string attributes = E.Damage
-                List<GameObject> listOfPartyMembersValid = new List<GameObject>();
-                
-                if(listOfPartyMembers.Count > 0) 
+                foreach (var entity in ParentObject.CurrentZone.GetObjects())
                 {
-                    foreach (var member in listOfPartyMembers)
-                    {
-                        if (member.GetHPPercent() <= 50 || member.hitpoints <= half)
-                        {
 
+                    if (entity.InSamePartyAs(ParentObject))
+                    {
+                        listOfPartyMembers.Add(entity);
+                    }
+                }
+
+                if (CorLeonisFirstShiftEntry.ToggleState == true)
+                {
+
+
+                }
+
+                if (CorLeonisSecondShiftEntry.ToggleState == true)
+                {
+                    int original = E.Damage.Amount;
+                    int half = E.Damage.Amount / 2;
+                    E.Damage.Amount = half;
+                    BeforeApplyDamageEvent e = E;
+                    //string attributes = E.Damage
+                    List<GameObject> listOfPartyMembersValid = new List<GameObject>();
+
+                    if (listOfPartyMembers.Count > 0)
+                    {
+                        foreach (var member in listOfPartyMembers)
+                        {
+                            if (member.GetHPPercent() <= 50 || member.hitpoints <= half)
+                            {
+
+                            }
+                            else
+                            {
+
+                                listOfPartyMembersValid.Add(member);
+
+
+                            }
+                        }
+                    }
+
+
+                    if (listOfPartyMembersValid.Count > 0)
+                    {
+                        int dividedDamage = half;
+                        if (listOfPartyMembers.Count > 4)
+                        {
+                            dividedDamage = E.Damage.Amount / 4;
                         }
                         else
                         {
-                            
-                                listOfPartyMembersValid.Add(member);
-                            
-                           
+                            dividedDamage = E.Damage.Amount / listOfPartyMembersValid.Count;
                         }
-                    }
-                }
-                
 
-                if(listOfPartyMembersValid.Count > 0) 
-                {
-                    int dividedDamage = half;
-                    if (listOfPartyMembers.Count > 4)
-                    {
-                        dividedDamage = E.Damage.Amount / 4;
+
+                        foreach (var member in listOfPartyMembersValid)
+                        {
+                            member.TakeDamage(ref dividedDamage);
+                        }
                     }
                     else
                     {
-                        dividedDamage = E.Damage.Amount / listOfPartyMembersValid.Count;
+                        E.Damage.Amount = original;
                     }
-                    
 
-                    foreach (var member in listOfPartyMembersValid)
-                    {
-                        member.TakeDamage(ref dividedDamage);
-                    }
                 }
-                else
-                {
-                    E.Damage.Amount = original;
-                }
-                
+
+
+
+                toBeHealed = null;
             }
 
+            
 
-
-            toBeHealed = null;
-
-            return base.HandleEvent(E);
+                return base.HandleEvent(E);
+            
         }
         public override bool WantEvent(int ID, int cascade)
         {
@@ -233,7 +239,10 @@ namespace XRL.World.Parts.Mutation
             //This event rolls for chances to refresh Authority cool downa and to unlock unobtained Authorities.
             if (ID == AuthorityAwakeningGreedEvent.ID)
             {
-                //if (!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Greed Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }               
+                if (ParentObject.IsPlayer())
+                {
+                    bool didGetAuthority = ObtainAuthority();
+                }
             }
             if (ID == AwardedXPEvent.ID)
             {
@@ -241,8 +250,7 @@ namespace XRL.World.Parts.Mutation
 
                 if (a == 1)
                 {
-                    //if(!Authorities.Contains("StarEating")) { StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority", "Awakened from the Greed Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 2; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating(" + (starUses) + " uses)"; CheckpointEvent.Send(ParentObject); }
-
+                    AuthorityAwakeningGreedEvent.Send(ParentObject);
                 }
 
 
@@ -357,10 +365,12 @@ namespace XRL.World.Parts.Mutation
                 if (CorLeonisSecondShiftEntry.ToggleState == true)
                 {
                     CorLeonisSecondShiftEntry.ToggleState = false;
+                    secondShiftOn = false;
                 }
                 else
                 {
                     CorLeonisSecondShiftEntry.ToggleState = true;
+                    secondShiftOn = true;
 
                 }
 
@@ -380,64 +390,77 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "StillnessOfTime")
             {
+                Popup.Show("activated stillness");
                if(((ParentObject.GetHPPercent() > 75 && secondShiftOn == false) || (ParentObject.GetHPPercent() > 37 && secondShiftOn == true)))
                {
+                    Popup.Show("inside stillness");
                     int damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.75));
+                    List<GameObject> memberList = new List<GameObject>();
+                    List<GameObject> membersHelping = new List<GameObject>();
+                    Popup.Show("1");
                     ParentObject.TakeDamage(ref damage);
+                    Popup.Show("2");
                     stillnessOfTimeOn = true;
+                    Popup.Show("4");
                     int cooldown = 300;
+                    Popup.Show("5");
                     int duration = 3;
-                    if(CorLeonisSecondShiftEntry.ToggleState == true)
+                    Popup.Show("6");
+
+                    Popup.Show("before if secondshift");
+                    if (secondShiftOn)
                     {
-                        List<GameObject> memberList = new List<GameObject>();
-                        memberList.Clear();
-                        foreach (var entity in ParentObject.CurrentZone.GetObjects())
-                        {
                             
-                            
+                            memberList.Clear();
+                            foreach (var entity in ParentObject.CurrentZone.GetObjects())
+                            {
+
+
                                 if (entity.InSamePartyAs(ParentObject))
                                 {
-                                    
+
                                     memberList.Add(entity);
                                 }
-                            
-                            
-                        }
-                        
-                        List<GameObject> membersHelping = new List<GameObject>();
-                        if (membersHelping.Contains(ThePlayer))
-                        {
-                            
-                            membersHelping.Remove(ThePlayer);
-                        }
-                        if (memberList.Count > 0)
-                        {
-                            foreach (var member in memberList)
+
+
+                            }
+
+                           
+                            if (membersHelping.Contains(ThePlayer))
                             {
-                                if (member.GetHPPercent() <= 50)
+
+                                membersHelping.Remove(ThePlayer);
+                            }
+                            if (memberList.Count > 0)
+                            {
+                                foreach (var member in memberList)
                                 {
+                                    if (member.GetHPPercent() <= 50)
+                                    {
 
-                                }
-                                else
-                                {
-                                    
-                                   membersHelping.Add(member);
+                                    }
+                                    else
+                                    {
+
+                                        membersHelping.Add(member);
 
 
+                                    }
                                 }
                             }
-                        }
-                        int num = membersHelping.Count;
-                        if (num > 4)
-                        {
-                            num = 4;
-                        }
+                            int num = membersHelping.Count;
+                            if (num > 4)
+                            {
+                                num = 4;
+                            }
 
-                        duration = duration+ ( num / 2);
-                 
-                        //cooldown = cooldown - (num * 20);
+                            duration = duration + (num / 2);
+
+                            //cooldown = cooldown - (num * 20);
 
                     }
+                    Popup.Show("after if second shift");
+
 
 
                     foreach (var entity in ParentObject.CurrentZone.GetObjects())
@@ -469,14 +492,16 @@ namespace XRL.World.Parts.Mutation
 
                         
                     }
-          
+
+                    Popup.Show("after apply");
+
                     //ParentObject.Energy.BaseValue += duration * 1000;
                     CooldownMyActivatedAbility(StillnessOfTimeID, 0);
                     UseEnergy(0, "Authority Stillness Of Time");
                     stillnessCounter = duration;
                     IComponent<GameObject>.AddPlayerMessage("There are  " + duration.ToString() + " turns left of Stillness");
                     XRLCore.ParticleManager.Add("@", ParentObject.CurrentCell.X, ParentObject.CurrentCell.Y, (float)Math.Sin((double)(float)(100) * 0.017) / 10, (float)Math.Cos((double)(float)(100) * 0.017) / 10);
-                    PlayWorldSound("timestop", .2f, 0f, combat: false);
+                    PlayWorldSound("timestop", .2f, 0f);
                     for (int i = 0; i < Stat.RandomCosmetic(1, 3); i++)
                     {
                         float num = (float)Stat.RandomCosmetic(4, 14) / 3f;
@@ -487,11 +512,11 @@ namespace XRL.World.Parts.Mutation
                     }
                     
                   
-                }
-                else
-               {
-                    IComponent<GameObject>.AddPlayerMessage("The strain to stop time would kill you, so you decide against it.");
                }
+                else
+                {
+                    IComponent<GameObject>.AddPlayerMessage("The strain to stop time would kill you, so you decide against it.");
+                }
             }
 
 
@@ -549,15 +574,10 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            int a = Stat.Random(0, 1);
-            a = 0;
-            if (a == 0) { CorLeonisFirstShiftID = AddMyActivatedAbility("Cor Leonis: First Shift", "CorLeonisFirstShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can take a portion of damage for your allies.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisFirstShiftEntry = MyActivatedAbility(CorLeonisFirstShiftID); CorLeonisFirstShiftEntry.DisplayName = "Cor Leonis: First Shift"; }
-            if (a == 0) { CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift"; }
-            if (a == 0) { CorLeonisThirdShiftID = AddMyActivatedAbility("Cor Leonis: Third Shift", "CorLeonisThirdShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can synchronize effects from yourself to your allies.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisThirdShiftEntry = MyActivatedAbility(CorLeonisThirdShiftID); CorLeonisThirdShiftEntry.DisplayName = "Cor Leonis: Third Shift"; }
-            if (a == 0) { StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so places extreme strain on your body. \n The time of all things will be stopped for 3 turns at the cost of 75%", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);/* StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); StillnessOfTimeEntry.DisplayName = "S";*/ }
-
-            //ActivatedAbilityThreeID = AddMyActivatedAbility("Lunar Eclipse", "LunarEclipse", "Mental Mutation", null, "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);
-
+            
+            
+               ObtainAuthority();
+            
             return base.Mutate(GO, Level);
         }
 
@@ -566,6 +586,7 @@ namespace XRL.World.Parts.Mutation
             RemoveMyActivatedAbility(ref CorLeonisFirstShiftID);
             RemoveMyActivatedAbility(ref CorLeonisSecondShiftID);
             RemoveMyActivatedAbility(ref CorLeonisThirdShiftID);
+            RemoveMyActivatedAbility(ref StillnessOfTimeID);
             return base.Unmutate(GO);
         }
 
@@ -583,6 +604,73 @@ namespace XRL.World.Parts.Mutation
         public void SyncAbilityName_CorLeonisThirdShift()
         {
             
+        }
+
+
+        public bool AddAuthority(string name)
+        {
+            if (name.Equals("CorLeonis"))
+            {
+                CorLeonisFirstShiftID = AddMyActivatedAbility("Cor Leonis: First Shift", "CorLeonisFirstShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can take a portion of damage for your allies.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisFirstShiftEntry = MyActivatedAbility(CorLeonisFirstShiftID); CorLeonisFirstShiftEntry.DisplayName = "Cor Leonis: First Shift";
+                CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift";
+                CorLeonisThirdShiftID = AddMyActivatedAbility("Cor Leonis: Third Shift", "CorLeonisThirdShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can synchronize effects from yourself to your allies.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisThirdShiftEntry = MyActivatedAbility(CorLeonisThirdShiftID); CorLeonisThirdShiftEntry.DisplayName = "Cor Leonis: Third Shift";
+                return true;
+            }
+            if (name.Equals("StillnessOfTime"))
+            {
+                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so places extreme strain on your body. \n The time of all things will be stopped for 3 turns at the cost of 75%", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);/* StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); StillnessOfTimeEntry.DisplayName = "S";*/
+                return true;
+            }
+            return false;
+        }
+
+        public bool ObtainAuthority()
+        {
+            List<string> MissingAuthorities = new List<string>();
+            XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (Authorities.Contains("CorLeonis"))
+            {
+
+            }
+            else
+            {
+                MissingAuthorities.Add("CorLeonis");
+            }
+
+            if (Authorities.Contains("StillnessOfTime"))
+            {
+
+            }
+            else
+            {
+                MissingAuthorities.Add("StillnessOfTime");
+            }
+
+            if (MissingAuthorities.Count > 0)
+            {
+                int a = Stat.Random(0, MissingAuthorities.Count - 1);
+                //Popup.Show(MissingAuthorities[a].ToString());
+
+                switch (MissingAuthorities[a])
+                {
+                    default:
+                        break;
+                    case "CorLeonis":
+                        AddAuthority(MissingAuthorities[a]);
+                        CheckpointEvent.Send(ParentObject);
+                        Authorities.Add(MissingAuthorities[a]);
+                        return true;
+                    case "StillnessOfTime":
+                        AddAuthority(MissingAuthorities[a]);
+                        CheckpointEvent.Send(ParentObject);
+                        Authorities.Add(MissingAuthorities[a]);
+                        return true;
+
+
+                }
+            }
+
+            return false;
         }
 
     }

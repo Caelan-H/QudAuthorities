@@ -64,7 +64,7 @@ namespace QudAuthorities.Mod
             XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
             if (mutations.HasMutation("Greed"))
             {
-                AuthorityAwakeningGluttonyEvent.Send(The.Player);
+                AuthorityAwakeningGreedEvent.Send(The.Player);
 
             }
             else
