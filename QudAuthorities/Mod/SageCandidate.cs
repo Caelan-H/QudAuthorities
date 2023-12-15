@@ -30,7 +30,7 @@ namespace XRL.World.Parts.Mutation
     {
         public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
-        public int WitchFactorOdds = 120;
+        public int WitchFactorOdds = 150;
         public int WitchfactorCount = 0;
         public int xpEventCount = 0;
 
@@ -46,7 +46,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {  
-                return "You have the capability to hold all Witchfactors within. There is a 1/120 chance when you get xp that you will obtain a new Witchfactor.";    
+                return "You have the capability to hold all Witchfactors within. There is a 1/150 chance when you get xp that you will obtain a new Witchfactor.";    
         }
 
         public override string GetLevelText(int Level)
@@ -146,6 +146,30 @@ namespace XRL.World.Parts.Mutation
             {
                 MissingWitchFactors.Add("Gluttony");
             }
+            if (mutations.HasMutation("Lust"))
+            {
+
+            }
+            else
+            {
+                MissingWitchFactors.Add("Lust");
+            }
+            if (mutations.HasMutation("Sloth"))
+            {
+
+            }
+            else
+            {
+                MissingWitchFactors.Add("Sloth");
+            }
+            if (mutations.HasMutation("Wrath"))
+            {
+
+            }
+            else
+            {
+                MissingWitchFactors.Add("Wrath");
+            }
             Popup.Show(MissingWitchFactors.Count.ToString());
             if (MissingWitchFactors.Count> 0) 
             {
@@ -168,6 +192,21 @@ namespace XRL.World.Parts.Mutation
                         return true;
                     case "Greed":
                         mutations.AddMutation("Greed", 1);
+                        CheckpointEvent.Send(ParentObject);
+                        WitchfactorCount++;
+                        return true;
+                    case "Lust":
+                        mutations.AddMutation("Lust", 1);
+                        CheckpointEvent.Send(ParentObject);
+                        WitchfactorCount++;
+                        return true;
+                    case "Sloth":
+                        mutations.AddMutation("Sloth", 1);
+                        CheckpointEvent.Send(ParentObject);
+                        WitchfactorCount++;
+                        return true;
+                    case "Wrath":
+                        mutations.AddMutation("Wrath", 1);
                         CheckpointEvent.Send(ParentObject);
                         WitchfactorCount++;
                         return true;

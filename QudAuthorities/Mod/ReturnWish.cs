@@ -93,6 +93,59 @@ namespace QudAuthorities.Mod
 
         }
 
+        [WishCommand(Command = "Sloth")]
+        public static void SlothWish()
+        {
+            // Popup.Show("Matched it the short way");
+            XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (mutations.HasMutation("Sloth"))
+            {
+                AuthorityAwakeningSlothEvent.Send(The.Player);
+
+            }
+            else
+            {
+                mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Sloth)), 1);
+            }
+
+
+        }
+
+        [WishCommand(Command = "Wrath")]
+        public static void WrathWish()
+        {
+            // Popup.Show("Matched it the short way");
+            XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (mutations.HasMutation("Wrath"))
+            {
+                AuthorityAwakeningWrathEvent.Send(The.Player);
+
+            }
+            else
+            {
+                mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Wrath)), 1);
+            }
+
+
+        }
+
+        [WishCommand(Command = "Pride")]
+        public static void PrideWish()
+        {
+            // Popup.Show("Matched it the short way");
+            XRL.World.Parts.Mutations mutations = The.Player.GetPart("Mutations") as XRL.World.Parts.Mutations;
+            if (mutations.HasMutation("Pride"))
+            {
+                AuthorityAwakeningPrideEvent.Send(The.Player);
+
+            }
+            else
+            {
+                mutations.AddMutation((BaseMutation)Activator.CreateInstance(typeof(Pride)), 1);
+            }
+
+
+        }
 
 
     }

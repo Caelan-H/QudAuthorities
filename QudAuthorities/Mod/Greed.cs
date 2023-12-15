@@ -173,7 +173,9 @@ namespace XRL.World.Parts.Mutation
                 if (CorLeonisSecondShiftEntry.ToggleState == true)
                 {
                     int original = E.Damage.Amount;
-                    int half = E.Damage.Amount / 2;
+                    int half = (int)Math.Floor((decimal)original * (decimal)(.75));
+                    int quarter = (int)Math.Floor((decimal)original * (decimal)(.25));
+                    //int half = E.Damage.Amount / 2;
                     E.Damage.Amount = half;
                     BeforeApplyDamageEvent e = E;
                     //string attributes = E.Damage
@@ -200,14 +202,14 @@ namespace XRL.World.Parts.Mutation
 
                     if (listOfPartyMembersValid.Count > 0)
                     {
-                        int dividedDamage = half;
-                        if (listOfPartyMembers.Count > 4)
+                        int dividedDamage = quarter;
+                        if (listOfPartyMembers.Count > 3)
                         {
-                            dividedDamage = E.Damage.Amount / 4;
+                            dividedDamage = quarter / 3;
                         }
                         else
                         {
-                            dividedDamage = E.Damage.Amount / listOfPartyMembersValid.Count;
+                            dividedDamage = quarter / listOfPartyMembersValid.Count;
                         }
 
 
@@ -391,77 +393,73 @@ namespace XRL.World.Parts.Mutation
             if (E.ID == "StillnessOfTime")
             {
                 Popup.Show("activated stillness");
-               if(((ParentObject.GetHPPercent() > 75 && secondShiftOn == false) || (ParentObject.GetHPPercent() > 37 && secondShiftOn == true)))
-               {
-                    Popup.Show("inside stillness");
-                    int damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.75));
-                    List<GameObject> memberList = new List<GameObject>();
-                    List<GameObject> membersHelping = new List<GameObject>();
-                    Popup.Show("1");
-                    ParentObject.TakeDamage(ref damage);
-                    Popup.Show("2");
-                    stillnessOfTimeOn = true;
-                    Popup.Show("4");
-                    int cooldown = 300;
-                    Popup.Show("5");
-                    int duration = 3;
-                    Popup.Show("6");
+                List<GameObject> memberList = new List<GameObject>();
+                List<GameObject> membersHelping = new List<GameObject>();
+                if (secondShiftOn)
+                {
 
-                    Popup.Show("before if secondshift");
-                    if (secondShiftOn)
+                    memberList.Clear();
+                    foreach (var entity in ParentObject.CurrentZone.GetObjects())
                     {
-                            
-                            memberList.Clear();
-                            foreach (var entity in ParentObject.CurrentZone.GetObjects())
-                            {
 
 
-                                if (entity.InSamePartyAs(ParentObject))
-                                {
+                        if (entity.InSamePartyAs(ParentObject))
+                        {
 
-                                    memberList.Add(entity);
-                                }
+                            memberList.Add(entity);
+                        }
 
-
-                            }
-
-                           
-                            if (membersHelping.Contains(ThePlayer))
-                            {
-
-                                membersHelping.Remove(ThePlayer);
-                            }
-                            if (memberList.Count > 0)
-                            {
-                                foreach (var member in memberList)
-                                {
-                                    if (member.GetHPPercent() <= 50)
-                                    {
-
-                                    }
-                                    else
-                                    {
-
-                                        membersHelping.Add(member);
-
-
-                                    }
-                                }
-                            }
-                            int num = membersHelping.Count;
-                            if (num > 4)
-                            {
-                                num = 4;
-                            }
-
-                            duration = duration + (num / 2);
-
-                            //cooldown = cooldown - (num * 20);
 
                     }
-                    Popup.Show("after if second shift");
 
 
+                    if (membersHelping.Contains(ThePlayer))
+                    {
+
+                        membersHelping.Remove(ThePlayer);
+                    }
+                    if (memberList.Count > 0)
+                    {
+                        foreach (var member in memberList)
+                        {
+                            if (member.GetHPPercent() <= 50)
+                            {
+
+                            }
+                            else
+                            {
+
+                                membersHelping.Add(member);
+
+
+                            }
+                        }
+                    }
+                    
+                    
+
+                    //cooldown = cooldown - (num * 20);
+
+                }
+
+                if (((ParentObject.GetHPPercent() > 30 ) || ParentObject.GetHPPercent() > 15 && membersHelping.Count > 0 && secondShiftOn))
+                {
+                    
+                    int damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.30));
+                    
+                    
+                    ParentObject.TakeDamage(ref damage);
+                   
+                    stillnessOfTimeOn = true;
+                  
+                    int cooldown = 300;
+              
+                    int duration = 3;
+              
+                    if(membersHelping.Count > 0)
+                    {
+                        duration++;
+                    }
 
                     foreach (var entity in ParentObject.CurrentZone.GetObjects())
                     {
@@ -611,14 +609,14 @@ namespace XRL.World.Parts.Mutation
         {
             if (name.Equals("CorLeonis"))
             {
-                CorLeonisFirstShiftID = AddMyActivatedAbility("Cor Leonis: First Shift", "CorLeonisFirstShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can take a portion of damage for your allies.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisFirstShiftEntry = MyActivatedAbility(CorLeonisFirstShiftID); CorLeonisFirstShiftEntry.DisplayName = "Cor Leonis: First Shift";
-                CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift";
+                CorLeonisFirstShiftID = AddMyActivatedAbility("Cor Leonis: First Shift", "CorLeonisFirstShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can take a portion of damage for your allies. At any range, select an ally and then enter an amount of HP less than your current total to give to your ally.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisFirstShiftEntry = MyActivatedAbility(CorLeonisFirstShiftID); CorLeonisFirstShiftEntry.DisplayName = "Cor Leonis: First Shift";
+                CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you. If toggled active, allies with >50% HP will take 25% of damage you take for you. The damage is then divided by the number of allies with >50% HP up to 3.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift";
                 CorLeonisThirdShiftID = AddMyActivatedAbility("Cor Leonis: Third Shift", "CorLeonisThirdShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can synchronize effects from yourself to your allies.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisThirdShiftEntry = MyActivatedAbility(CorLeonisThirdShiftID); CorLeonisThirdShiftEntry.DisplayName = "Cor Leonis: Third Shift";
                 return true;
             }
             if (name.Equals("StillnessOfTime"))
             {
-                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so places extreme strain on your body. \n The time of all things will be stopped for 3 turns at the cost of 75%", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);/* StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); StillnessOfTimeEntry.DisplayName = "S";*/
+                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so causes strain on your body. The time of all things will be stopped for 3 turns at the cost of 30% of your total HP or 15% if Cor Leonis: Second Shift is active as long as you have greater than 30% HP and greater than 15% HP respectively.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);/* StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); StillnessOfTimeEntry.DisplayName = "S";*/
                 return true;
             }
             return false;
