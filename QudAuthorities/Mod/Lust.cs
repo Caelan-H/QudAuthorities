@@ -54,7 +54,7 @@ namespace XRL.World.Parts.Mutation
         public List<string> Authorities = new List<string>();
         public GameObject capturedSoul = null;
         public GameObject capturedSoulDeepCopy = null;
-        public int AwakeningOdds = 120;
+        public int AwakeningOdds = 119;
         public int soulDecay = 0;
         string WitchFactor = "";
         public Lust()
@@ -70,7 +70,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with deep yearning....\n There is a 1/120" + " chance to awaken another Authority of Lust.");
+            return string.Concat("A dark mass hiding within your soul writhes with deep yearning....\n There is a 1/120" + " chance to awaken another Authority of Lust. The Authorities are: Heaven's Feel and Faceless Bride. Reputation +50 with all factions.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -198,7 +198,7 @@ namespace XRL.World.Parts.Mutation
                 }
                 if(worked)
                 {
-                    CooldownMyActivatedAbility(FacelessBrideID, 400);
+                    CooldownMyActivatedAbility(FacelessBrideID, 300);
                     FacelessBrideEntry.Description = "Awakened from the Lust Witchfactor, you gain a understanding of a way you can take make others perceive you in their perferred form. Pick a target at melee range and you will get +100 reputation with them. If you already had a faction under the effect of Faceless Bride, the effect is removed on the former faction. You are currently using Faceless Bride on the faction:" + Factions.get(FacelessBrideFaction).DisplayName + ".";
 
                 }

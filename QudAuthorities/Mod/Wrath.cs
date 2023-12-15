@@ -47,7 +47,7 @@ namespace XRL.World.Parts.Mutation
         public GameObject toBeHealed = null;
         public bool UnjustWorldOn = false;
         public List<string> Authorities = new List<string>();
-        public int AwakeningOdds = 120;
+        public int AwakeningOdds = 119;
         string WitchFactor = "";
         public Wrath()
         {
@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/120" + " chance to awaken another Authority of Wrath.");
+            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/120" + " chance to awaken another Authority of Wrath. The Authorities are: Unjust World and Soulwash. Agility and Strength +2.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -143,7 +143,7 @@ namespace XRL.World.Parts.Mutation
                     AuthorityAwakeningWrathEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 10);
+                int b = Stat.Random(0, 9);
 
                 if(b == 1)
                 {
@@ -279,7 +279,8 @@ namespace XRL.World.Parts.Mutation
 
 
             ObtainAuthority();
-
+            ParentObject.BoostStat("Strength", 1);
+            ParentObject.BoostStat("Agility", 1);
             return base.Mutate(GO, Level);
         }
 
@@ -287,6 +288,8 @@ namespace XRL.World.Parts.Mutation
         {
             RemoveMyActivatedAbility(ref UnjustWorldID);
             RemoveMyActivatedAbility(ref SoulwashingID);
+            ParentObject.BoostStat("Strength", -1);
+            ParentObject.BoostStat("Agility", -1);
             return base.Unmutate(GO);
         }
 

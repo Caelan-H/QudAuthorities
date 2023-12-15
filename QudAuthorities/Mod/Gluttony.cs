@@ -42,7 +42,7 @@ namespace XRL.World.Parts.Mutation
         public List<string> Authorities = new List<string>();
         public int GluttonousUses = 0;
         public int starUses = 0;
-        public int AwakeningOdds = 120;
+        public int AwakeningOdds = 119;
         string WitchFactor = "";
         
         public Gluttony()
@@ -53,13 +53,13 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {
-            return "The Gluttony Witch Factor. Within it the potential to feast upon the minds of others lurks.";
+            return "The Gluttony Witch Factor.";
         }
 
         public override string GetLevelText(int Level)
         {
 
-            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/120" + " chance to awaken another Authority of Gluttony.");
+            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/120" + " chance to awaken another Authority of Gluttony. The Authorities are: Star Eating and Gluttonous Eating. Toughness +2.");
 
             /*
             if(Authorities.Count == 0 || Authorities.Count == 1)
@@ -100,9 +100,9 @@ namespace XRL.World.Parts.Mutation
             }
             if (ID == AwardedXPEvent.ID)
             {
-                int a = Stat.Random(0, 5);
-                int b = Stat.Random(0, 7);
-                int c = Stat.Random(0, 10);
+                int a = Stat.Random(0, AwakeningOdds);
+                int b = Stat.Random(0, 6);
+                int c = Stat.Random(0, 9);
                 if (a == 1)
                 {
                     AuthorityAwakeningGluttonyEvent.Send(ParentObject);  
@@ -232,7 +232,7 @@ namespace XRL.World.Parts.Mutation
             
             
                 ObtainAuthority();
-                      
+            ParentObject.BoostStat("Toughness", 1);
             return base.Mutate(GO, Level);
         }
 
@@ -248,6 +248,8 @@ namespace XRL.World.Parts.Mutation
             }
 
             RemoveMyActivatedAbility(ref GluttonousEatingID);
+            ParentObject.BoostStat("Toughness", -1);
+
             return base.Unmutate(GO);
         }
 

@@ -47,7 +47,7 @@ namespace XRL.World.Parts.Mutation
         public int range = 4;
         public int level = 0;
         public int IP_XP = 0;
-        public int AwakeningOdds = 120;      
+        public int AwakeningOdds = 119;      
         string WitchFactor = "";
         public Sloth()
         {
@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hibernates within you, desperate for a chance to rest.");
+            return string.Concat("A dark mass hides within your soul desperate for rest....\n There is a 1/120" + " chance to awaken another Authority of Sloth. The Authorities are: Invisible Providence. Willpower +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -110,7 +110,7 @@ namespace XRL.World.Parts.Mutation
                     AuthorityAwakeningSlothEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 15);
+                int b = Stat.Random(0, 14);
 
                 if (a == 1)
                 {

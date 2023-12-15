@@ -55,7 +55,7 @@ namespace XRL.World.Parts.Mutation
         public int damageToTake = 0;
         public List<string> Authorities = new List<string>();
         public List<GameObject> stoppedMembers = new List<GameObject>();
-        public int AwakeningOdds = 120;
+        public int AwakeningOdds = 119;
         string WitchFactor = "";
         public Greed()
         {
@@ -70,7 +70,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/120" + " chance to awaken another Authority of Greed.");
+            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/120" + " chance to awaken another Authority of Greed. The Authorities are: Cor Leonis and Stillness Of Time. Intelligence +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -392,7 +392,7 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "StillnessOfTime")
             {
-                Popup.Show("activated stillness");
+               // Popup.Show("activated stillness");
                 List<GameObject> memberList = new List<GameObject>();
                 List<GameObject> membersHelping = new List<GameObject>();
                 if (secondShiftOn)
@@ -491,10 +491,10 @@ namespace XRL.World.Parts.Mutation
                         
                     }
 
-                    Popup.Show("after apply");
+                    //Popup.Show("after apply");
 
                     //ParentObject.Energy.BaseValue += duration * 1000;
-                    CooldownMyActivatedAbility(StillnessOfTimeID, 0);
+                    CooldownMyActivatedAbility(StillnessOfTimeID, 120);
                     UseEnergy(0, "Authority Stillness Of Time");
                     stillnessCounter = duration;
                     IComponent<GameObject>.AddPlayerMessage("There are  " + duration.ToString() + " turns left of Stillness");
@@ -575,7 +575,8 @@ namespace XRL.World.Parts.Mutation
             
             
                ObtainAuthority();
-            
+               ParentObject.GainIntelligence(1);
+
             return base.Mutate(GO, Level);
         }
 
@@ -585,6 +586,7 @@ namespace XRL.World.Parts.Mutation
             RemoveMyActivatedAbility(ref CorLeonisSecondShiftID);
             RemoveMyActivatedAbility(ref CorLeonisThirdShiftID);
             RemoveMyActivatedAbility(ref StillnessOfTimeID);
+            ParentObject.GainIntelligence(-1);
             return base.Unmutate(GO);
         }
 
