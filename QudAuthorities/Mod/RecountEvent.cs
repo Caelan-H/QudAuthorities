@@ -12,7 +12,7 @@ public class RecountEvent : MinEvent
     public new static readonly int ID;
     public static readonly string Authority;
 
-    private static List<AuthorityAwakeningWrathEvent> Pool;
+    private static List<RecountEvent> Pool;
 
     private static int PoolCounter;
 
@@ -32,7 +32,7 @@ public class RecountEvent : MinEvent
     {
         ID = MinEvent.AllocateID();
         MinEvent.RegisterPoolReset(ResetPool);
-        MinEvent.RegisterPoolCount(typeof(AuthorityAwakeningWrathEvent).Name, () => (Pool != null) ? Pool.Count : 0);
+        MinEvent.RegisterPoolCount(typeof(RecountEvent).Name, () => (Pool != null) ? Pool.Count : 0);
     }
 
     public RecountEvent()
@@ -56,10 +56,10 @@ public class RecountEvent : MinEvent
 
     public static RecountEvent FromPool(GameObject Actor)
     {
-        AuthorityAwakeningWrathEvent authorityAwakeningWrathEvent = FromPool();
-        authorityAwakeningWrathEvent.Actor = Actor;
+        RecountEvent recountEvent = FromPool();
+        recountEvent.Actor = Actor;
 
-        return authorityAwakeningWrathEvent;
+        return recountEvent;
     }
 
     public override int GetCascadeLevel()

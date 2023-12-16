@@ -126,14 +126,77 @@ namespace XRL.World.Parts.Mutation
                 }
                 if (listOfPartyMembers.Count > 0)
                 {
-                    if (E.Effect.ClassName == "Wading" || E.Effect.ClassName == "Flying" || E.Effect.ClassName == "Beguiled" || E.Effect.ClassName == "Dominated" || E.Effect.ClassName == "MemberOfPsychicBattle" || E.Effect.ClassName == "Lost" || E.Effect.ClassName == "Overburdened" || E.Effect.ClassName == "Phasing" || E.Effect.ClassName == "PhasedWhileStuck" || E.Effect.ClassName == "PhasePoisoned" || E.Effect.ClassName == "Prone" || E.Effect.ClassName == "Submerged" || E.Effect.ClassName == "Stuck" || E.Effect.ClassName == "Swimming" || E.Effect.ClassName == "LongbladeEffect_EnGarde" || E.Effect.ClassName == "LongbladeStance_Aggressive" || E.Effect.ClassName == "LongbladeStance_Defensive" || E.Effect.ClassName == "LongbladeStance_Dueling")
+
+                    bool canTransfer = false;
+
+                    switch (E.Effect.ClassName)
                     {
+                        default:
+                            canTransfer = false;
+                            break;
+                        case "Blaze_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "Emboldened":
+                            canTransfer = true;
+                            break;
+                        case "Frenzied":
+                            canTransfer = true;
+                            break;
+                        case "Metabolizing":
+                            canTransfer = true;
+                            break;
+                        case "Luminous":
+                            canTransfer = true;
+                            break;
+                        case "Sprinting":
+                            canTransfer = true;
+                            break;
+                        case "Hoarshroom_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "HulkHoney_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "Rubbergum_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "Salve_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "ShadeOil_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "Skulk_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "SphynxSalt_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "Ubernostrum_Tonic":
+                            canTransfer = true;
+                            break;
+                        case "AdrenalControl2Boosted":
+                            canTransfer = true;
+                            break;
+                        case "Ecstatic":
+                            canTransfer = true;
+                            break;
+                        case "GeometricHeal":
+                            canTransfer = true;
+                            break;
+                        case "Healing":
+                            canTransfer = true;
+                            break;
+                        case "Meditating":
+                            canTransfer = true;
+                            break;
 
                     }
-                    else
-                    {
-                        foreach (var member in listOfPartyMembers) { member.ApplyEffect(E.Effect); }
-                    }
+
+                    if (canTransfer == true) { foreach (var member in listOfPartyMembers) { member.ApplyEffect(E.Effect); } }
+                        
+                    
                     
                 }
                 
@@ -614,7 +677,7 @@ namespace XRL.World.Parts.Mutation
             {
                 CorLeonisFirstShiftID = AddMyActivatedAbility("Cor Leonis: First Shift", "CorLeonisFirstShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can take a portion of damage for your allies. At any range, select an ally and then enter an amount of HP less than your current total to give to your ally.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisFirstShiftEntry = MyActivatedAbility(CorLeonisFirstShiftID); CorLeonisFirstShiftEntry.DisplayName = "Cor Leonis: First Shift";
                 CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you. If toggled active, allies with >50% HP will take 25% of damage you take for you. The damage is then divided by the number of allies with >50% HP up to 3.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift";
-                CorLeonisThirdShiftID = AddMyActivatedAbility("Cor Leonis: Third Shift", "CorLeonisThirdShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can synchronize effects from yourself to your allies.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisThirdShiftEntry = MyActivatedAbility(CorLeonisThirdShiftID); CorLeonisThirdShiftEntry.DisplayName = "Cor Leonis: Third Shift";
+                CorLeonisThirdShiftID = AddMyActivatedAbility("Cor Leonis: Third Shift", "CorLeonisThirdShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can synchronize effects from yourself to your allies. The following effects will transfer: Tonics, Emboldened, Frenzied, Metabolizing, Luminous, Sprinting, Adrenal Control, Ecstatic, Geometric Heal, Healing, Meditating.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisThirdShiftEntry = MyActivatedAbility(CorLeonisThirdShiftID); CorLeonisThirdShiftEntry.DisplayName = "Cor Leonis: Third Shift";
                 return true;
             }
             if (name.Equals("StillnessOfTime"))
