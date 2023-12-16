@@ -194,7 +194,23 @@ namespace XRL.World.Parts.Mutation
 
                     }
 
-                    if (canTransfer == true) { foreach (var member in listOfPartyMembers) { member.ApplyEffect(E.Effect); } }
+                    if (canTransfer == true) 
+                    { foreach (var member in listOfPartyMembers)
+                        {
+
+                            member.Effects.Contains(E.Effect)
+                            {
+
+                            }
+                            else
+                            {
+                                
+                                member.ApplyEffect(E.Effect);
+                            }
+                           
+                        } 
+                    }
+                    
                         
                     
                     
