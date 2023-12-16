@@ -30,7 +30,7 @@ namespace XRL.World.Parts.Mutation
     {
         public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
-        public int WitchFactorOdds = 249;
+        public int WitchFactorOdds = 699;
         public int WitchfactorCount = 0;
         public int xpEventCount = 0;
 
@@ -46,7 +46,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {  
-                return "You have the capability to hold all Witchfactors within. There is a 1/250 chance when you get xp that you will obtain a new Witchfactor.";    
+                return "You have the capability to hold all Witchfactors within. There is a 1/700 chance when you get xp that you will obtain a new Witchfactor. After your first witch factor you will need to hit levels 10, 15, 20, 25, 30 to get the chance to recieve another.";    
         }
 
         public override string GetLevelText(int Level)
@@ -71,22 +71,100 @@ namespace XRL.World.Parts.Mutation
             base.Register(Object);
         }
 
+        public bool CanGetWitchfactor()
+        {
+            switch (WitchfactorCount)
+            {
+                default:
+                    break;
+                case 0:
+                    return true;
+                case 1:
+                    if(ParentObject.Level >=10)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case 2:
+                    if (ParentObject.Level >= 15)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case 3:
+                    if (ParentObject.Level >= 20)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case 4:
+                    if (ParentObject.Level >= 25)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case 5:
+                    if (ParentObject.Level >= 30)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                case 6:
+                    return false;
+            }
+            return false;
+        }
+
         public override bool WantEvent(int ID, int cascade)
         {
             if (ID == AwardedXPEvent.ID)
             {
+
+
                 xpEventCount++;
                 int a = Stat.Random(0, WitchFactorOdds);
 
                 if (a == 1)
                 {
+                    if(CanGetWitchfactor() == true)
+                    {
+                        bool s = ObtainWitchFactor();
+                        if (s) { Popup.Show("You feel the sensation of a sinister impurity take refuge within your soul. You can feel its immense power trying to consume you, but you endure it. Eventually, the dark power settles within becoming a part of you permanantly."); }
+
+                        return true;
+                    }
                     
-                    bool s = ObtainWitchFactor();
-                    if(s) { Popup.Show("You feel the sensation of a sinister impurity take refuge within your soul. You can feel its immense power trying to consume you, but you endure it. Eventually, the dark power settles within becoming a part of you permanantly."); }
-                    
-                    return true;
                 }
                 return false;
+            }
+            if (ID == RecountEvent.ID)
+            {
+                WitchfactorCount = 0;
+                XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
+                if (mutations.HasMutation("Gluttony")) { WitchfactorCount++; };
+                if (mutations.HasMutation("Greed")) { WitchfactorCount++; };
+                if (mutations.HasMutation("Lust")) { WitchfactorCount++; };
+                if (mutations.HasMutation("Sloth")) { WitchfactorCount++; };
+                if (mutations.HasMutation("Wrath")) { WitchfactorCount++; };
+                if (mutations.HasMutation("Pride")) { WitchfactorCount++; };
+
+
+                return true;
             }
             return true;
         }

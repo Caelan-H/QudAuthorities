@@ -54,7 +54,7 @@ namespace XRL.World.Parts.Mutation
         public List<string> Authorities = new List<string>();
         public GameObject capturedSoul = null;
         public GameObject capturedSoulDeepCopy = null;
-        public int AwakeningOdds = 199;
+        public int AwakeningOdds = 699;
         public int soulDecay = 0;
         string WitchFactor = "";
         public Lust()
@@ -70,7 +70,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with deep yearning....\n There is a 1/200" + " chance to awaken another Authority of Lust. The Authorities are: Heaven's Feel and Faceless Bride. Reputation +50 with all factions.");
+            return string.Concat("A dark mass hiding within your soul writhes with deep yearning....\n There is a 1/700" + " chance to awaken another Authority of Lust. The Authorities are: Heaven's Feel and Faceless Bride. Reputation +50 with all factions.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -513,6 +513,7 @@ namespace XRL.World.Parts.Mutation
             {
                 XRLCore.Core.Game.PlayerReputation.modify(faction, -50);
             }
+            RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }
 

@@ -48,7 +48,7 @@ namespace XRL.World.Parts.Mutation
         public bool JudgementOn = false;
         public List<string> Authorities = new List<string>();
         public List<int> damageValues = new List<int>();
-        public int AwakeningOdds = 199;
+        public int AwakeningOdds = 699;
         string WitchFactor = "";
         public Pride()
         {
@@ -63,7 +63,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul bearing immense pride yearns for domination....\n There is a 1/200" + " chance to awaken another Authority of Pride. The Authorities are: Judgement and Rewrite. Ego +1.");
+            return string.Concat("A dark mass hiding within your soul bearing immense pride yearns for domination....\n There is a 1/700" + " chance to awaken another Authority of Pride. The Authorities are: Judgement and Rewrite. Ego +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -338,6 +338,7 @@ namespace XRL.World.Parts.Mutation
             RemoveMyActivatedAbility(ref JudgementID);
             RemoveMyActivatedAbility(ref RewriteID);
             ParentObject.GainEgo(-1);
+            RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }
 

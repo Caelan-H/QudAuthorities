@@ -47,7 +47,7 @@ namespace XRL.World.Parts.Mutation
         public GameObject toBeHealed = null;
         public bool UnjustWorldOn = false;
         public List<string> Authorities = new List<string>();
-        public int AwakeningOdds = 199;
+        public int AwakeningOdds = 699;
         string WitchFactor = "";
         public Wrath()
         {
@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/200" + " chance to awaken another Authority of Wrath. The Authorities are: Unjust World and Soulwash. Agility and Strength +1.");
+            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/700" + " chance to awaken another Authority of Wrath. The Authorities are: Unjust World and Soulwash. Agility and Strength +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -217,7 +217,7 @@ namespace XRL.World.Parts.Mutation
                     return false;
                 }
 
-                if (soulwashes == 0)
+                if (soulwashes <= 0)
                 {
                     
                     if (ParentObject.IsPlayer())
@@ -290,6 +290,8 @@ namespace XRL.World.Parts.Mutation
             RemoveMyActivatedAbility(ref SoulwashingID);
             ParentObject.GetStat("Strength").BaseValue -= 1;
             ParentObject.GetStat("Agility").BaseValue -= 1;
+            
+            RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }
 
@@ -319,7 +321,8 @@ namespace XRL.World.Parts.Mutation
             }
             if (name.Equals("Soulwashing"))
             {
-                SoulwashingID = AddMyActivatedAbility("Soulwash", "Soulwash", "Authority:Wrath", "Awakened from the Wrath Witchfactor, you become aware of a method to bathe a target's soul with madness. After doing so, they will be Terrified, Dazed, Disoriented, Hobbled, Shamed, and Shaken for 6 turns. The max amount of charges is 3 and you get charges back at a chance of 10% whenever you get xp.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); SoulwashingEntry = MyActivatedAbility(SoulwashingID); soulwashes = 3; SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/3]";
+                soulwashes = 3;
+                SoulwashingID = AddMyActivatedAbility("Soulwash", "Soulwash", "Authority:Wrath", "Awakened from the Wrath Witchfactor, you become aware of a method to bathe a target's soul with madness. After doing so, they will be Terrified, Dazed, Disoriented, Hobbled, Shamed, and Shaken for 6 turns. The max amount of charges is 3 and you get charges back at a chance of 10% whenever you get xp.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); SoulwashingEntry = MyActivatedAbility(SoulwashingID);  SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/3]";
                 return true;
             }
             return false;

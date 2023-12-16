@@ -47,7 +47,7 @@ namespace XRL.World.Parts.Mutation
         public int range = 4;
         public int level = 0;
         public int IP_XP = 0;
-        public int AwakeningOdds = 119;      
+        public int AwakeningOdds = 699;      
         string WitchFactor = "";
         public Sloth()
         {
@@ -110,7 +110,7 @@ namespace XRL.World.Parts.Mutation
                     AuthorityAwakeningSlothEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 14);
+                int b = Stat.Random(0, 24);
 
                 if (a == 1)
                 {
@@ -888,6 +888,7 @@ namespace XRL.World.Parts.Mutation
         {
             RemoveMyActivatedAbility(ref InvisibleProvidenceID);
             ParentObject.GainWillpower(-1);
+            RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }
 
@@ -897,7 +898,7 @@ namespace XRL.World.Parts.Mutation
             
             if (name.Equals("InvisibleProvidence"))
             {
-                InvisibleProvidenceID = AddMyActivatedAbility("Invisible Providence", "InvisibleProvidence", "Authority:Sloth", "Awakened from the Sloth Witchfactor, you've become aware of an extendable telekinetic hand made of shadow unseen to others that you can summon to attack an enemy for (15 + your level) damage. The hand cannot be seen by enemies and is physically transiant, meaning it will ignore both AV and DV. Each time Invisible Providence is used, the user gains 1 point of buildup and in total can have 0-20 buildup at a time. Upon obtaining XP, there is a 6.7% chance of removing a point of buildup. There are 6 tiers of buildup in the following ranges: T0[0-2], T1[3-5], T2[6-8], T3[9-11], T4[12-14], T5[15-17], T6[18-20]. Usage of Invisible Providence costs T0[0%]/T1[15%]/T2[20%]/T3[25%]/T4[35%]/T5[40%]/T6[45%] of your max HP. An additional affect will be applied to player; the following listing is the tier, effects and chances: T0[Nothing], T1[Bleed(50%)/Nothing(50%)], T2[Bleed(50%)/Ill(33.3%)/Nothing(16.7%)], T3[Bleed(50%)/Ill(50%)], T4[Bleed(50%)/Vomit+Ill(25%)/Confusion(12.75%)/Ill(8.3%)], T5[Bleed(50%)/Vomit+Ill(25%)/Confusion(25%)], T6[Bleed(50%)/Vomit+Ill(25%)/Confusion(16.7%)/Monochrome(8.3%)].", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); InvisibleProvidenceEntry = MyActivatedAbility(InvisibleProvidenceID); InvisibleProvidenceEntry.DisplayName = "Invisible Providence:[" + buildUp.ToString() + "/20 | T0]"; Authorities.Add("InvisibleProvidence");
+                InvisibleProvidenceID = AddMyActivatedAbility("Invisible Providence", "InvisibleProvidence", "Authority:Sloth", "Awakened from the Sloth Witchfactor, you've become aware of an extendable telekinetic hand made of shadow unseen to others that you can summon to attack an enemy for (15 + your level) damage. The hand cannot be seen by enemies and is physically transiant, meaning it will ignore both AV and DV. Each time Invisible Providence is used, the user gains 1 point of buildup and in total can have 0-20 buildup at a time. Upon obtaining XP, there is a 1/25 chance of removing a point of buildup. There are 6 tiers of buildup in the following ranges: T0[0-2], T1[3-5], T2[6-8], T3[9-11], T4[12-14], T5[15-17], T6[18-20]. Usage of Invisible Providence costs T0[0%]/T1[15%]/T2[20%]/T3[25%]/T4[35%]/T5[40%]/T6[45%] of your max HP. An additional affect will be applied to player; the following listing is the tier, effects and chances: T0[Nothing], T1[Bleed(50%)/Nothing(50%)], T2[Bleed(50%)/Ill(33.3%)/Nothing(16.7%)], T3[Bleed(50%)/Ill(50%)], T4[Bleed(50%)/Vomit+Ill(25%)/Confusion(12.75%)/Ill(8.3%)], T5[Bleed(50%)/Vomit+Ill(25%)/Confusion(25%)], T6[Bleed(50%)/Vomit+Ill(25%)/Confusion(16.7%)/Monochrome(8.3%)].", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); InvisibleProvidenceEntry = MyActivatedAbility(InvisibleProvidenceID); InvisibleProvidenceEntry.DisplayName = "Invisible Providence:[" + buildUp.ToString() + "/20 | T0]"; Authorities.Add("InvisibleProvidence");
                 return true;
             }
             return false;
