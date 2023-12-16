@@ -47,7 +47,7 @@ namespace XRL.World.Parts.Mutation
         public GameObject toBeHealed = null;
         public bool UnjustWorldOn = false;
         public List<string> Authorities = new List<string>();
-        public int AwakeningOdds = 119;
+        public int AwakeningOdds = 199;
         string WitchFactor = "";
         public Wrath()
         {
@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/120" + " chance to awaken another Authority of Wrath. The Authorities are: Unjust World and Soulwash. Agility and Strength +2.");
+            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/200" + " chance to awaken another Authority of Wrath. The Authorities are: Unjust World and Soulwash. Agility and Strength +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -84,7 +84,7 @@ namespace XRL.World.Parts.Mutation
         public override void Register(GameObject Object)
         {
             Object.RegisterPartEvent(this, "UnjustWorld");
-            Object.RegisterPartEvent(this, "Soulwash");
+            Object.RegisterPartEvent(this, "Soulwash");        
             base.Register(Object);
         }
 
@@ -279,8 +279,8 @@ namespace XRL.World.Parts.Mutation
 
 
             ObtainAuthority();
-            ParentObject.BoostStat("Strength", 1);
-            ParentObject.BoostStat("Agility", 1);
+            ParentObject.GetStat("Strength").BaseValue += 1;
+            ParentObject.GetStat("Agility").BaseValue += 1;
             return base.Mutate(GO, Level);
         }
 
@@ -288,8 +288,8 @@ namespace XRL.World.Parts.Mutation
         {
             RemoveMyActivatedAbility(ref UnjustWorldID);
             RemoveMyActivatedAbility(ref SoulwashingID);
-            ParentObject.BoostStat("Strength", -1);
-            ParentObject.BoostStat("Agility", -1);
+            ParentObject.GetStat("Strength").BaseValue -= 1;
+            ParentObject.GetStat("Agility").BaseValue -= 1;
             return base.Unmutate(GO);
         }
 

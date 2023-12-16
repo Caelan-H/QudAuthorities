@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hides within your soul desperate for rest....\n There is a 1/120" + " chance to awaken another Authority of Sloth. The Authorities are: Invisible Providence. Willpower +1.");
+            return string.Concat("A dark mass hides within your soul desperate for rest....\n The Authorities are: Invisible Providence. Willpower +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)

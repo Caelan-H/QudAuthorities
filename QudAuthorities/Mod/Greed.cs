@@ -55,7 +55,7 @@ namespace XRL.World.Parts.Mutation
         public int damageToTake = 0;
         public List<string> Authorities = new List<string>();
         public List<GameObject> stoppedMembers = new List<GameObject>();
-        public int AwakeningOdds = 119;
+        public int AwakeningOdds = 199;
         string WitchFactor = "";
         public Greed()
         {
@@ -70,7 +70,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/120" + " chance to awaken another Authority of Greed. The Authorities are: Cor Leonis and Stillness Of Time. Intelligence +1.");
+            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/200" + " chance to awaken another Authority of Greed. The Authorities are: Cor Leonis and Stillness Of Time. Intelligence +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)

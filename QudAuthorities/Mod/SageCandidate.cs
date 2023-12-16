@@ -30,7 +30,7 @@ namespace XRL.World.Parts.Mutation
     {
         public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
-        public int WitchFactorOdds = 174;
+        public int WitchFactorOdds = 249;
         public int WitchfactorCount = 0;
         public int xpEventCount = 0;
 
@@ -46,7 +46,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {  
-                return "You have the capability to hold all Witchfactors within. There is a 1/175 chance when you get xp that you will obtain a new Witchfactor.";    
+                return "You have the capability to hold all Witchfactors within. There is a 1/250 chance when you get xp that you will obtain a new Witchfactor.";    
         }
 
         public override string GetLevelText(int Level)
