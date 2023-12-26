@@ -54,8 +54,9 @@ namespace XRL.World.Parts.Mutation
         public List<string> Authorities = new List<string>();
         public GameObject capturedSoul = null;
         public GameObject capturedSoulDeepCopy = null;
-        public int AwakeningOdds = 699;
+        public int AwakeningOdds = 549;
         public int soulDecay = 0;
+        public bool stored = false;
         string WitchFactor = "";
         public Lust()
         {
@@ -70,7 +71,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with deep yearning....\n There is a 1/700" + " chance to awaken another Authority of Lust. The Authorities are: Heaven's Feel and Faceless Bride. Reputation +50 with all factions.");
+            return string.Concat("A dark mass hiding within your soul writhes with deep yearning....\n There is a 1/550" + " chance to awaken another Authority of Lust upon gaining XP. The Authorities are: Heaven's Feel and Faceless Bride. Reputation +50 with all factions.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -188,7 +189,7 @@ namespace XRL.World.Parts.Mutation
                     }
                     else
                     {
-                        XRLCore.Core.Game.PlayerReputation.modify(FacelessBrideFaction, -75);
+                        XRLCore.Core.Game.PlayerReputation.modify(FacelessBrideFaction, -100);
                         XRLCore.Core.Game.PlayerReputation.modify(faction, 100);
                         IComponent<GameObject>.AddPlayerMessage("All members of the faction " + Factions.get(faction).DisplayName + " have their minds distorted and think you look like them due to your Authority. The distortion over the minds of faction " + Factions.get(FacelessBrideFaction).DisplayName + " has been undone.");
                         facelessBrideActive = true;
@@ -211,6 +212,30 @@ namespace XRL.World.Parts.Mutation
             
         }
 
+        public void spawnDeepCopy(Cell toCheck)
+        {
+            //Popup.Show("inSpawnDeepCopy");
+            if (toCheck.IsEmpty() && stored == true && toCheck.InActiveZone == true && toCheck.ParentZone == ParentObject.CurrentZone)
+            {
+                
+                //Popup.Show("Attempting to spawn");
+                capturedSoulDeepCopy.MakeActive();
+                capturedSoulDeepCopy.CellTeleport(toCheck);
+                stored = false;
+            }
+        }
+
+        public override bool HandleEvent(EndTurnEvent E)
+        {
+            if (stored == true && capturedSoulDeepCopy != null)
+            {
+                Cell cell = ParentObject.CurrentCell;
+                cell.ForeachAdjacentCell(spawnDeepCopy);
+                return true;
+            }
+            return false;
+        }
+
 
         public override bool HandleEvent(ZoneActivatedEvent E)
         {
@@ -218,9 +243,13 @@ namespace XRL.World.Parts.Mutation
             if(capturedSoulDeepCopy.HasPart("Brain") && capturedSoulDeepCopy != null)
             {
                 XRL.World.Parts.Brain brain = capturedSoulDeepCopy.GetPart("Brain") as XRL.World.Parts.Brain;
+                capturedSoulDeepCopy.MakeInactive();
+                stored = true;
                 
                 brain.Staying = false;
             }
+
+
            
 
 
@@ -390,8 +419,13 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "HeavensFeelRessurection")
             {
+                if (ParentObject.OnWorldMap())
+                {
+                    Popup.ShowFail("You cannot use this on the world map");
+                    return false;
+                }
 
-                if(capturedSoul == null)
+                if (capturedSoul == null)
                 {
                     Popup.Show("You do not have a soul captured");
                 }
@@ -568,12 +602,12 @@ namespace XRL.World.Parts.Mutation
                         break;
                     case "HeavensFeel":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                     case "FacelessBride":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
 

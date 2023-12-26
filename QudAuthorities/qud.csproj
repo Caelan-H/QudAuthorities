@@ -373,6 +373,7 @@
     <Compile Include="Mod\GluttonousEaten.cs" />
     <Compile Include="Mod\Gluttony.cs" />
     <Compile Include="Mod\Greed.cs" />
+    <Compile Include="Mod\Pride.cs" />
     <Compile Include="Mod\Wrath.cs" />
     <Compile Include="Mod\Sloth.cs" />
     <Compile Include="Mod\Lust.cs" />

@@ -47,7 +47,7 @@ namespace XRL.World.Parts.Mutation
         public GameObject toBeHealed = null;
         public bool UnjustWorldOn = false;
         public List<string> Authorities = new List<string>();
-        public int AwakeningOdds = 699;
+        public int AwakeningOdds = 549;
         string WitchFactor = "";
         public Wrath()
         {
@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/700" + " chance to awaken another Authority of Wrath. The Authorities are: Unjust World and Soulwash. Agility and Strength +1.");
+            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/550" + " chance to awaken another Authority of Wrath upon gaining XP. The Authorities are: Unjust World and Soulwash. Agility and Strength +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -96,7 +96,7 @@ namespace XRL.World.Parts.Mutation
                 if (UnjustWorldEntry.ToggleState == true)
                 {
                     int toHeal = E.Damage.Amount;
-                    Popup.Show("heal");
+                    //Popup.Show("heal");
                     E.Object.Heal(toHeal, false, true);
                     E.Damage.Amount = 0;
                     return true;
@@ -120,7 +120,7 @@ namespace XRL.World.Parts.Mutation
 
 
 
-            return false;
+            return true;
         }
        
         public override bool WantEvent(int ID, int cascade)
@@ -143,11 +143,11 @@ namespace XRL.World.Parts.Mutation
                     AuthorityAwakeningWrathEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 9);
+                int b = Stat.Random(0, 39);
 
                 if(b == 1)
                 {
-                    if(soulwashes >= 3)
+                    if(soulwashes >= 2)
                     {
 
                     }
@@ -165,16 +165,41 @@ namespace XRL.World.Parts.Mutation
 
 
 
-        public void BeginSoulwash(GameObject target)
-        {       
-                    soulwashes--;
-                    SyncAbilityName_Soulwashing();
-                    if (!target.HasEffect("Terrified")) { target.ApplyEffect(new Terrified(6, ParentObject)); }
-                    if (!target.HasEffect("Dazed")) { target.ApplyEffect(new Dazed(6)); }
-                    if (!target.HasEffect("Disoriented")) { target.ApplyEffect(new Disoriented(6, 2)); }
-                    if (!target.HasEffect("Hobbled")) { target.ApplyEffect(new Hobbled(6)); }
-                    if (!target.HasEffect("Shamed")) { target.ApplyEffect(new Shamed(6)); }
-                    if (!target.HasEffect("Shaken")) { target.ApplyEffect(new Shaken(6, 2)); }  
+        public void BeginSoulwash()
+        {
+            bool worked = false;
+            foreach (var entity in ParentObject.CurrentZone.GetObjects())
+            {
+                if (entity != null && entity.HasPart("Brain"))
+                {
+
+                    //int dist = entity.DistanceTo(ParentObject);
+                   // if (dist <= 6)
+                   // {
+                        
+                            if (entity.IsHostileTowards(ParentObject) == true && entity.InSamePartyAs(ParentObject) == false && entity != ParentObject)
+                            {
+                                worked = true;
+                                
+                                if (!entity.HasEffect("Terrified")) { entity.ApplyEffect(new Terrified(5, ParentObject)); }
+                                if (!entity.HasEffect("Dazed")) { entity.ApplyEffect(new Dazed(5)); }
+                                if (!entity.HasEffect("Disoriented")) { entity.ApplyEffect(new Disoriented(5, 2)); }
+                                if (!entity.HasEffect("Hobbled")) { entity.ApplyEffect(new Hobbled(5)); }
+                                if (!entity.HasEffect("Shamed")) { entity.ApplyEffect(new Shamed(5)); }
+                                if (!entity.HasEffect("Shaken")) { entity.ApplyEffect(new Shaken(5, 2)); }
+                            }
+                        
+                   // }
+
+                   
+                }
+            }
+
+            if(worked == true)
+            {
+                soulwashes--;
+                SyncAbilityName_Soulwashing();
+            }
         }
 
 
@@ -185,7 +210,7 @@ namespace XRL.World.Parts.Mutation
             if (E.ID == "Soulwash")
             {
 
-
+                /*
                 Cell cell = PickDestinationCell(80, AllowVis.OnlyVisible, Locked: false, IgnoreSolid: false, IgnoreLOS: true, RequireCombat: false, PickTarget.PickStyle.EmptyCell, null, Snap: true);
                 if (cell == null)
                 {
@@ -216,7 +241,7 @@ namespace XRL.World.Parts.Mutation
                     }
                     return false;
                 }
-
+                */
                 if (soulwashes <= 0)
                 {
                     
@@ -228,10 +253,15 @@ namespace XRL.World.Parts.Mutation
                     }
                     return false;
                 }
+                
+                if (ParentObject.OnWorldMap())
+                {
+                    Popup.ShowFail("You cannot use this on the world map");
+                    return false;
+                }
 
-         
-                    UseEnergy(1000, "Authority Mutation Cor Leonis: First Shift");
-                    BeginSoulwash(gameObject);
+                UseEnergy(1000, "Authority Mutation Cor Leonis: First Shift");
+                    BeginSoulwash();
                 
 
 
@@ -297,7 +327,7 @@ namespace XRL.World.Parts.Mutation
 
         public void SyncAbilityName_Soulwashing()
         {
-           SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/3]";
+           SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/2]";
 
         }
 
@@ -321,8 +351,8 @@ namespace XRL.World.Parts.Mutation
             }
             if (name.Equals("Soulwashing"))
             {
-                soulwashes = 3;
-                SoulwashingID = AddMyActivatedAbility("Soulwash", "Soulwash", "Authority:Wrath", "Awakened from the Wrath Witchfactor, you become aware of a method to bathe a target's soul with madness. After doing so, they will be Terrified, Dazed, Disoriented, Hobbled, Shamed, and Shaken for 6 turns. The max amount of charges is 3 and you get charges back at a chance of 10% whenever you get xp.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); SoulwashingEntry = MyActivatedAbility(SoulwashingID);  SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/3]";
+                soulwashes = 2;
+                SoulwashingID = AddMyActivatedAbility("Soulwash", "Soulwash", "Authority:Wrath", "Awakened from the Wrath Witchfactor, you become aware of a method to bathe a target's soul with madness. On use, all hostile entities towards the user will be inflicted with Terrified, Dazed, Disoriented, Hobbled, Shamed, and Shaken for 5 turns. The max amount of charges is 2 and you get charges back at a chance of 1/40 whenever you get xp.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: true); SoulwashingEntry = MyActivatedAbility(SoulwashingID);  SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/2]";
                 return true;
             }
             return false;
@@ -361,12 +391,12 @@ namespace XRL.World.Parts.Mutation
                         break;
                     case "UnjustWorld":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                     case "Soulwashing":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
 

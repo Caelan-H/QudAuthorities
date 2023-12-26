@@ -55,7 +55,7 @@ namespace XRL.World.Parts.Mutation
         public int damageToTake = 0;
         public List<string> Authorities = new List<string>();
         public List<GameObject> stoppedMembers = new List<GameObject>();
-        public int AwakeningOdds = 699;
+        public int AwakeningOdds = 549;
         string WitchFactor = "";
         public Greed()
         {
@@ -70,7 +70,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/700" + " chance to awaken another Authority of Greed. The Authorities are: Cor Leonis and Stillness Of Time. Intelligence +1.");
+            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/550" + " chance to awaken another Authority of Greed upon gaining XP. The Authorities are: Cor Leonis and Stillness Of Time. Intelligence +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -100,128 +100,135 @@ namespace XRL.World.Parts.Mutation
 
         public override bool HandleEvent(ZoneActivatedEvent E)
         {      
-            
+            if(Authorities.Contains("StillnessOfTime"))
+            {
                 stillnessCounter = 0;
                 stoppedMembers.Clear();
                 stillnessOfTimeOn = false;
-            
-            
+            }
+
+
+
             return base.HandleEvent(E);
         }
         
         public override bool HandleEvent(ApplyEffectEvent E)
         {
-
-
-            if (CorLeonisThirdShiftEntry.ToggleState == true)
+            if(Authorities.Contains("CorLeonis"))
             {
-                List<GameObject> listOfPartyMembers = new List<GameObject>();
-                foreach (var entity in ParentObject.CurrentZone.GetObjects())
+                if (CorLeonisThirdShiftEntry.ToggleState == true)
                 {
-
-                    if (entity.InSamePartyAs(ParentObject) && entity != ParentObject)
+                    List<GameObject> listOfPartyMembers = new List<GameObject>();
+                    foreach (var entity in ParentObject.CurrentZone.GetObjects())
                     {
-                        listOfPartyMembers.Add(entity);
-                    }
-                }
-                if (listOfPartyMembers.Count > 0)
-                {
 
-                    bool canTransfer = false;
-
-                    switch (E.Effect.ClassName)
-                    {
-                        default:
-                            canTransfer = false;
-                            break;
-                        case "Blaze_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "Emboldened":
-                            canTransfer = true;
-                            break;
-                        case "Frenzied":
-                            canTransfer = true;
-                            break;
-                        case "Metabolizing":
-                            canTransfer = true;
-                            break;
-                        case "Luminous":
-                            canTransfer = true;
-                            break;
-                        case "Sprinting":
-                            canTransfer = true;
-                            break;
-                        case "Hoarshroom_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "HulkHoney_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "Rubbergum_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "Salve_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "ShadeOil_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "Skulk_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "SphynxSalt_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "Ubernostrum_Tonic":
-                            canTransfer = true;
-                            break;
-                        case "AdrenalControl2Boosted":
-                            canTransfer = true;
-                            break;
-                        case "Ecstatic":
-                            canTransfer = true;
-                            break;
-                        case "GeometricHeal":
-                            canTransfer = true;
-                            break;
-                        case "Healing":
-                            canTransfer = true;
-                            break;
-                        case "Meditating":
-                            canTransfer = true;
-                            break;
-
-                    }
-
-                    if (canTransfer == true) 
-                    { foreach (var member in listOfPartyMembers)
+                        if (entity.InSamePartyAs(ParentObject) && entity != ParentObject)
                         {
-
-                            member.Effects.Contains(E.Effect)
-                            {
-
-                            }
-                            else
-                            {
-                                
-                                member.ApplyEffect(E.Effect);
-                            }
-                           
-                        } 
+                            listOfPartyMembers.Add(entity);
+                        }
                     }
-                    
-                        
-                    
-                    
+                    if (listOfPartyMembers.Count > 0)
+                    {
+
+                        bool canTransfer = false;
+
+                        switch (E.Effect.ClassName)
+                        {
+                            default:
+                                canTransfer = false;
+                                break;
+                            case "Blaze_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "Emboldened":
+                                canTransfer = true;
+                                break;
+                            case "Frenzied":
+                                canTransfer = true;
+                                break;
+                            case "Metabolizing":
+                                canTransfer = true;
+                                break;
+                            case "Luminous":
+                                canTransfer = true;
+                                break;
+                            case "Sprinting":
+                                canTransfer = true;
+                                break;
+                            case "Hoarshroom_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "HulkHoney_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "Rubbergum_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "Salve_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "ShadeOil_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "Skulk_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "SphynxSalt_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "Ubernostrum_Tonic":
+                                canTransfer = true;
+                                break;
+                            case "AdrenalControl2Boosted":
+                                canTransfer = true;
+                                break;
+                            case "Ecstatic":
+                                canTransfer = true;
+                                break;
+                            case "GeometricHeal":
+                                canTransfer = true;
+                                break;
+                            case "Healing":
+                                canTransfer = true;
+                                break;
+                            case "Meditating":
+                                canTransfer = true;
+                                break;
+
+                        }
+
+                        if (canTransfer == true)
+                        {
+                            foreach (var member in listOfPartyMembers)
+                            {
+
+                                if (member.Effects.Contains(E.Effect))
+                                {
+
+                                }
+                                else
+                                {
+
+                                    member.ApplyEffect(E.Effect);
+                                }
+
+                            }
+                        }
+
+
+
+
+                    }
+
+                    return true;
                 }
-                
-                return true;
             }
 
             
 
-            return false;
+
+
+            return base.HandleEvent(E);
         }
         public override bool HandleEvent(BeforeApplyDamageEvent E)
         {
@@ -471,7 +478,13 @@ namespace XRL.World.Parts.Mutation
 
             if (E.ID == "StillnessOfTime")
             {
-               // Popup.Show("activated stillness");
+
+                if (ParentObject.OnWorldMap())
+                {
+                    Popup.ShowFail("You cannot use this on the world map");
+                    return false;
+                }
+                // Popup.Show("activated stillness");
                 List<GameObject> memberList = new List<GameObject>();
                 List<GameObject> membersHelping = new List<GameObject>();
                 if (secondShiftOn)
@@ -698,7 +711,7 @@ namespace XRL.World.Parts.Mutation
             }
             if (name.Equals("StillnessOfTime"))
             {
-                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so causes strain on your body. The time of all things will be stopped for 3 turns at the cost of 30% of your total HP or 15% if Cor Leonis: Second Shift is active as long as you have greater than 30% HP and greater than 15% HP respectively.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);/* StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); StillnessOfTimeEntry.DisplayName = "S";*/
+                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so causes strain on your body. The time of all things will be stopped for 3 turns at the cost of 30% of your total HP or 15% if Cor Leonis: Second Shift is active as long as you have greater than 30% HP and greater than 15% HP respectively.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); //StillnessOfTimeEntry.DisplayName = "S";*/
                 return true;
             }
             return false;
@@ -737,12 +750,12 @@ namespace XRL.World.Parts.Mutation
                         break;
                     case "CorLeonis":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                     case "StillnessOfTime":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
 

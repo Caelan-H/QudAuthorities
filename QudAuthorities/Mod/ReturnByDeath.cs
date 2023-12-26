@@ -28,7 +28,7 @@ namespace XRL.World.Parts.Mutation
         public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
         public bool DidInit = false;
-        public bool CheckpointQueue = false;
+
         public bool CheckpointCheckPass = false;
         public bool CheckpointCheckPassEvent = false;
 
@@ -38,7 +38,7 @@ namespace XRL.World.Parts.Mutation
 
         public ReturnByDeath()
         {
-            DisplayName = "Return By Death";
+            DisplayName = "Return By Death"; 
             Type = "Authority";
         }
 
@@ -70,8 +70,9 @@ namespace XRL.World.Parts.Mutation
         {
             if (ID == AwardedXPEvent.ID)
             {
+                //Popup.Show("AwardedXPEvent Recorded");
                 //Popup.Show("Two files had the same Last Write time", true, true, true, true);
-                CheckpointQueue = true;
+                CheckpointCheckPass = Checkpoint(ParentObject, ref ActivatedSegment);
                 return false;
             }
             if (ID == CheckpointEvent.ID)
@@ -86,7 +87,7 @@ namespace XRL.World.Parts.Mutation
                 CopyZone();
                 The.Core.SaveGame("Return.sav");
                 */
-                CheckpointQueue = false;
+                //CheckpointQueue = false;
                 CheckpointCheckPassEvent = true;
                 return false;
                 
@@ -98,12 +99,14 @@ namespace XRL.World.Parts.Mutation
                 XRL.World.ZoneManager.ActivateBrainHavers(XRL.World.ZoneManager.instance.ActiveZone);
                 return false;
             }
+            /*
             if (ID == EndTurnEvent.ID && CheckpointQueue == true)
             {
                 CheckpointQueue = false;
                 CheckpointCheckPass = Checkpoint(ParentObject, ref ActivatedSegment);
                 return false;
             }
+            */
             if (ID == ZoneActivatedEvent.ID && (CheckpointCheckPass == true || CheckpointCheckPassEvent == true))
             {
                 if (!(File.Exists(The.Game.GetCacheDirectory("Return.sav"))))
@@ -210,12 +213,14 @@ namespace XRL.World.Parts.Mutation
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
             
-            int a = Stat.Random(0, 54);
+            int a = Stat.Random(0, 59);
             
-            if (a == 3)
-            {              
+            if (a == 1)
+            {
+                //Popup.Show("Success");
                 return true;
             }
+            //Popup.Show("Failed");
             return false;
         }
 

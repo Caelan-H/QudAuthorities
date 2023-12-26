@@ -107,10 +107,10 @@ namespace XRL.World.Parts.Mutation
 
                 if (a == 1)
                 {
-                    AuthorityAwakeningSlothEvent.Send(ParentObject);
+                    //AuthorityAwakeningSlothEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 29);
+                int b = Stat.Random(0, 49);
 
                 if (a == 1)
                 {
@@ -217,7 +217,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (buildUp == 3 || buildUp == 4 || buildUp == 5)
             {
-                if (ParentObject.GetHPPercent() > 10)
+                if (ParentObject.GetHPPercent() > 30)
                 {
                     return true;
                 }
@@ -228,7 +228,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (buildUp == 6 || buildUp == 7 || buildUp == 8)
             {
-                if (ParentObject.GetHPPercent() > 15)
+                if (ParentObject.GetHPPercent() > 40)
                 {
                     return true;
                 }
@@ -239,7 +239,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (buildUp == 9 || buildUp == 10 || buildUp == 11)
             {
-                if (ParentObject.GetHPPercent() > 20)
+                if (ParentObject.GetHPPercent() > 45)
                 {
                     return true;
                 }
@@ -250,7 +250,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (buildUp == 12 || buildUp == 13 || buildUp == 14)
             {
-                if (ParentObject.GetHPPercent() > 25)
+                if (ParentObject.GetHPPercent() > 50)
                 {
                     return true;
                 }
@@ -261,7 +261,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (buildUp == 15 || buildUp == 16 || buildUp == 17)
             {
-                if (ParentObject.GetHPPercent() > 30)
+                if (ParentObject.GetHPPercent() > 55)
                 {
                     return true;
                 }
@@ -272,7 +272,7 @@ namespace XRL.World.Parts.Mutation
             }
             else if (buildUp == 18 || buildUp == 19 || buildUp == 20)
             {
-                if (ParentObject.GetHPPercent() > 40)
+                if (ParentObject.GetHPPercent() > 60)
                 {
                     return true;
                 }
@@ -321,6 +321,12 @@ namespace XRL.World.Parts.Mutation
                         Popup.ShowFail("You can't use Invisible Providence on nothing.");
 
                     }
+                    return false;
+                }
+
+                if (ParentObject.OnWorldMap())
+                {
+                    Popup.ShowFail("You cannot use this on the world map");
                     return false;
                 }
 
@@ -433,27 +439,27 @@ namespace XRL.World.Parts.Mutation
             {
                 if (tier == 1)
                 {
-                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.20));
+                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.30));
                 }
                 else if (tier == 2)
                 {
-                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.25));
+                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.40));
                 }
                 else if (tier == 3)
                 {
-                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.30));
+                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.45));
                 }
                 else if (tier == 4)
                 {
-                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.35));
+                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.50));
                 }
                 else if (tier == 5)
                 {
-                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.45));
+                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.55));
                 }
                 else
                 {
-                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.55));
+                    damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.60));
                 }
             }
 
@@ -898,7 +904,7 @@ namespace XRL.World.Parts.Mutation
             
             if (name.Equals("InvisibleProvidence"))
             {
-                InvisibleProvidenceID = AddMyActivatedAbility("Invisible Providence", "InvisibleProvidence", "Authority:Sloth", "Awakened from the Sloth Witchfactor, you've become aware of an extendable telekinetic hand made of shadow unseen to others that you can summon to attack an enemy for (15 + your level) damage. The hand cannot be seen by enemies and is physically transiant, meaning it will ignore both AV and DV. Each time Invisible Providence is used, the user gains 1 point of buildup and in total can have 0-20 buildup at a time. Upon obtaining XP, there is a 1/30 chance of removing a point of buildup. There are 6 tiers of buildup in the following ranges: T0[0-2], T1[3-5], T2[6-8], T3[9-11], T4[12-14], T5[15-17], T6[18-20]. Usage of Invisible Providence costs T0[0%]/T1[15%]/T2[20%]/T3[25%]/T4[35%]/T5[40%]/T6[45%] of your max HP. An additional affect will be applied to player; the following listing is the tier, effects and chances: T0[Nothing], T1[Bleed(50%)/Nothing(50%)], T2[Bleed(50%)/Ill(33.3%)/Nothing(16.7%)], T3[Bleed(50%)/Ill(50%)], T4[Bleed(50%)/Vomit+Ill(25%)/Confusion(12.75%)/Ill(8.3%)], T5[Bleed(50%)/Vomit+Ill(25%)/Confusion(25%)], T6[Bleed(50%)/Vomit+Ill(25%)/Confusion(16.7%)/Monochrome(8.3%)].", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); InvisibleProvidenceEntry = MyActivatedAbility(InvisibleProvidenceID); InvisibleProvidenceEntry.DisplayName = "Invisible Providence:[" + buildUp.ToString() + "/20 | T0]"; Authorities.Add("InvisibleProvidence");
+                InvisibleProvidenceID = AddMyActivatedAbility("Invisible Providence", "InvisibleProvidence", "Authority:Sloth", "Awakened from the Sloth Witchfactor, you've become aware of an extendable telekinetic hand made of shadow unseen to others that you can summon to attack an enemy for (15 + your level) damage. The hand cannot be seen by enemies and is physically transiant, meaning it will ignore both AV and DV. Each time Invisible Providence is used, the user gains 1 point of buildup and in total can have 0-20 buildup at a time. Upon obtaining XP, there is a 1/50 chance of removing a point of buildup. There are 6 tiers of buildup in the following ranges: T0[0-2], T1[3-5], T2[6-8], T3[9-11], T4[12-14], T5[15-17], T6[18-20]. Usage of Invisible Providence costs T0[0%]/T1[30%]/T2[40%]/T3[45%]/T4[50%]/T5[55%]/T6[60%] of your max HP. An additional affect will be applied to player; the following listing is the tier, effects and chances: T0[Nothing], T1[Bleed(50%)/Nothing(50%)], T2[Bleed(50%)/Ill(33.3%)/Nothing(16.7%)], T3[Bleed(50%)/Ill(50%)], T4[Bleed(50%)/Vomit+Ill(25%)/Confusion(12.75%)/Ill(8.3%)], T5[Bleed(50%)/Vomit+Ill(25%)/Confusion(25%)], T6[Bleed(50%)/Vomit+Ill(25%)/Confusion(16.7%)/Monochrome(8.3%)].", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); InvisibleProvidenceEntry = MyActivatedAbility(InvisibleProvidenceID); InvisibleProvidenceEntry.DisplayName = "Invisible Providence:[" + buildUp.ToString() + "/20 | T0]"; Authorities.Add("InvisibleProvidence");
                 return true;
             }
             return false;
@@ -933,7 +939,7 @@ namespace XRL.World.Parts.Mutation
                         break;
                     case "InvisibleProvidence":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                 }

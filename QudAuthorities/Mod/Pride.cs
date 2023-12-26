@@ -48,7 +48,7 @@ namespace XRL.World.Parts.Mutation
         public bool JudgementOn = false;
         public List<string> Authorities = new List<string>();
         public List<int> damageValues = new List<int>();
-        public int AwakeningOdds = 699;
+        public int AwakeningOdds = 549;
         string WitchFactor = "";
         public Pride()
         {
@@ -63,7 +63,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul bearing immense pride yearns for domination....\n There is a 1/700" + " chance to awaken another Authority of Pride. The Authorities are: Judgement and Rewrite. Ego +1.");
+            return string.Concat("A dark mass hiding within your soul bearing immense pride yearns for domination....\n There is a 1/550" + " chance to awaken another Authority of Pride upon gaining XP. The Authorities are: Judgement and Rewrite. Ego +1.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -152,11 +152,11 @@ namespace XRL.World.Parts.Mutation
                     AuthorityAwakeningPrideEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 12);
+                int b = Stat.Random(0, 59);
 
                 if(b == 1)
                 {
-                    if(rewrites >= 3)
+                    if(rewrites >= 2)
                     {
 
                     }
@@ -247,6 +247,13 @@ namespace XRL.World.Parts.Mutation
                     }
                     return false;
                 }
+
+                if(ParentObject.OnWorldMap())
+                {
+                    Popup.ShowFail("You cannot use this on the world map");
+                    return false;
+                }
+
 
 
 
@@ -344,7 +351,7 @@ namespace XRL.World.Parts.Mutation
 
         public void SyncAbilityName_Rewrite()
         {
-           RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/3]";
+           RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/2]";
 
         }
 
@@ -357,7 +364,7 @@ namespace XRL.World.Parts.Mutation
             }
             if (name.Equals("Rewrite"))
             {
-                RewriteID = AddMyActivatedAbility("Rewrite", "Rewrite", "Authority:Pride", "Awakened from the Pride Witchfactor, upon use you will be prompted with a list of damage you have taken in the last five turns and afterwards a list of effects you currently have. The chosen damage value will be healed to you and then applied to a target of your choosing along with an effect if chosen. The max amount of charges is 3 and you get charges back at a chance of 10% whenever you get xp.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); RewriteEntry = MyActivatedAbility(RewriteID); rewrites = 3; RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/3]";
+                RewriteID = AddMyActivatedAbility("Rewrite", "Rewrite", "Authority:Pride", "Awakened from the Pride Witchfactor, upon use you will be prompted with a list of damage you have taken in the last five turns and afterwards a list of effects you currently have. The chosen damage value will be healed to you and then applied to a target of your choosing along with an effect if chosen. The max amount of charges is 2 and you get charges back at a chance of 1/60 whenever you get xp.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); RewriteEntry = MyActivatedAbility(RewriteID); rewrites = 2; RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/2]";
                 return true;
             }
             return false;
@@ -396,12 +403,12 @@ namespace XRL.World.Parts.Mutation
                         break;
                     case "Judgement":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                     case "Rewrite":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
 

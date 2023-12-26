@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <mutations>
 	<category Name="Witchfactors" DisplayName="{{M|Witchfactors}}">
-		<mutation Name="Gluttony" Cost="8" MaxSelected="1" Class="Gluttony" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Greed" Code="xa"></mutation>
-		<mutation Name="Greed" Cost="8" MaxSelected="1" Class="Greed" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xb"></mutation>
-		<mutation Name="Lust" Cost="8" MaxSelected="1" Class="Lust" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xc"></mutation>
-		<mutation Name="Sloth" Cost="8" MaxSelected="1" Class="Sloth" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xd"></mutation>
-		<mutation Name="Wrath" Cost="8" MaxSelected="1" Class="Wrath" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xe"></mutation>
-		<mutation Name="Pride" Cost="8" MaxSelected="1" Class="Pride" Exclusions="Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony" Code="xf"></mutation>
+		<mutation Name="Gluttony" Cost="8" MaxSelected="1" Class="Gluttony" Exclusions="" Code="xa"></mutation>
+		<mutation Name="Greed" Cost="8" MaxSelected="1" Class="Greed" Exclusions="" Code="xb"></mutation>
+		<mutation Name="Lust" Cost="8" MaxSelected="1" Class="Lust" Exclusions="" Code="xc"></mutation>
+		<mutation Name="Sloth" Cost="8" MaxSelected="1" Class="Sloth" Exclusions="" Code="xd"></mutation>
+		<mutation Name="Wrath" Cost="8" MaxSelected="1" Class="Wrath" Exclusions="" Code="xe"></mutation>
+		<mutation Name="Pride" Cost="8" MaxSelected="1" Class="Pride" Exclusions="" Code="xf"></mutation>
 	</category>
 
 	<category Name="Sage" DisplayName="{{M|Sage}}">
-		<mutation Name="Sage Candidate" Cost="4" MaxSelected="1" Class="SageCandidate" Exclusions="Esper,Chimera,Unstable Genome,*Mental,*Physical, *Witchfactors, Greed, Gluttony" Code="za"></mutation>
-		<mutation Name="Return By Death" Cost="8" MaxSelected="1" Class="ReturnByDeath" Exclusions="Precognition, Esper,*Mental,Chimera,*Physical,Unstable Genome, Gluttony, *Witchfactors, Greed" Code="zb"></mutation>
+		<mutation Name="Sage Candidate" Cost="4" MaxSelected="1" Class="SageCandidate" Exclusions="Esper,Chimera,Unstable Genome" Code="za"></mutation>
+		<mutation Name="Return By Death" Cost="8" MaxSelected="1" Class="ReturnByDeath" Exclusions="Precognition" Code="zb"></mutation>
 	</category>
 
 </mutations>

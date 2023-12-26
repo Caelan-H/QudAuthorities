@@ -42,7 +42,7 @@ namespace XRL.World.Parts.Mutation
         public List<string> Authorities = new List<string>();
         public int GluttonousUses = 0;
         public int starUses = 0;
-        public int AwakeningOdds = 699;
+        public int AwakeningOdds = 549;
         string WitchFactor = "";
         
         public Gluttony()
@@ -59,7 +59,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
 
-            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/700" + " chance to awaken another Authority of Gluttony. The Authorities are: Star Eating and Gluttonous Eating. Toughness +1 and SP +100.");
+            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/550" + " chance to awaken another Authority of Gluttony upon gaining XP. The Authorities are: Star Eating and Gluttonous Eating. Toughness +1 and SP +100.");
 
             /*
             if(Authorities.Count == 0 || Authorities.Count == 1)
@@ -101,8 +101,8 @@ namespace XRL.World.Parts.Mutation
             if (ID == AwardedXPEvent.ID)
             {
                 int a = Stat.Random(0, AwakeningOdds);
-                int b = Stat.Random(0, 6);
-                int c = Stat.Random(0, 9);
+                int b = Stat.Random(0, 19);
+                int c = Stat.Random(0, 59);
                 if (a == 1)
                 {
                     AuthorityAwakeningGluttonyEvent.Send(ParentObject);  
@@ -111,7 +111,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     if(Authorities.Contains("StarEating"))
                     {
-                        if(starUses < 5)
+                        if(starUses < 4)
                         {
                             
                             starUses++;
@@ -123,7 +123,7 @@ namespace XRL.World.Parts.Mutation
                 {
                     if (Authorities.Contains("GluttonousEating"))
                     {
-                        if (GluttonousUses < 3)
+                        if (GluttonousUses < 2)
                         {
                             GluttonousUses++;
                             SyncAbilityName_GluttonousEating();
@@ -187,7 +187,7 @@ namespace XRL.World.Parts.Mutation
           
             if (E.ID == "GluttonousEating" && GluttonousUses > 0)
             {
-                PickDirection(ForAttack: true);
+                //PickDirection(ForAttack: true);
                 Cell cell = PickDirection(ForAttack: true);
                 if (cell == null)
                 {
@@ -233,7 +233,7 @@ namespace XRL.World.Parts.Mutation
             
                 ObtainAuthority();
             ParentObject.GetStat("Toughness").BaseValue += 1;
-            ParentObject.GainSP(100);
+            ParentObject.GainSP(-100);
             
             return base.Mutate(GO, Level);
         }
@@ -419,7 +419,7 @@ namespace XRL.World.Parts.Mutation
             if (Authorities.Contains("StarEating") )
             {
                
-                StarEatingAbilityEntry.DisplayName = "Star Eating[" + (starUses) + "/5]";
+                StarEatingAbilityEntry.DisplayName = "Star Eating[" + (starUses) + "/4]";
             }
             
         }
@@ -430,7 +430,7 @@ namespace XRL.World.Parts.Mutation
 
             if (Authorities.Contains("GluttonousEating"))
             {             
-                GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating[" + (GluttonousUses) + "/3]";
+                GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating[" + (GluttonousUses) + "/2]";
             }
             
         }
@@ -439,12 +439,12 @@ namespace XRL.World.Parts.Mutation
         {
             if(name.Equals("StarEating"))
             {
-                StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority:Gluttony", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/7 chance of getting a charge back. Max charge is 5.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 5; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating[" + (starUses) + "/5]"; CheckpointEvent.Send(ParentObject);
+                StarEatingID = AddMyActivatedAbility("Star Eating", "StarEating", "Authority:Gluttony", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the powers of an opponent. At melee range, select an enemy. After doing so, you can select a Mutation to remove permanantly. After doing so, the enemy becomes StarEaten and Star Eating will no longer affect them. There is a 1/20 chance of getting a charge back. Max charge is 4.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("StarEating"); starUses = 4; StarEatingAbilityEntry = MyActivatedAbility(StarEatingID); StarEatingAbilityEntry.DisplayName = "Star Eating[" + (starUses) + "/4]"; CheckpointEvent.Send(ParentObject);
                 return true;
             }
             if (name.Equals("GluttonousEating"))
             {
-                GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority:Gluttony", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/10 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 3.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 3; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating[" + (GluttonousUses) + "/3]";
+                GluttonousEatingID = AddMyActivatedAbility("Gluttonous Eating", "GluttonousEating", "Authority:Gluttony", "Awakened from the Gluttony Witchfactor, you gain a understanding of how to eat the memories of an opponent. At melee range, select an enemy. After doing so, their mind will be wiped and the enemy becomes GluttonousEaten meaning Gluttonous Eating will no longer affect them. The enemy is confused for 8 turns. There is a 1/60 chance when getting xp to get a charge back, and a 1/3 chance to gain random knowledge on use. Max charge is 2.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); Authorities.Add("GluttonousEating"); GluttonousUses = 2; GluttonousEatingAbilityEntry = MyActivatedAbility(GluttonousEatingID); GluttonousEatingAbilityEntry.DisplayName = "Gluttonous Eating[" + (GluttonousUses) + "/2]";
                 return true;
             }
             return false;
@@ -483,12 +483,12 @@ namespace XRL.World.Parts.Mutation
                         break;
                     case "StarEating":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                     case "GluttonousEating":
                         AddAuthority(MissingAuthorities[a]);
-                        CheckpointEvent.Send(ParentObject);
+                        //CheckpointEvent.Send(ParentObject);
                         Authorities.Add(MissingAuthorities[a]);
                         return true;
                     

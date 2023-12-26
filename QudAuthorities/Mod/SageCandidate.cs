@@ -30,7 +30,7 @@ namespace XRL.World.Parts.Mutation
     {
         public new Guid ActivatedAbilityID;
         public Guid RevertActivatedAbilityID;
-        public int WitchFactorOdds = 699;
+        public int WitchFactorOdds = 649;
         public int WitchfactorCount = 0;
         public int xpEventCount = 0;
 
@@ -46,7 +46,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetDescription()
         {  
-                return "You have the capability to hold all Witchfactors within. There is a 1/700 chance when you get xp that you will obtain a new Witchfactor. After your first witch factor you will need to hit levels 10, 15, 20, 25, 30 to get the chance to recieve another.";    
+                return "You have the capability to hold all Witchfactors within. There is a 1/650 chance when you get xp that you will obtain a new Witchfactor. After your first witch factor you will need to hit levels 10, 16, 22, 28, 34 to get the chance to recieve another. If you have Return By Death a checkpoint will be triggered when a Witchfactor is gained.";    
         }
 
         public override string GetLevelText(int Level)
@@ -89,7 +89,7 @@ namespace XRL.World.Parts.Mutation
                         return false;
                     }
                 case 2:
-                    if (ParentObject.Level >= 15)
+                    if (ParentObject.Level >= 16)
                     {
                         return true;
                     }
@@ -98,7 +98,7 @@ namespace XRL.World.Parts.Mutation
                         return false;
                     }
                 case 3:
-                    if (ParentObject.Level >= 20)
+                    if (ParentObject.Level >= 22)
                     {
                         return true;
                     }
@@ -107,7 +107,7 @@ namespace XRL.World.Parts.Mutation
                         return false;
                     }
                 case 4:
-                    if (ParentObject.Level >= 25)
+                    if (ParentObject.Level >= 28)
                     {
                         return true;
                     }
@@ -116,7 +116,7 @@ namespace XRL.World.Parts.Mutation
                         return false;
                     }
                 case 5:
-                    if (ParentObject.Level >= 30)
+                    if (ParentObject.Level >= 34)
                     {
                         return true;
                     }
@@ -198,15 +198,6 @@ namespace XRL.World.Parts.Mutation
         {
             List<string> MissingWitchFactors = new List<string>();
             XRL.World.Parts.Mutations mutations = ParentObject.GetPart("Mutations") as XRL.World.Parts.Mutations;
-            if (mutations.HasMutation("ReturnByDeath"))
-            {
-
-            }
-            else
-            {
-                MissingWitchFactors.Add("Return By Death");
-            }
-
             if (mutations.HasMutation("Greed"))
             {
 
@@ -266,11 +257,6 @@ namespace XRL.World.Parts.Mutation
                 {
                     default:
                         break;
-                    case "Return By Death":
-                        mutations.AddMutation("ReturnByDeath",1);
-                        CheckpointEvent.Send(ParentObject);
-                        WitchfactorCount++;
-                        return true;
                     case "Gluttony":
                         mutations.AddMutation("Gluttony", 1);
                         CheckpointEvent.Send(ParentObject);
@@ -297,7 +283,7 @@ namespace XRL.World.Parts.Mutation
                         WitchfactorCount++;
                         return true;
                     case "Pride":
-                        mutations.AddMutation("Wrath", 1);
+                        mutations.AddMutation("Pride", 1);
                         CheckpointEvent.Send(ParentObject);
                         WitchfactorCount++;
                         return true;
