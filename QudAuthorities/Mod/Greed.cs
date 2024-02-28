@@ -534,10 +534,10 @@ namespace XRL.World.Parts.Mutation
 
                 }
 
-                if (((ParentObject.GetHPPercent() > 30 ) || ParentObject.GetHPPercent() > 15 && membersHelping.Count > 0 && secondShiftOn))
+                if (((ParentObject.GetHPPercent() > 30 )))
                 {
                     
-                    int damage = (int)Math.Floor((decimal)ParentObject.hitpoints * (decimal)(.30));
+                    int damage = (int)Math.Floor((decimal)ParentObject.baseHitpoints * (decimal)(.30));
                     
                     
                     ParentObject.TakeDamage(ref damage);
@@ -589,7 +589,7 @@ namespace XRL.World.Parts.Mutation
                     CooldownMyActivatedAbility(StillnessOfTimeID, 120);
                     UseEnergy(0, "Authority Stillness Of Time");
                     stillnessCounter = duration;
-                    IComponent<GameObject>.AddPlayerMessage("There are  " + duration.ToString() + " turns left of Stillness");
+                    IComponent<GameObject>.AddPlayerMessage("Time has been made still for  " + duration.ToString() + " turns.");
                     XRLCore.ParticleManager.Add("@", ParentObject.CurrentCell.X, ParentObject.CurrentCell.Y, (float)Math.Sin((double)(float)(100) * 0.017) / 10, (float)Math.Cos((double)(float)(100) * 0.017) / 10);
                     PlayWorldSound("timestop", .2f, 0f);
                     for (int i = 0; i < Stat.RandomCosmetic(1, 3); i++)
@@ -705,13 +705,13 @@ namespace XRL.World.Parts.Mutation
             if (name.Equals("CorLeonis"))
             {
                 CorLeonisFirstShiftID = AddMyActivatedAbility("Cor Leonis: First Shift", "CorLeonisFirstShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can take a portion of damage for your allies. At any range, select an ally and then enter an amount of HP less than your current total to give to your ally.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisFirstShiftEntry = MyActivatedAbility(CorLeonisFirstShiftID); CorLeonisFirstShiftEntry.DisplayName = "Cor Leonis: First Shift";
-                CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you. If toggled active, allies with >50% HP will take 25% of damage you take for you. The damage is then divided by the number of allies with >50% HP up to 3.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift";
+                CorLeonisSecondShiftID = AddMyActivatedAbility("Cor Leonis: Second Shift", "CorLeonisSecondShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can have your allies take a portion of damage for you. If toggled active, allies with >50% HP will take 25% of damage inflicted on you in your place. The damage is then divided by the number of allies with >50% HP up to 3.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisSecondShiftEntry = MyActivatedAbility(CorLeonisSecondShiftID); CorLeonisSecondShiftEntry.DisplayName = "Cor Leonis: Second Shift";
                 CorLeonisThirdShiftID = AddMyActivatedAbility("Cor Leonis: Third Shift", "CorLeonisThirdShift", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can synchronize effects from yourself to your allies. The following effects will transfer: Tonics, Emboldened, Frenzied, Metabolizing, Luminous, Sprinting, Adrenal Control, Ecstatic, Geometric Heal, Healing, Meditating.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); CorLeonisThirdShiftEntry = MyActivatedAbility(CorLeonisThirdShiftID); CorLeonisThirdShiftEntry.DisplayName = "Cor Leonis: Third Shift";
                 return true;
             }
             if (name.Equals("StillnessOfTime"))
             {
-                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so causes strain on your body. The time of all things will be stopped for 3 turns at the cost of 30% of your total HP or 15% if Cor Leonis: Second Shift is active as long as you have greater than 30% HP and greater than 15% HP respectively.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); //StillnessOfTimeEntry.DisplayName = "S";*/
+                StillnessOfTimeID = AddMyActivatedAbility("Stillness Of Time", "StillnessOfTime", "Authority:Greed", "Awakened from the Greed Witchfactor, you gain a understanding of a way you can stop time. However, doing so causes strain on your body. The time of all things will be stopped for 3 turns at the cost of 30% of your total HP. If Cor Leonis: Second Shift is active and an ally has >= 50% HP, time will stop for an additional turn.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false);StillnessOfTimeEntry = MyActivatedAbility(StillnessOfTimeID); //StillnessOfTimeEntry.DisplayName = "S";*/
                 return true;
             }
             return false;

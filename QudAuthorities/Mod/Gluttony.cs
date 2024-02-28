@@ -233,7 +233,7 @@ namespace XRL.World.Parts.Mutation
             
                 ObtainAuthority();
             ParentObject.GetStat("Toughness").BaseValue += 1;
-            ParentObject.GainSP(-100);
+            //ParentObject.GainSP(-100);
             
             return base.Mutate(GO, Level);
         }
@@ -251,7 +251,7 @@ namespace XRL.World.Parts.Mutation
 
             RemoveMyActivatedAbility(ref GluttonousEatingID);
             ParentObject.GetStat("Toughness").BaseValue -= 1;
-            ParentObject.GainSP(100);
+            //ParentObject.GainSP(100);
             RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }
@@ -260,11 +260,11 @@ namespace XRL.World.Parts.Mutation
         {
             
             if (target != null && target.HasPart("Brain") && target.GetMutationNames().Count > 0 && !target.HasEffect("StarEaten") )
-            {     
+            {
                 if (ParentObject.IsPlayer())
                 {
-                    XRL.World.Parts.Mutations mutations = target.GetPart("Mutations") as XRL.World.Parts.Mutations;                  
-                    List<string> options= new List<string>();
+                    XRL.World.Parts.Mutations mutations = target.GetPart("Mutations") as XRL.World.Parts.Mutations;
+                    List<string> options = new List<string>();
                     List<string> skillOptions = new List<string>();
                     foreach (var item in mutations.MutationList)
                     {
@@ -281,43 +281,52 @@ namespace XRL.World.Parts.Mutation
                     {
                         BaseMutation mut = mutations.MutationList[index];
                         success = EatStar(target, mut);
-                        if(success)
+                        if (success)
                         {
-                            if(mut.DisplayName.Equals("Astral"))
+                            if (mut.DisplayName.Equals("Astral"))
                             {
-                                if(target.HasEffectByClass("Phased"))
+                                if (target.HasEffectByClass("Phased"))
                                 {
                                     target.RemoveEffectByClass("Phased");
+
+
+
                                 }
-                                
+
+
+                            }
+
+                            if (mut.DisplayName.Equals("Invisibility"))
+                            {
+                                target.pRender.Visible = true;
                             }
                         }
-                    }
-                    
-                    if(success == true)
-                    {
-                        starUses--;
-                        
-                        SyncAbilityName_StarEating();
-                        target.ApplyEffect(new StarEaten(0));
-                        IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " mutation!");
-                    }
-                    else
-                    {
-                        if (options[index].Equals("Cancel"))
+
+                        if (success == true)
                         {
-                            IComponent<GameObject>.AddPlayerMessage("You decided not to eat.");
+                            starUses--;
+
+                            SyncAbilityName_StarEating();
+                            target.ApplyEffect(new StarEaten(0));
+                            IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " mutation!");
                         }
                         else
                         {
-                            IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
+                            if (options[index].Equals("Cancel"))
+                            {
+                                IComponent<GameObject>.AddPlayerMessage("You decided not to eat.");
+                            }
+                            else
+                            {
+                                IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand but there was nothing to eat");
+                            }
+
                         }
-                        
-                    }  
+                    }
                 }
                 else if (target.IsPlayer())
                 {
-                    
+
                 }
                 
             }
@@ -372,6 +381,7 @@ namespace XRL.World.Parts.Mutation
                     brain.ClearHostileMemory();
                     brain.FactionMembership.Clear();
                     brain.FactionFeelings.Clear();
+                    
                     brain.Factions = "";
                     //Popup.Show(brain.FactionFeelings.ToString());
                     IComponent<GameObject>.AddPlayerMessage("You say the name of " + target.t() + " and lick your hand eating " + target.its + " mind!");

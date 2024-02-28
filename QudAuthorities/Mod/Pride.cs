@@ -34,6 +34,7 @@ using UnityEngine;
 using XRL.EditorFormats.Screen;
 using System.Collections.ObjectModel;
 using static System.Net.Mime.MediaTypeNames;
+using System.Net.NetworkInformation;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -91,15 +92,68 @@ namespace XRL.World.Parts.Mutation
 
         public override bool HandleEvent(BeforeApplyDamageEvent E)
         {
+            
             if(JudgementEntry.ToggleState == true)
             {
-                int b = Stat.Random(0, 19);
+                int b = Stat.Random(0, 24);
 
                 if(b == 0 && E.Actor.HasEffect("Judged") == false)
                 {
                     
-                    var limb = E.Actor.GetRandomConcreteBodyPart();
+                    
+
+                    var list = E.Actor.Body.GetParts();
+                    Popup.Show("List contents");
+                    Popup.Show(list.Count.ToString());
+
+                    foreach (var thing in list)
+                    {
+                        Popup.Show(thing.Type);
+                    }
+
+                    List<int> validLimbs = new List<int>();
+
+                    for (int i = 0; i < list.Count; i++)
+                    {
+                        switch (list[i].Type)
+                        {
+                            default:
+                                validLimbs.Add(i);
+                                break;
+                            case "Head":
+
+                                break;
+                            case "Body":
+
+                                break;
+                            case "Floating Nearby":
+
+                                break;
+                            case "Thrown Weapon":
+
+                                break;
+                            case "Missile Weapon":
+
+                                break;
+                            case "Ammo":
+
+                                break;
+                            case "Face":
+
+                                break;
+
+                        }
+                    }
+
+                    foreach (var thing in validLimbs)
+                    {
+                        Popup.Show(thing.ToString());
+                    }
+
                     E.Actor.ApplyEffect(new Judged());
+                    int a = Stat.Random(0, validLimbs.Count - 1);
+                    Popup.Show(list[a].Type);
+                    var limb = list[a];
                     limb.Dismember();
                 }
             }
@@ -121,16 +175,7 @@ namespace XRL.World.Parts.Mutation
         }
 
 
-        public override bool HandleEvent(ApplyEffectEvent E)
-        {
-
-
-            
-
-
-
-            return false;
-        }
+        
        
         public override bool WantEvent(int ID, int cascade)
         {
@@ -152,7 +197,7 @@ namespace XRL.World.Parts.Mutation
                     AuthorityAwakeningPrideEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 59);
+                int b = Stat.Random(0, 54);
 
                 if(b == 1)
                 {
@@ -359,12 +404,12 @@ namespace XRL.World.Parts.Mutation
         {
             if (name.Equals("Judgement"))
             {
-                JudgementID = AddMyActivatedAbility("Judgement", "Judgement", "Authority:Pride", "Awakened from the Pride Witchfactor, if toggled on whenever the user it hit there is a 5% chance a random body part of your attacker will be dismembered. Afterwards they get the effect Judged, and can no longer suffer the effects of Judgement.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); JudgementEntry = MyActivatedAbility(JudgementID); JudgementEntry.DisplayName = "Judgement";
+                JudgementID = AddMyActivatedAbility("Judgement", "Judgement", "Authority:Pride", "Awakened from the Pride Witchfactor, if toggled on whenever the user it hit there is a 1/25 chance a random body part of your attacker will be dismembered. Afterwards they get the effect Judged, and can no longer suffer the effects of Judgement.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); JudgementEntry = MyActivatedAbility(JudgementID); JudgementEntry.DisplayName = "Judgement";
                 return true;
             }
             if (name.Equals("Rewrite"))
             {
-                RewriteID = AddMyActivatedAbility("Rewrite", "Rewrite", "Authority:Pride", "Awakened from the Pride Witchfactor, upon use you will be prompted with a list of damage you have taken in the last five turns and afterwards a list of effects you currently have. The chosen damage value will be healed to you and then applied to a target of your choosing along with an effect if chosen. The max amount of charges is 2 and you get charges back at a chance of 1/60 whenever you get xp.", "\u000e", null, Toggleable: true, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); RewriteEntry = MyActivatedAbility(RewriteID); rewrites = 2; RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/2]";
+                RewriteID = AddMyActivatedAbility("Rewrite", "Rewrite", "Authority:Pride", "Awakened from the Pride Witchfactor, upon use you will be prompted with a list of damage you have taken in the last five turns and afterwards a list of effects you currently have. The chosen damage value will be healed to you and then applied to a target of your choosing along with an effect if chosen. The max amount of charges is 2 and you get charges back at a chance of 1/55 whenever you get xp.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); RewriteEntry = MyActivatedAbility(RewriteID); rewrites = 2; RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/2]";
                 return true;
             }
             return false;

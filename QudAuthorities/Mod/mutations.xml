@@ -10,7 +10,7 @@
 	</category>
 
 	<category Name="Sage" DisplayName="{{M|Sage}}">
-		<mutation Name="Sage Candidate" Cost="4" MaxSelected="1" Class="SageCandidate" Exclusions="Esper,Chimera,Unstable Genome" Code="za"></mutation>
+		
 		<mutation Name="Return By Death" Cost="8" MaxSelected="1" Class="ReturnByDeath" Exclusions="Precognition" Code="zb"></mutation>
 	</category>
 

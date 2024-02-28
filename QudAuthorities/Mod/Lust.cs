@@ -336,7 +336,7 @@ namespace XRL.World.Parts.Mutation
                 IComponent<GameObject>.AddPlayerMessage("You synchronize your undead with your captured soul");
                 if(capturedSoul != null)
                 {
-                    capturedSoul.Destroy("", Silent: false, Obliterate: false, "");
+                    capturedSoul.Destroy("", Silent: true, Obliterate: false, "");
                     capturedSoul = null;
                 }
                 capturedSoul = target.DeepCopy();

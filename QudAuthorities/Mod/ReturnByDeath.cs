@@ -49,7 +49,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("Dying will return you to a previous checkpoint. Checkpoints are generated every time you get XP at a 1/55 chance.");
+            return string.Concat("Dying will return you to a previous checkpoint. Checkpoints are generated every time you get XP at a 1/64 chance.");
         }
 
         public override bool CanLevel()
@@ -213,7 +213,7 @@ namespace XRL.World.Parts.Mutation
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
             
-            int a = Stat.Random(0, 59);
+            int a = Stat.Random(0, 63);
             
             if (a == 1)
             {
