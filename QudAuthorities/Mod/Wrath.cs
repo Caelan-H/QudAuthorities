@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/550" + " chance to awaken another Authority of Wrath upon gaining XP. The Authorities are: Unjust World and Soulwash. Agility and Strength +1.");
+            return string.Concat("A dark mass hiding within your soul writhes with unbound rage and madness....\n There is a 1/550" + " chance to awaken another Authority of Wrath upon gaining XP. The Authorities are: Unjust World and Soulwash.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -285,7 +285,7 @@ namespace XRL.World.Parts.Mutation
             }
 
            
-
+            
            
 
 
@@ -309,8 +309,8 @@ namespace XRL.World.Parts.Mutation
 
 
             ObtainAuthority();
-            ParentObject.GetStat("Strength").BaseValue += 1;
-            ParentObject.GetStat("Agility").BaseValue += 1;
+            //ParentObject.GetStat("Strength").BaseValue += 1;
+            //ParentObject.GetStat("Agility").BaseValue += 1;
             return base.Mutate(GO, Level);
         }
 
@@ -318,8 +318,8 @@ namespace XRL.World.Parts.Mutation
         {
             RemoveMyActivatedAbility(ref UnjustWorldID);
             RemoveMyActivatedAbility(ref SoulwashingID);
-            ParentObject.GetStat("Strength").BaseValue -= 1;
-            ParentObject.GetStat("Agility").BaseValue -= 1;
+            //ParentObject.GetStat("Strength").BaseValue -= 1;
+            //ParentObject.GetStat("Agility").BaseValue -= 1;
             
             RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);

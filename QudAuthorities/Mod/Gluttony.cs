@@ -59,7 +59,7 @@ namespace XRL.World.Parts.Mutation
         public override string GetLevelText(int Level)
         {
 
-            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/550" + " chance to awaken another Authority of Gluttony upon gaining XP. The Authorities are: Star Eating and Gluttonous Eating. Toughness +1 and SP +100.");
+            return string.Concat("A starving dark mass hiding within your soul writhes and squirms as it begs to be fed....\n There is a 1/550" + " chance to awaken another Authority of Gluttony upon gaining XP. The Authorities are: Star Eating and Gluttonous Eating.");
 
             /*
             if(Authorities.Count == 0 || Authorities.Count == 1)
@@ -232,7 +232,7 @@ namespace XRL.World.Parts.Mutation
             
             
                 ObtainAuthority();
-            ParentObject.GetStat("Toughness").BaseValue += 1;
+            //ParentObject.GetStat("Toughness").BaseValue += 1;
             //ParentObject.GainSP(-100);
             
             return base.Mutate(GO, Level);
@@ -250,7 +250,7 @@ namespace XRL.World.Parts.Mutation
             }
 
             RemoveMyActivatedAbility(ref GluttonousEatingID);
-            ParentObject.GetStat("Toughness").BaseValue -= 1;
+            //ParentObject.GetStat("Toughness").BaseValue -= 1;
             //ParentObject.GainSP(100);
             RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);

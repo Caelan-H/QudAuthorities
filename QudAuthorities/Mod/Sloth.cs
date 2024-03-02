@@ -62,7 +62,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hides within your soul desperate for rest....\n The Authorities are: Invisible Providence. Willpower +1.");
+            return string.Concat("A dark mass hides within your soul desperate for rest....\n The Authorities are: Invisible Providence.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -882,7 +882,7 @@ namespace XRL.World.Parts.Mutation
 
         public override bool Mutate(GameObject GO, int Level)
         {
-            ParentObject.GainWillpower(1);
+            //ParentObject.GainWillpower(1);
 
             ObtainAuthority();
             
@@ -893,7 +893,7 @@ namespace XRL.World.Parts.Mutation
         public override bool Unmutate(GameObject GO)
         {
             RemoveMyActivatedAbility(ref InvisibleProvidenceID);
-            ParentObject.GainWillpower(-1);
+            //ParentObject.GainWillpower(-1);
             RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }

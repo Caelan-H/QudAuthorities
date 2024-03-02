@@ -70,7 +70,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/550" + " chance to awaken another Authority of Greed upon gaining XP. The Authorities are: Cor Leonis and Stillness Of Time. Intelligence +1.");
+            return string.Concat("A dark mass hiding within your soul writhes with avaricious intent....\n There is a 1/550" + " chance to awaken another Authority of Greed upon gaining XP. The Authorities are: Cor Leonis and Stillness Of Time.");
 
             /*
             if (Authorities.Count == 0 || Authorities.Count == 1)
@@ -152,9 +152,6 @@ namespace XRL.World.Parts.Mutation
                             case "Luminous":
                                 canTransfer = true;
                                 break;
-                            case "Sprinting":
-                                canTransfer = true;
-                                break;
                             case "Hoarshroom_Tonic":
                                 canTransfer = true;
                                 break;
@@ -179,9 +176,6 @@ namespace XRL.World.Parts.Mutation
                             case "Ubernostrum_Tonic":
                                 canTransfer = true;
                                 break;
-                            case "AdrenalControl2Boosted":
-                                canTransfer = true;
-                                break;
                             case "Ecstatic":
                                 canTransfer = true;
                                 break;
@@ -192,6 +186,9 @@ namespace XRL.World.Parts.Mutation
                                 canTransfer = true;
                                 break;
                             case "Meditating":
+                                canTransfer = true;
+                                break;
+                            case "Wakeful":
                                 canTransfer = true;
                                 break;
 
@@ -208,8 +205,7 @@ namespace XRL.World.Parts.Mutation
                                 }
                                 else
                                 {
-
-                                    member.ApplyEffect(E.Effect);
+                                   EffectDeepCopy(E.Effect, member);
                                 }
 
                             }
@@ -667,7 +663,7 @@ namespace XRL.World.Parts.Mutation
             
             
                ObtainAuthority();
-               ParentObject.GainIntelligence(1);
+               //ParentObject.GainIntelligence(1);
 
             return base.Mutate(GO, Level);
         }
@@ -678,7 +674,7 @@ namespace XRL.World.Parts.Mutation
             RemoveMyActivatedAbility(ref CorLeonisSecondShiftID);
             RemoveMyActivatedAbility(ref CorLeonisThirdShiftID);
             RemoveMyActivatedAbility(ref StillnessOfTimeID);
-            ParentObject.GainIntelligence(-1);
+            //ParentObject.GainIntelligence(-1);
             RecountEvent.Send(ParentObject);
             return base.Unmutate(GO);
         }
@@ -764,6 +760,219 @@ namespace XRL.World.Parts.Mutation
             }
 
             return false;
+        }
+
+        public void EffectDeepCopy(Effect originalEffect, GameObject target)
+        {
+            if (target.HasEffectByClass(originalEffect.ClassName))
+            {
+                target.RemoveEffectByClass(originalEffect.ClassName);
+            }
+
+            switch (originalEffect.ClassName)
+            {
+                case "AshPoison":
+                    AshPoison ashpoison = (AshPoison)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new AshPoison(originalEffect.Duration, target));
+                    break;
+                case "Blaze_Tonic":
+                    target.ApplyEffect(new Blaze_Tonic(originalEffect.Duration));
+                    break;
+                case "Bleeding":
+                    Bleeding bleeding = (Bleeding)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Bleeding(bleeding.Damage.ToString(), bleeding.SaveTarget, target, bleeding.Stack));
+                    break;
+                case "Blind":
+                    target.ApplyEffect(new Blind(originalEffect.Duration));
+                    break;
+                case "Burning":
+                    //target.ApplyEffect(new Blind(originalEffect.Duration));
+                    ParentObject.pPhysics.Temperature = ParentObject.pPhysics.AmbientTemperature;
+                    target.pPhysics.Temperature = target.pPhysics.FlameTemperature;
+                    break;
+                case "CoatedInPlasma":
+                    CoatedInPlasma coatedInPlasma = (CoatedInPlasma)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new CoatedInPlasma(originalEffect.Duration, target));
+                    break;
+                case "Confused":
+                    Confused confused = (Confused)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Confused(originalEffect.Duration, confused.Level, confused.MentalPenalty));
+                    break;
+                case "Dazed":
+                    target.ApplyEffect(new Dazed(originalEffect.Duration));
+                    break;
+                case "Disoriented":
+                    Disoriented disoriented = (Disoriented)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Disoriented(originalEffect.Duration, disoriented.Level));
+                    break;
+                case "Ecstatic":
+                    target.ApplyEffect(new Ecstatic(originalEffect.Duration));
+                    break;
+                case "Emboldened":
+                    Emboldened emboldened = (Emboldened)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Emboldened(originalEffect.Duration, emboldened.Statistic, emboldened.Bonus));
+                    break;
+                case "Frenzied":
+                    Frenzied frenzied = (Frenzied)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Frenzied(originalEffect.Duration, frenzied.QuicknessBonus, frenzied.MaxKillRadiusBonus, frenzied.BerserkDuration, frenzied.BerserkImmediately, frenzied.BerserkOnDealDamage, frenzied.PreferBleedingTarget));
+                    break;
+                case "Frozen":
+                    //target.ApplyEffect(new Blind(originalEffect.Duration));
+                    ParentObject.pPhysics.Temperature = ParentObject.pPhysics.AmbientTemperature;
+                    target.pPhysics.Temperature = target.pPhysics.FreezeTemperature;
+                    break;
+                case "FungalSporeInfection":
+                    FungalSporeInfection fungalSporeInfection = (FungalSporeInfection)ParentObject.GetEffect(originalEffect.DisplayName);
+                    FungalSporeInfection newf = new FungalSporeInfection();
+                    newf.InfectionObject = fungalSporeInfection.InfectionObject;
+                    newf.Fake = fungalSporeInfection.Fake;
+                    newf.TurnsLeft = fungalSporeInfection.TurnsLeft;
+                    newf.Damage = fungalSporeInfection.Damage;
+                    newf.bSpawned = fungalSporeInfection.bSpawned;
+                    newf.Owner = target;
+                    target.ApplyEffect(newf);
+                    break;
+                case "GeometricHeal":
+                    GeometricHeal geometricHeal = (GeometricHeal)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new GeometricHeal(geometricHeal.Amount, geometricHeal.Ratio, originalEffect.Duration));
+                    break;
+                case "Glotrot":
+                    Glotrot glotrot = (Glotrot)ParentObject.GetEffect(originalEffect.DisplayName);
+                    Glotrot newg = new Glotrot();
+                    newg.Stage = glotrot.Stage;
+                    newg.Count = glotrot.Count;
+                    newg.DrankIck = glotrot.DrankIck;
+                    target.ApplyEffect(newg);
+                    break;
+                case "Healing":
+                    target.ApplyEffect(new Healing(originalEffect.Duration));
+                    break;
+                case "Hoarshroom_Tonic":
+                    target.ApplyEffect(new Hoarshroom_Tonic(originalEffect.Duration));
+                    break;
+                case "Hobbled":
+                    target.ApplyEffect(new Hobbled(originalEffect.Duration));
+                    break;
+                case "HulkHoney_Tonic":
+                    target.ApplyEffect(new HulkHoney_Tonic(originalEffect.Duration));
+                    break;
+                case "Ill":
+                    Ill ill = (Ill)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Ill(originalEffect.Duration, ill.Level));
+                    break;
+                case "Ironshank":
+                    Ironshank ironshank = (Ironshank)ParentObject.GetEffect(originalEffect.DisplayName);
+                    Ironshank newi = new Ironshank();
+
+                    newi.Count = ironshank.Count;
+                    newi.Penalty = ironshank.Penalty;
+                    newi.AVBonus = ironshank.AVBonus;
+                    newi.DrankCure = ironshank.DrankCure;
+                    target.ApplyEffect(newi);
+                    break;
+                case "Luminous":
+                    target.ApplyEffect(new Luminous(originalEffect.Duration));
+                    break;
+                case "Meditating":
+                    Meditating meditating = (Meditating)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Meditating(originalEffect.Duration, meditating.FromResting));
+                    break;
+                case "Monochrome":
+                    target.ApplyEffect(new Monochrome());
+                    break;
+                case "Omniphase":
+                    target.ApplyEffect(new Omniphase(originalEffect.Duration));
+                    break;
+                case "Paralyzed":
+                    Paralyzed paralyzed = (Paralyzed)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Paralyzed(originalEffect.Duration, paralyzed.SaveTarget));
+                    break;
+                case "PhasePoisoned":
+                    PhasePoisoned phasePoisoned = (PhasePoisoned)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new PhasePoisoned(originalEffect.Duration, phasePoisoned.DamageIncrement, phasePoisoned.Level, target));
+                    break;
+                case "Phased":
+                    target.ApplyEffect(new Phased(originalEffect.Duration));
+                    break;
+                case "Poisoned":
+                    Poisoned poisoned = (Poisoned)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Poisoned(originalEffect.Duration, poisoned.DamageIncrement, poisoned.Level, target));
+                    break;
+                case "PoisonGasPoison":
+                    PoisonGasPoison poisonGasPoison = (PoisonGasPoison)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new PoisonGasPoison(originalEffect.Duration, target));
+                    break;
+                case "Rubbergum_Tonic":
+                    target.ApplyEffect(new Rubbergum_Tonic(originalEffect.Duration));
+                    break;
+                case "Salve_Tonic":
+                    target.ApplyEffect(new Salve_Tonic(originalEffect.Duration));
+                    break;
+                case "ShadeOil_Tonic":
+                    target.ApplyEffect(new ShadeOil_Tonic(originalEffect.Duration));
+                    break;
+                case "Shaken":
+                    Shaken shaken = (Shaken)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new Shaken(originalEffect.Duration, shaken.Level));
+                    break;
+                case "ShatterArmor":
+                    target.ApplyEffect(new ShatterArmor(originalEffect.Duration));
+                    break;
+                case "ShatterMentalArmor":
+                    target.ApplyEffect(new ShatterMentalArmor(originalEffect.Duration));
+                    break;
+                case "Shamed":
+                    target.ApplyEffect(new Shamed(originalEffect.Duration));
+                    break;
+                case "Skulk_Tonic":
+                    target.ApplyEffect(new Skulk_Tonic(originalEffect.Duration));
+                    break;
+                case "GlotrotOnset":
+                    target.ApplyEffect(new GlotrotOnset());
+                    break;
+                case "SphynxSalt_Tonic":
+                    target.ApplyEffect(new SphynxSalt_Tonic(originalEffect.Duration));
+                    break;
+                case "SporeCloudPoison":
+                    SporeCloudPoison sporeCloudPoison = (SporeCloudPoison)ParentObject.GetEffect(originalEffect.DisplayName);
+                    target.ApplyEffect(new SporeCloudPoison(originalEffect.Duration, target));
+                    break;
+                case "IronshankOnset":
+                    target.ApplyEffect(new IronshankOnset());
+                    break;
+                case "BasiliskPoison":
+                    target.ApplyEffect(new BasiliskPoison(originalEffect.Duration, target));
+                    break;
+                case "LifeDrain":
+                    XRL.World.Effects.LifeDrain lifeDrain = (XRL.World.Effects.LifeDrain)ParentObject.GetEffect(originalEffect.DisplayName);
+                    XRL.World.Effects.LifeDrain newl = new XRL.World.Effects.LifeDrain();
+
+                    newl.Duration = lifeDrain.Duration;
+                    newl.Level = lifeDrain.Level;
+                    newl.Damage = lifeDrain.Damage;
+                    newl.Drainer = ParentObject;
+                    target.ApplyEffect(newl);
+                    break;               
+                case "Ubernostrum_Tonic":
+                    target.ApplyEffect(new Ubernostrum_Tonic(originalEffect.Duration));
+                    break;
+                case "Wakeful":
+                    target.ApplyEffect(new Wakeful(originalEffect.Duration));
+                    break;
+                case "HulkHoney_Tonic_Allergy":
+                    target.ApplyEffect(new HulkHoney_Tonic_Allergy(originalEffect.Duration));
+                    break;
+                case "Rubbergum_Tonic_Allergy":
+                    target.ApplyEffect(new Rubbergum_Tonic_Allergy(originalEffect.Duration));
+                    break;
+
+                default:
+                    //Popup.Show("Default");
+                    //target.ApplyEffect(originalEffect, target);
+                    break;
+
+
+            }
         }
 
     }
