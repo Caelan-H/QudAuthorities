@@ -36,7 +36,7 @@ using System.Collections.ObjectModel;
 using static System.Net.Mime.MediaTypeNames;
 using System.Net.NetworkInformation;
 using XRL.World.Parts.Skill;
-
+using MODNAME.Utilities;
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
@@ -44,7 +44,7 @@ namespace XRL.World.Parts.Mutation
     {
         public Guid JudgementID;
         public Guid RewriteID;
-        int rewrites;
+        public int rewrites;
         public ActivatedAbilityEntry JudgementEntry = null;
         public ActivatedAbilityEntry RewriteEntry = null;
         public bool JudgementOn = false;
@@ -97,7 +97,7 @@ namespace XRL.World.Parts.Mutation
             {
                 if (JudgementEntry.ToggleState == true)
                 {
-                    int b = Stat.Random(0, 24);
+                    int b = MODNAME_Random.Next(0, 24);
 
                     if (b == 0 && E.Actor.HasEffect("Judged") == false)
                     {
@@ -153,7 +153,7 @@ namespace XRL.World.Parts.Mutation
                         }
 
                         E.Actor.ApplyEffect(new Judged());
-                        int a = Stat.Random(0, validLimbs.Count - 1);
+                        int a = MODNAME_Random.Next(0, validLimbs.Count - 1);
                         Popup.Show(list[a].Type);
                         var limb = list[a];
                         limb.Dismember();
@@ -199,14 +199,14 @@ namespace XRL.World.Parts.Mutation
             }
             if (ID == AwardedXPEvent.ID)
             {
-                int a = Stat.Random(0, AwakeningOdds);
+                int a = MODNAME_Random.Next(0, AwakeningOdds);
 
                 if (a == 1)
                 {
                     AuthorityAwakeningPrideEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 54);
+                int b = MODNAME_Random.Next(0, 74);
 
                 if(b == 1)
                 {
@@ -601,7 +601,7 @@ namespace XRL.World.Parts.Mutation
             }
             if (name.Equals("Rewrite"))
             {
-                RewriteID = AddMyActivatedAbility("Rewrite", "Rewrite", "Authority:Pride", "Awakened from the Pride Witchfactor, upon use you will be prompted with a list of damage you have taken in the last five turns and afterwards a list of effects you currently have. The chosen damage value will be healed to you and then applied to a target of your choosing along with an effect if chosen. The max amount of charges is 2 and you get charges back at a chance of 1/55 whenever you get xp.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); RewriteEntry = MyActivatedAbility(RewriteID); rewrites = 2; RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/2]";
+                RewriteID = AddMyActivatedAbility("Rewrite", "Rewrite", "Authority:Pride", "Awakened from the Pride Witchfactor, upon use you will be prompted with a list of damage you have taken in the last five turns and afterwards a list of effects you currently have. The chosen damage value will be healed to you and then applied to a target of your choosing along with an effect if chosen. The max amount of charges is 2 and you get charges back at a chance of 1/75 whenever you get xp.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: false); RewriteEntry = MyActivatedAbility(RewriteID); rewrites = 2; RewriteEntry.DisplayName = "Rewrite[" + rewrites.ToString() + "/2]";
                 return true;
             }
             return false;
@@ -631,7 +631,7 @@ namespace XRL.World.Parts.Mutation
 
             if (MissingAuthorities.Count > 0)
             {
-                int a = Stat.Random(0, MissingAuthorities.Count - 1);
+                int a = MODNAME_Random.Next(0, MissingAuthorities.Count - 1);
                 //Popup.Show(MissingAuthorities[a].ToString());
 
                 switch (MissingAuthorities[a])

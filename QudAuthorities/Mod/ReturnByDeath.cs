@@ -19,6 +19,7 @@ using System.Reflection;
 using XRL.World.ZoneBuilders;
 using static TBComponent;
 using XRL.World.AI.Pathfinding;
+using MODNAME.Utilities;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -49,7 +50,7 @@ namespace XRL.World.Parts.Mutation
 
         public override string GetLevelText(int Level)
         {
-            return string.Concat("Dying will return you to a previous checkpoint. Checkpoints are generated every time you get XP at a 1/64 chance.");
+            return string.Concat("Dying will return you to a previous checkpoint. Checkpoints are generated every time you get XP at a 1/200 chance.");
         }
 
         public override bool CanLevel()
@@ -72,7 +73,15 @@ namespace XRL.World.Parts.Mutation
             {
                 //Popup.Show("AwardedXPEvent Recorded");
                 //Popup.Show("Two files had the same Last Write time", true, true, true, true);
-                CheckpointCheckPass = Checkpoint(ParentObject, ref ActivatedSegment);
+                if(CheckpointCheckPass == true)
+                {
+
+                }
+                else
+                {
+                    CheckpointCheckPass = Checkpoint(ParentObject, ref ActivatedSegment);
+                }
+                    
                 return false;
             }
             if (ID == CheckpointEvent.ID)
@@ -213,14 +222,14 @@ namespace XRL.World.Parts.Mutation
         public static bool Checkpoint(GameObject Object, ref long ActivatedSegment)
         {
             
-            int a = Stat.Random(0, 63);
+            int a = MODNAME_Random.Next(0, 200);
             
             if (a == 1)
             {
                 //Popup.Show("Success");
                 return true;
             }
-            //Popup.Show("Failed");
+            //Popup.Show("Failed it was: " + a.ToString());
             return false;
         }
 

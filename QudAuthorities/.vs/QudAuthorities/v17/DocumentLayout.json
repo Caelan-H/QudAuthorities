@@ -1,0 +1,370 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\returnbydeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\returnbydeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\playerturnpassedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\playerturnpassedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\greed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\greed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\gluttony.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\gluttony.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B5ABB79C-0577-4554-A29B-E7710FEEF12C}|QudAssemblyProject\\QudAssembly.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\qudassemblyproject\\xrl.rules\\stat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B5ABB79C-0577-4554-A29B-E7710FEEF12C}|QudAssemblyProject\\QudAssembly.csproj|solutionrelative:qudassemblyproject\\xrl.rules\\stat.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\gluttonouseaten.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\gluttonouseaten.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\checkpointevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\checkpointevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\authorityawakeninggreedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\authorityawakeninggreedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\authorityawakeningevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\authorityawakeningevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\modname_random.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{79E6EBB1-51EB-42B0-8EA1-61C2BF878715}|QudAuthorities.csproj|solutionrelative:mod\\modname_random.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\Assets.QupKit\\SoundManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\CombatJuiceEntryWorldSound.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World\\IComponent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\SoundRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\SoundManager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts\\Music.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\AdrenalControl2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\Asleep.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\ITimeDilated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeDilated.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeCubed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ReturnByDeath.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\ReturnByDeath.cs",
+              "RelativeDocumentMoniker": "Mod\\ReturnByDeath.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\ReturnByDeath.cs*",
+              "RelativeToolTip": "Mod\\ReturnByDeath.cs*",
+              "ViewState": "AgIAAL4AAAAAAAAAAAAuwNgAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:40:57.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PlayerTurnPassedEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\PlayerTurnPassedEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\PlayerTurnPassedEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\PlayerTurnPassedEvent.cs",
+              "RelativeToolTip": "Mod\\PlayerTurnPassedEvent.cs",
+              "ViewState": "AgIAADUAAAAAAAAAAAAuwE4AAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:40:47.527Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Greed.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Greed.cs",
+              "RelativeDocumentMoniker": "Mod\\Greed.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Greed.cs*",
+              "RelativeToolTip": "Mod\\Greed.cs*",
+              "ViewState": "AgIAADMCAAAAAAAAAAAkwFECAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:39:12.264Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Stat.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\XRL.Rules\\Stat.cs",
+              "RelativeDocumentMoniker": "QudAssemblyProject\\XRL.Rules\\Stat.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\XRL.Rules\\Stat.cs",
+              "RelativeToolTip": "QudAssemblyProject\\XRL.Rules\\Stat.cs",
+              "ViewState": "AgIAANQAAAAAAAAAAIAzwO4AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:37:10.932Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GluttonousEaten.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\GluttonousEaten.cs",
+              "RelativeDocumentMoniker": "Mod\\GluttonousEaten.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\GluttonousEaten.cs",
+              "RelativeToolTip": "Mod\\GluttonousEaten.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:28:44.364Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CheckpointEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\CheckpointEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\CheckpointEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\CheckpointEvent.cs",
+              "RelativeToolTip": "Mod\\CheckpointEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:28:39.776Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthorityAwakeningGreedEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningGreedEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\AuthorityAwakeningGreedEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningGreedEvent.cs",
+              "RelativeToolTip": "Mod\\AuthorityAwakeningGreedEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:28:34.02Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AuthorityAwakeningEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\AuthorityAwakeningEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningEvent.cs",
+              "RelativeToolTip": "Mod\\AuthorityAwakeningEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:28:22.816Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "MODNAME_Random.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\MODNAME_Random.cs",
+              "RelativeDocumentMoniker": "Mod\\MODNAME_Random.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\MODNAME_Random.cs",
+              "RelativeToolTip": "Mod\\MODNAME_Random.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:28:08.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Gluttony.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Gluttony.cs",
+              "RelativeDocumentMoniker": "Mod\\Gluttony.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Gluttony.cs",
+              "RelativeToolTip": "Mod\\Gluttony.cs",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAYwGcAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:27:17.559Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "SoundManager.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\Assets.QupKit\\SoundManager.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\Assets.QupKit\\SoundManager.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\Assets.QupKit\\SoundManager.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\Assets.QupKit\\SoundManager.cs",
+              "ViewState": "AQIAAFoAAAAAAAAAAAAmwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CombatJuiceEntryWorldSound.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\CombatJuiceEntryWorldSound.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\CombatJuiceEntryWorldSound.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\CombatJuiceEntryWorldSound.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\CombatJuiceEntryWorldSound.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "IComponent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World\\IComponent.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World\\IComponent.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World\\IComponent.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World\\IComponent.cs",
+              "ViewState": "AQIAAAEIAAAAAAAAAAAhwCAIAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "SoundRequest.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\SoundRequest.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\SoundRequest.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\SoundRequest.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\SoundRequest.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "SoundManager.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\SoundManager.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\SoundManager.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\SoundManager.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\SoundManager.cs",
+              "ViewState": "AQIAAHsBAAAAAAAAAADwv1EAAABTAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Music.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts\\Music.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Parts\\Music.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts\\Music.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Parts\\Music.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAUAAAASAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "AdrenalControl2.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\AdrenalControl2.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\AdrenalControl2.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\AdrenalControl2.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\AdrenalControl2.cs",
+              "ViewState": "AQIAAEYAAAAAAAAAAAAYwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Asleep.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\Asleep.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\Asleep.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\Asleep.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\Asleep.cs",
+              "ViewState": "AQIAAJgAAAAAAAAAAAAswAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "ITimeDilated.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\ITimeDilated.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\ITimeDilated.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\ITimeDilated.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\ITimeDilated.cs",
+              "ViewState": "AQIAAD8AAAAAAAAAAAAkwC8AAAACAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "TimeDilated.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeDilated.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeDilated.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeDilated.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeDilated.cs",
+              "ViewState": "AQIAABUAAAAAAAAAAAAowA4AAAATAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SunderMind.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "ViewState": "AQIAALABAAAAAAAAAAAIwM0BAAAyAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "TimeCubed.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeCubed.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeCubed.cs",
+              "ToolTip": "C:\\Users\\caela\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeCubed.cs",
+              "RelativeToolTip": "..\\..\\..\\..\\Desktop\\QudAssemblyProject\\XRL.World.Effects\\TimeCubed.cs",
+              "ViewState": "AQIAADIAAAAAAAAAAAAuwD0AAAAoAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2023-11-16T06:20:43.943Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

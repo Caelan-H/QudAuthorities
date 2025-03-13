@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "H104c7tAlqEkkQPPKwp51pzM0H+agad1KpOpVFBSriOm8Pde2KeLoIg2JXhXtVoKfrmg7SmYiKX1aXp8WaLnDQ==",
+  "dgSpecHash": "hS3/jzPL3ms=",
   "success": true,
-  "projectFilePath": "C:\\Users\\caela\\Desktop\\QudAuthority\\QudAuthorities\\QudAssemblyProject\\QudAssembly.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\QudAssembly.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\caela\\.nuget\\packages\\microsoft.netframework.referenceassemblies\\1.0.3\\microsoft.netframework.referenceassemblies.1.0.3.nupkg.sha512",
+    "C:\\Users\\caela\\.nuget\\packages\\microsoft.netframework.referenceassemblies.net481\\1.0.3\\microsoft.netframework.referenceassemblies.net481.1.0.3.nupkg.sha512"
+  ],
   "logs": []
 }

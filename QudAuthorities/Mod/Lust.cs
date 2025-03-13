@@ -33,6 +33,7 @@ using XRL;
 using UnityEngine;
 using XRL.EditorFormats.Screen;
 using System.CodeDom;
+using MODNAME.Utilities;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -115,7 +116,7 @@ namespace XRL.World.Parts.Mutation
 
             if (ID == AwardedXPEvent.ID)
             {
-                int a = Stat.Random(0, AwakeningOdds);
+                int a = MODNAME_Random.Next(0, AwakeningOdds);
 
                 if (a == 1)
                 {
@@ -320,6 +321,7 @@ namespace XRL.World.Parts.Mutation
                 capturedSoulDeepCopy.SetPartyLeader(ParentObject);
                 capturedSoulDeepCopy.BecomeCompanionOf(ParentObject);
                 cell.AddObject(capturedSoulDeepCopy);
+                capturedSoul = null;
             }
         }
 
@@ -333,14 +335,8 @@ namespace XRL.World.Parts.Mutation
             //Popup.Show("Soul Capture Began");
             if(target.HasEffect("Undead"))
             {
-                IComponent<GameObject>.AddPlayerMessage("You synchronize your undead with your captured soul");
-                if(capturedSoul != null)
-                {
-                    capturedSoul.Destroy("", Silent: true, Obliterate: false, "");
-                    capturedSoul = null;
-                }
-                capturedSoul = target.DeepCopy();
-                capturedSoul.MakeInactive();
+                IComponent<GameObject>.AddPlayerMessage("You cannot capture the soul of an undead");
+                
             }
             else
             {
@@ -593,7 +589,7 @@ namespace XRL.World.Parts.Mutation
 
             if (MissingAuthorities.Count > 0)
             {
-                int a = Stat.Random(0, MissingAuthorities.Count - 1);
+                int a = MODNAME_Random.Next(0, MissingAuthorities.Count - 1);
                 //Popup.Show(MissingAuthorities[a].ToString());
 
                 switch (MissingAuthorities[a])

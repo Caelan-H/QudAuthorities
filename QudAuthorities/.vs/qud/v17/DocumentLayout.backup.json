@@ -1,0 +1,306 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\sloth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\sloth.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\wrath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\wrath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\greed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\greed.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\sagecandidate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\sagecandidate.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\returnbydeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\returnbydeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\pride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\pride.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\gluttony.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\gluttony.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\playerturnpassedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\playerturnpassedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\lust.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\lust.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\gluttonouseaten.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\gluttonouseaten.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\checkpointevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\checkpointevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\authorityawakeninggreedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\authorityawakeninggreedevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\authorityawakeninggluttonyevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\authorityawakeninggluttonyevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|c:\\users\\caela\\documents\\github\\qudauthorities\\qudauthorities\\mod\\authorityawakeningevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\authorityawakeningevent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\qudassemblyproject\\xrl.world.parts.mutation\\teleportation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:qudassemblyproject\\xrl.world.parts.mutation\\teleportation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\qudassemblyproject\\xrl.world.parts.mutation\\sundermind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:qudassemblyproject\\xrl.world.parts.mutation\\sundermind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\mod\\mutations.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{0571B37E-EA02-4A89-BFBE-A67F42F47799}|qud.csproj|solutionrelative:mod\\mutations.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlayerTurnPassedEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\PlayerTurnPassedEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\PlayerTurnPassedEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\PlayerTurnPassedEvent.cs",
+              "RelativeToolTip": "Mod\\PlayerTurnPassedEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:51:23.74Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "GluttonousEaten.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\GluttonousEaten.cs",
+              "RelativeDocumentMoniker": "Mod\\GluttonousEaten.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\GluttonousEaten.cs",
+              "RelativeToolTip": "Mod\\GluttonousEaten.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:49:03.269Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "CheckpointEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\CheckpointEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\CheckpointEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\CheckpointEvent.cs",
+              "RelativeToolTip": "Mod\\CheckpointEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:48:55.352Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Gluttony.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Gluttony.cs",
+              "RelativeDocumentMoniker": "Mod\\Gluttony.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Gluttony.cs",
+              "RelativeToolTip": "Mod\\Gluttony.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAAACUAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Pride.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Pride.cs",
+              "RelativeDocumentMoniker": "Mod\\Pride.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Pride.cs",
+              "RelativeToolTip": "Mod\\Pride.cs",
+              "ViewState": "AgIAAJECAAAAAAAAAAAwwGECAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ReturnByDeath.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\ReturnByDeath.cs",
+              "RelativeDocumentMoniker": "Mod\\ReturnByDeath.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\ReturnByDeath.cs",
+              "RelativeToolTip": "Mod\\ReturnByDeath.cs",
+              "ViewState": "AgIAALcAAAAAAAAAAAAkwNgAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.36Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SageCandidate.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\SageCandidate.cs",
+              "RelativeDocumentMoniker": "Mod\\SageCandidate.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\SageCandidate.cs",
+              "RelativeToolTip": "Mod\\SageCandidate.cs",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAuwLcAAADfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Sloth.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Sloth.cs",
+              "RelativeDocumentMoniker": "Mod\\Sloth.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Sloth.cs",
+              "RelativeToolTip": "Mod\\Sloth.cs",
+              "ViewState": "AgIAAIADAAAAAAAAAAAAAJQDAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.503Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Wrath.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Wrath.cs",
+              "RelativeDocumentMoniker": "Mod\\Wrath.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Wrath.cs",
+              "RelativeToolTip": "Mod\\Wrath.cs",
+              "ViewState": "AgIAAEABAAAAAAAAAAAAAGABAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.502Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Greed.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Greed.cs",
+              "RelativeDocumentMoniker": "Mod\\Greed.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Greed.cs",
+              "RelativeToolTip": "Mod\\Greed.cs",
+              "ViewState": "AgIAAI4AAAAAAAAAAAAwwKwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.504Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AuthorityAwakeningGreedEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningGreedEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\AuthorityAwakeningGreedEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningGreedEvent.cs",
+              "RelativeToolTip": "Mod\\AuthorityAwakeningGreedEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:48:45.298Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AuthorityAwakeningGluttonyEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningGluttonyEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\AuthorityAwakeningGluttonyEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningGluttonyEvent.cs",
+              "RelativeToolTip": "Mod\\AuthorityAwakeningGluttonyEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:48:40.552Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "AuthorityAwakeningEvent.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningEvent.cs",
+              "RelativeDocumentMoniker": "Mod\\AuthorityAwakeningEvent.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\AuthorityAwakeningEvent.cs",
+              "RelativeToolTip": "Mod\\AuthorityAwakeningEvent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:48:33.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Lust.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Lust.cs",
+              "RelativeDocumentMoniker": "Mod\\Lust.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\Lust.cs",
+              "RelativeToolTip": "Mod\\Lust.cs",
+              "ViewState": "AgIAADgCAAAAAAAAAAAmwFQCAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.505Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "SunderMind.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "RelativeDocumentMoniker": "QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "RelativeToolTip": "QudAssemblyProject\\XRL.World.Parts.Mutation\\SunderMind.cs",
+              "ViewState": "AQIAAGUBAAAAAAAAAAAgwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.357Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Teleportation.cs",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\XRL.World.Parts.Mutation\\Teleportation.cs",
+              "RelativeDocumentMoniker": "QudAssemblyProject\\XRL.World.Parts.Mutation\\Teleportation.cs",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\QudAssemblyProject\\XRL.World.Parts.Mutation\\Teleportation.cs",
+              "RelativeToolTip": "QudAssemblyProject\\XRL.World.Parts.Mutation\\Teleportation.cs",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAYwFsAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T10:42:54.244Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "mutations.xml",
+              "DocumentMoniker": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\mutations.xml",
+              "RelativeDocumentMoniker": "Mod\\mutations.xml",
+              "ToolTip": "C:\\Users\\caela\\Documents\\GitHub\\QudAuthorities\\QudAuthorities\\Mod\\mutations.xml",
+              "RelativeToolTip": "Mod\\mutations.xml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAB6AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2025-03-05T10:42:54.359Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

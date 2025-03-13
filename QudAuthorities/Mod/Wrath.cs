@@ -33,6 +33,7 @@ using XRL;
 using UnityEngine;
 using XRL.EditorFormats.Screen;
 using System.Collections.ObjectModel;
+using MODNAME.Utilities;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -41,7 +42,7 @@ namespace XRL.World.Parts.Mutation
     {
         public Guid UnjustWorldID;
         public Guid SoulwashingID;
-        int soulwashes = 0;
+        public int soulwashes = 0;
         public ActivatedAbilityEntry UnjustWorldEntry = null;
         public ActivatedAbilityEntry SoulwashingEntry = null;
         public GameObject toBeHealed = null;
@@ -136,14 +137,14 @@ namespace XRL.World.Parts.Mutation
             }
             if (ID == AwardedXPEvent.ID)
             {
-                int a = Stat.Random(0, AwakeningOdds);
+                int a = MODNAME_Random.Next(0, AwakeningOdds);
 
                 if (a == 1)
                 {
                     AuthorityAwakeningWrathEvent.Send(ParentObject);
                 }
 
-                int b = Stat.Random(0, 39);
+                int b = MODNAME_Random.Next(0, 75);
 
                 if(b == 1)
                 {
@@ -352,7 +353,7 @@ namespace XRL.World.Parts.Mutation
             if (name.Equals("Soulwashing"))
             {
                 soulwashes = 2;
-                SoulwashingID = AddMyActivatedAbility("Soulwash", "Soulwash", "Authority:Wrath", "Awakened from the Wrath Witchfactor, you become aware of a method to bathe a target's soul with madness. On use, all hostile entities towards the user will be inflicted with Terrified, Dazed, Disoriented, Hobbled, Shamed, and Shaken for 5 turns. The max amount of charges is 2 and you get charges back at a chance of 1/40 whenever you get xp.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: true); SoulwashingEntry = MyActivatedAbility(SoulwashingID);  SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/2]";
+                SoulwashingID = AddMyActivatedAbility("Soulwash", "Soulwash", "Authority:Wrath", "Awakened from the Wrath Witchfactor, you become aware of a method to bathe a target's soul with madness. On use, all hostile entities towards the user will be inflicted with Terrified, Dazed, Disoriented, Hobbled, Shamed, and Shaken for 5 turns. The max amount of charges is 2 and you get charges back at a chance of 1/75 whenever you get xp.", "\u000e", null, Toggleable: false, DefaultToggleState: false, ActiveToggle: false, IsAttack: true); SoulwashingEntry = MyActivatedAbility(SoulwashingID);  SoulwashingEntry.DisplayName = "Soulwash[" + soulwashes.ToString() + "/2]";
                 return true;
             }
             return false;
@@ -382,7 +383,7 @@ namespace XRL.World.Parts.Mutation
 
             if (MissingAuthorities.Count > 0)
             {
-                int a = Stat.Random(0, MissingAuthorities.Count - 1);
+                int a = MODNAME_Random.Next(0, MissingAuthorities.Count - 1);
                 //Popup.Show(MissingAuthorities[a].ToString());
 
                 switch (MissingAuthorities[a])

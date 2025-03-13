@@ -32,6 +32,7 @@ using XRL;
 
 using UnityEngine;
 using XRL.EditorFormats.Screen;
+using MODNAME.Utilities;
 
 namespace XRL.World.Parts.Mutation
 {
@@ -330,7 +331,7 @@ namespace XRL.World.Parts.Mutation
             }
             if (ID == AwardedXPEvent.ID)
             {
-                int a = Stat.Random(0, AwakeningOdds);
+                int a = MODNAME_Random.Next(0, AwakeningOdds);
 
                 if (a == 1)
                 {
@@ -737,7 +738,7 @@ namespace XRL.World.Parts.Mutation
 
             if (MissingAuthorities.Count > 0)
             {
-                int a = Stat.Random(0, MissingAuthorities.Count - 1);
+                int a = MODNAME_Random.Next(0, MissingAuthorities.Count -1);
                 //Popup.Show(MissingAuthorities[a].ToString());
 
                 switch (MissingAuthorities[a])

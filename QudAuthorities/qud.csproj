@@ -366,6 +366,7 @@
     <Compile Include="Mod\AuthorityAwakeningEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningGluttonyEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningGreedEvent.cs" />
+    <Compile Include="Mod\AuthorityAwakeningPrideEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningWrathEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningSlothEvent.cs" />
     <Compile Include="Mod\AuthorityAwakeningLustEvent.cs" />
@@ -373,7 +374,10 @@
     <Compile Include="Mod\GluttonousEaten.cs" />
     <Compile Include="Mod\Gluttony.cs" />
     <Compile Include="Mod\Greed.cs" />
+    <Compile Include="Mod\Judged.cs" />
+    <Compile Include="Mod\MODNAME_Random.cs" />
     <Compile Include="Mod\Pride.cs" />
+    <Compile Include="Mod\RecountEvent.cs" />
     <Compile Include="Mod\Wrath.cs" />
     <Compile Include="Mod\Sloth.cs" />
     <Compile Include="Mod\Lust.cs" />

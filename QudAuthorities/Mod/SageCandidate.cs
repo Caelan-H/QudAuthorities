@@ -15,14 +15,12 @@ using Qud.API;
 using System.IO;
 using System.Diagnostics;
 using XRL.World.Effects;
-using Newtonsoft.Json;
-using Steamworks;
+
 using System.Reflection;
 using XRL.World.ZoneBuilders;
 using static TBComponent;
 using XRL.World.AI.Pathfinding;
-using NUnit.Framework.Constraints;
-
+using MODNAME.Utilities;
 namespace XRL.World.Parts.Mutation
 {
     [Serializable]
@@ -137,7 +135,7 @@ namespace XRL.World.Parts.Mutation
 
 
                 xpEventCount++;
-                int a = Stat.Random(0, WitchFactorOdds);
+                int a = MODNAME_Random.Next(0, WitchFactorOdds);
 
                 if (a == 1)
                 {
@@ -250,7 +248,7 @@ namespace XRL.World.Parts.Mutation
             //Popup.Show(MissingWitchFactors.Count.ToString());
             if (MissingWitchFactors.Count> 0) 
             {
-                int a = Stat.Random(0, MissingWitchFactors.Count - 1);
+                int a = MODNAME_Random.Next(0, MissingWitchFactors.Count - 1);
                 //Popup.Show(MissingWitchFactors[a].ToString());
 
                 switch (MissingWitchFactors[a])
